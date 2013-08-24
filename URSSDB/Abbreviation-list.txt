@@ -1,0 +1,45 @@
+Abbreviation	Description
+------------	----------------------------------
+Structure:
+HPL				HairPin Loop
+TETRAHPL		Tetra Hairpin Loop
+BL				Bulge Loop
+INL				INternal Loop
+ML				Multi Loop
+EXL				EXternal Loop
+PKN				PseudoKNot
+FB				Free Bases
+FBC				Free Base Composition
+CBP				Closing Base Pair
+CBPC			Closing Base Pair Composition
+BPC				Base Pair Composition
+MLD				Maximum Ladder Distance
+
+General:
+RNA				RiboNucleic Acid
+LEN				LENgth
+MIN				MINimum
+MAX				MAXimum
+AVG				AVeraGe
+TOT				TOTal
+STR				STRucture
+SEQ				SEQuence
+TAG				TAGs
+ORG				ORGanism
+SRC				SouRCe(Source)
+PROG			PROGram (Software)
+BP				Base Pair
+
+Tables:
+ORNA			Original RNA
+SRNA			Shuffled RNA
+RRNA			Random RNA
+RNASEQ			RNA SEQuence
+PREDENS			PREDiction ENSemble
+RNASTR			RNA STRucture
+
+
+Prediction:
+ENS				ENSemble
+PRED			PREDiction
+PNUM			Promiscuity Number
