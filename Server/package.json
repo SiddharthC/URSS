@@ -1,6 +1,6 @@
 {
-  "name": "Experstore",
-  "version": "2.0.0",
+  "name": "ExperstoreRNA",
+  "version": "0.0.1",
   "scripts": {
     "start": "node index"
   },
@@ -11,8 +11,8 @@
       "email": "siddharthchoudhary.ri@gmail.com"
     },
     {
-      "name": "Sreenidhy Sreepathy",
-      "email": "sreenidhy@gmail.com"
+      "name": "Palak Choudhary",
+      "email": ""
     }
   ],
   "dependencies": {

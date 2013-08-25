@@ -1687,6 +1687,22 @@ $(document).ready(function() {
 //     });
 // });
 
+$('#propertyType').live("change", function(e) {
+
+    $('#propertyName').empty();
+
+    var params = {
+        propertyType: jQuery('#propertyType option:selected').val()
+    };
+
+    $.getJSON("getPropertyName", params, function(result) {
+        $.each(result, function(i, obj) {
+            $('#propertyName').append($('<option></option>').val(obj).html(obj));
+        });
+    });
+
+}); // New function to get property name for a property type
+
 // jquery's live tells to add the handler to current element or a future element with id=xxxxxxxxx 
 // $('#exptID').live("change", function(e) {
 //     $('#exptITR').empty();

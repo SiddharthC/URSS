@@ -144,6 +144,36 @@ function getNodeId(response, request) {
     });
 }
 
+function getPropertyName(response, request) {
+    console.log("requesthandler: Request handler 'getPropertyName' was called");
+
+    var data = url.parse(request.url).query;
+    var obj = queryString.parse(data);
+    //console.log("value of propertyType is "+ obj.propertyType);
+    var query = 'select distinct( '+ obj.propertyType +' ) as A from orna ';
+    var contents = [];
+
+    //console.log("Value of contents is "+ contents);
+
+    connection.query(query, function(err, rows, fields) {
+        if (err) {
+            console.log(err.code);
+            throw err;
+        }
+
+        rows.forEach(function(elem) {
+            contents.push(elem.A);
+            //console.log("Value of elem.A is "+ elem.A);
+        });
+
+        response.writeHead(200, {
+            'content-type': 'application/json'
+        });
+        response.end(JSON.stringify(contents));
+    });
+    //console.log("getPropertyName returned");
+}
+
 function getResourceName(response, request) {
     console.log("requesthandler: Request handler 'getResourceName' was called");
 
@@ -911,6 +941,7 @@ exports.getXdisplay = getXdisplay;
 exports.getUpper = getUpper;
 exports.getLower = getLower;
 exports.getColumnDataForNodeAvg = getColumnDataForNodeAvg;
+exports.getPropertyName = getPropertyName;
 exports.getDynamicData = getDynamicData;
 exports.serveFileJS = serveFileJS;
 exports.serveFileCSS = serveFileCSS;

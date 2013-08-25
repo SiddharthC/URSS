@@ -12,6 +12,7 @@ handle["/getResourceName"] = requestHandlers.getResourceName;
 handle["/getColumnName"] = requestHandlers.getColumnName;
 handle["/getUpper"] = requestHandlers.getUpper;
 handle["/getLower"] = requestHandlers.getLower;
+handle["/getPropertyName"] = requestHandlers.getPropertyName;
 handle["/getColumnData"] = requestHandlers.getColumnData;
 handle["/getColumnDataCorr"] = requestHandlers.getColumnDataCorr;
 handle["/getColumnDataForNodeAvg"] = requestHandlers.getColumnDataForNodeAvg;
