@@ -14,6 +14,7 @@ handle["/start"] = requestHandlers.elbaVisualization;
 // handle["/getLower"] = requestHandlers.getLower;
 handle["/getPropertyName"] = requestHandlers.getPropertyName;
 handle["/getColumnData"] = requestHandlers.getColumnData;
+handle["/getStepFreq"] = requestHandlers.getStepFreq;
 // handle["/getColumnDataCorr"] = requestHandlers.getColumnDataCorr;
 // handle["/getColumnDataForNodeAvg"] = requestHandlers.getColumnDataForNodeAvg;
 // handle["/getDynamicData"] = requestHandlers.getDynamicData;

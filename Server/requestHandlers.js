@@ -175,79 +175,26 @@ function getPropertyName(response, request) {
     //console.log("getPropertyName returned");
 }
 
-// function getResourceName(response, request) {
-//     console.log("requesthandler: Request handler 'getResourceName' was called");
-
-//     var reqQuery = url.parse(request.url).query;
-//     var obj = queryString.parse(reqQuery);
-//     var query = 'select resourcename ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID;
-//     var contents = [];
-
-//     connection.query(query, function(err, rows, fields) {
-//         if (err) {
-//             console.log(err.code);
-//             throw err;
-//         }
-
-//         rows.forEach(function(elem) {
-//             contents.push(elem.resourcename);
-//         });
-
-//         response.writeHead(200, {
-//             'content-type': 'application/json'
-//         });
-//         response.end(JSON.stringify(contents));
-//     });
-// }
-
-// function getColumnName(response, request) {
-//     console.log("requesthandler: Request handler 'getColumnName' was called");
-
-//     var reqQuery = url.parse(request.url).query;
-//     var obj = queryString.parse(reqQuery);
-//     var query = 'select tablename,dictionaryid ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID + ' and resourcename="' + obj.resourceName + '"';
-
-//     connection.query(query, function(err, rows, fields) {
-//         if (err) {
-//             console.log(err.code);
-//             throw err;
-//         }
-
-//         query = 'desc ' + rows[0].tablename;
-//         connection.query(query, function(err, rows1, fields) {
-//             if (err) {
-//                 console.log(err.code);
-//                 throw err;
-//             }
-
-//             var i = 0;
-//             var contents = [];
-//             rows1.forEach(function(elem) {
-//                 i++;
-//                 if (i == 1 || i == 2) {
-//                     return true;
-//                 }
-//                 contents.push(elem.Field);
-//             });
-
-//             response.writeHead(200, {
-//                 'content-type': 'application/json'
-//             });
-//             response.end(JSON.stringify(contents));
-
-//         });
-//     });
-
-// }
-
 function getColumnData(response, request) {
     console.log("requesthandler: Request handler 'getColumnData' was called");
 
     var data = url.parse(request.url).query;
     var obj = queryString.parse(data);
-    //console.log("value of propertyType is "+ obj.propertyType);
-    var query = 'select ' + obj.selnuc + ' as ColData from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue +
-        ' and seq_id in ( select orna_seq_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '")';
+
+    if(obj.rnaType == "orna"){
+        var query = 'select ' + obj.selnuc + ' as ColData from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue +
+                    ' and seq_id in ( select orna_seq_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '")';
+    }
+    else if (obj.rnaType == "srna"){
+
+      //  console.log("in srna section");
+        var query = 'select ' + obj.selnuc + ' as ColData from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue +
+                    ' and seq_id in ( select srna_seq_id from srna where srna_orna_id in (select orna_id from orna where ' 
+                        + obj.propertyType + '="' + obj.propertyName + '"))';   
+    }
+    else{
+
+    }
     var contents = [];
     var funcs = obj.func;
     //console.log("Value of contents is "+ contents);
@@ -261,6 +208,7 @@ function getColumnData(response, request) {
         rows.forEach(function(elem) {
             var funcs_eq = funcs.replace("x", elem.ColData);
             try {
+        //        console.log(eval(funcs_eq));
                 contents.push(eval(funcs_eq));
             } catch (e) {
                 if (e instanceof SyntaxError) {
@@ -285,271 +233,116 @@ function getColumnData(response, request) {
         response.end(JSON.stringify(serie));
 
     });
-
-
-
-    // var reqQuery = url.parse(request.url).query;
-    // var obj = queryString.parse(reqQuery);
-    // var query = 'select tablename,dictionaryid ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID + ' and resourcename="' + obj.resourceName + '"';
-    // var colName = obj.columnName;
-    // var lower = obj.lower;
-    // var upper = obj.upper;
-    // var funcs = obj.func;
-    // var cumm = obj.cumm;
-    // var cumm_sum = 0;
-
-    // connection.query(query, function(err, rows, fields) {
-    //     if (err) {
-    //         console.log(err.code);
-    //         throw err;
-    //     }
-
-    //     query = 'select ' + colName + ' from ' + rows[0].tablename + ' where ' + 'dictionaryid=' + rows[0].dictionaryid + ' and id between ' + lower + ' and ' + upper + ' order by id';
-    //     connection.query(query, function(err, rows1, fields) {
-    //         if (err) {
-    //             console.log(err);
-    //             throw err;
-    //         }
-
-    //         var contents = [];
-    //         rows1.forEach(function(elem) {
-    //             for (var key in elem) {
-    //                 if (key == colName) {
-
-    //                     //Added for function functionality
-    //                     var funcs_eq = funcs.replace("x", elem[key]);
-
-    //                     try {
-
-    //                         if (cumm == 1) {
-    //                             cumm_sum += eval(funcs_eq);
-    //                             contents.push(cumm_sum);
-    //                         } else {
-    //                             contents.push(eval(funcs_eq));
-    //                         }
-    //                     } catch (e) {
-    //                         if (e instanceof SyntaxError) {
-    //                             console.log("Syntax Error for input function");
-    //                         }
-    //                     }
-
-    //                 }
-    //             }
-    //         });
-
-    // // Add id to serie to distinguish each serie for further remove
-    // var id = obj.exptID + '.' + obj.exptITR + '.' + obj.nodeID + '.' + obj.resourceName + '.' + colName;
-    // var serie = {
-    //     name: colName,
-    //     data: contents,
-    //     id: id
-    // };
-    // response.writeHead(200, {
-    //     'content-type': 'application/json'
-    // });
-    // response.end(JSON.stringify(serie));
-
-    // });
-    // });
-
-}
-
-function getColumnDataForNodeAvg(response, request) {
-    console.log("requesthandler: Request handler 'getColumnDataForNodeAvg' was called");
-
-    var reqQuery = url.parse(request.url).query;
-    var obj = queryString.parse(reqQuery);
-    var colName = obj.columnName;
-    var query = 'select tablename,dictionaryid ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID + ' and resourcename="' + obj.resourceName + '"';
-
-    var readonly = obj.readonly;
-
-    connection.query(
-        query,
-
-        function(err, rows, fields) {
-            if (err) {
-                console.log(err);
-                throw err;
-            }
-
-            query = 'select avg(x.' + colName + ') ' + 'from ' + rows[0].tablename + ' x, ' + 'elba.dictionary y ' + 'where ' + 'y.nodeid = ' + obj.nodeID + ' ' + 'and y.resourcename = "' + obj.resourceName + '" ' + 'and y.experimentid = "' + obj.exptID + '" ' + 'and x.dictionaryid = y.dictionaryid group by y.dictionaryid order by y.iterationid';
-            console.log("query: " + query);
-            connection.query(query, function(err, rows1, fields) {
-                if (err) {
-                    console.log(err);
-                    throw err;
-                }
-
-                var contents = [];
-                var key = "avg(x." + colName + ")";
-                rows1.forEach(function(elem) {
-                    contents.push(elem[key]);
-                });
-
-                var serie = {
-                    name: 'avg(' + colName + ')',
-                    data: contents
-                };
-
-                response.writeHead(200, {
-                    'content-type': 'application/json'
-                });
-                response.end(JSON.stringify(serie));
-            });
-        });
-}
-
-function getXdisplay(response, request) {
-
-    console.log("requesthandler: Request handler 'getXdisplay' was called");
-
-    var reqQuery = url.parse(request.url).query;
-    var obj = queryString.parse(reqQuery);
-    var query = 'select tablename,dictionaryid from dictionary where experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID + ' and resourcename="' + obj.resourceName + '"';
-    var colName = obj.columnName;
-    var lower = obj.lower;
-    var upper = obj.upper;
-    var funcs = obj.func;
-    var step = parseFloat(obj.step);
-
-    connection.query(query, function(err, rows, fields) {
-        if (err) {
-            console.log(err.code);
-            throw err;
-        }
-
-        query = 'SELECT max(' + colName + ') as max, min(' + colName + ') as min FROM ' + rows[0].tablename + ' WHERE dictionaryid =  ' + rows[0].dictionaryid + ' and id between ' + lower + ' and ' + upper;
-
-        connection.query(query, function(err, step_rows, fields) {
-            if (err) {
-                console.log(err);
-                throw err;
-            }
-
-            var step_max = 0 | step_rows[0].max;
-            var step_min = 0 | step_rows[0].min;
-
-            var xstring = [];
-
-            for (var i = step_min; i < (step_max + step); i += step) {
-                xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + step).toFixed(2)));
-            }
-
-            response.writeHead(200, {
-                'content-type': 'application/json'
-            });
-
-            response.end(JSON.stringify(xstring));
-
-        });
-
-    });
-
 }
 
 function getStepFreq(response, request) {
-
     console.log("requesthandler: Request handler 'getStepFreq' was called");
 
-    var reqQuery = url.parse(request.url).query;
-    var obj = queryString.parse(reqQuery);
-    var query = 'select tablename,dictionaryid from dictionary where experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID + ' and resourcename="' + obj.resourceName + '"';
-    var colName = obj.columnName;
-    var lower = obj.lower;
-    var upper = obj.upper;
-    var funcs = obj.func;
-    var step = parseFloat(obj.step);
+    var data = url.parse(request.url).query;
+    var obj = queryString.parse(data);
 
-    var serie;
+    seqQuery ='select orna_seq_id as SeqIds from orna where ' + obj.propertyType + '="' + obj.propertyName + '"';
 
-    connection.query(query, function(err, rows, fields) {
+    var seqIds = [];
+
+    connection.query(seqQuery, function(err, rows, fields) {
         if (err) {
             console.log(err.code);
             throw err;
         }
 
-        query = 'SELECT max(' + colName + ') as max, min(' + colName + ') as min FROM ' + rows[0].tablename + ' WHERE dictionaryid =  ' + rows[0].dictionaryid + ' and id between ' + lower + ' and ' + upper;
-
-        connection.query(query, function(err, step_rows, fields) {
-            if (err) {
-                console.log(err);
-                throw err;
+        rows.forEach(function(elem) {
+            try {
+        //        console.log(eval(funcs_eq));
+                seqIds.push(elem.SeqIds);
+            } catch (e) {
+                if (e instanceof SyntaxError) {
+                    console.log("Syntax Error for input function");
+                }
             }
 
-            var step_max = 0 | step_rows[0].max;
-            var step_min = 0 | step_rows[0].min;
+            //console.log("Value of elem.A is "+ elem.A);
+        });
 
-            var contents = [];
+    maxminQuery = 'select max(obj.selnuc) as max, min(obj.selnuc) as min from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' 
+                    + obj.percentValue + ' and seq_id in ( ' + seqIds + ')'
 
-            var lock = 0;
 
-            for (var i = step_min; i < (step_max + step); i += step) {
-                lock++;
+    var max=0, min=0;
+
+    connection.query(maxminQuery, function(err, rows, fields) {
+        if (err) {
+            console.log(err.code);
+            throw err;
+        }
+
+        rows.forEach(function(elem) {
+            try {
+        //        console.log(eval(funcs_eq));
+                max = elem.max;
+                min = elem.min;
+            } catch (e) {
+                if (e instanceof SyntaxError) {
+                    console.log("Syntax Error for input function");
+                }
             }
 
-            for (var i = step_min; i < (step_max + step); i += step) {
-                query = 'select count(' + colName + ') as num_count from ' + rows[0].tablename + ' where ' + 'dictionaryid=' + rows[0].dictionaryid + ' and ' + colName + ' >= ' + i + ' and ' + colName + ' < ' + (i + step) + ' and id between ' + lower + ' and ' + upper;
+            //console.log("Value of elem.A is "+ elem.A);
+        });
 
-                // console.log("query:"+ query);
+        var resolution = 1;
 
-                connection.query(query, function(err, rows1, fields) {
-                    if (err) {
-                        console.log(err);
-                        throw err;
-                    }
+        var usedStep = if(parseFloat(obj.stepSize) > 0.05)?parseFloat(obj.stepSize):0.05;
 
+        resolution++ = (max - min)/usedStep;
+
+        var stepmin = min;
+
+        var contents = [];
+
+        for(var i; i<resolution; i++){
+
+            var query = 'select count(' + obj.selnuc + ') as Count from rnaseq where '+ obj.selnuc +' >= '+ stepmin + ' and '+ obj.selnuc +' < '+(stepmin+usedStep)+' and ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue +
+                    ' and seq_id in ( ' + seqIds + ')';
+
+            connection.query(query, function(err, rows, fields) {
+                if (err) {
+                    console.log(err.code);
+                    throw err;
+                }
+
+                rows.forEach(function(elem) {
                     try {
-                        // console.log("$$$$$$$$$$$$$$$ pushed : " + rows1[0].num_count);
-                        contents.push(parseInt(rows1[0].num_count));
-                        // console.log('contents : ' + contents + '\n');
-
+                //        console.log(eval(funcs_eq));
+                        contents.push(elem.Count);
                     } catch (e) {
                         if (e instanceof SyntaxError) {
                             console.log("Syntax Error for input function");
                         }
                     }
 
-                    lock--;
-
-                    if (lock == 0) {
-                        queryDone();
-                    }
-
+                    //console.log("Value of elem.A is "+ elem.A);
                 });
 
-            }
+            stepmin += usedStep;
 
-            function queryDone() {
+        }
 
-
-                // console.log("##################### " + query + "\n");
-
-                // console.log('contents : ' + contents + '\n');
-
-
-                var id = obj.exptID + '.' + obj.exptITR + '.' + obj.nodeID + '.' + obj.resourceName + '.' + colName;
-                serie = {
-                    name: colName + "frequency",
-                    data: contents,
-                    id: id
-                };
-
-                // console.log("--------------------\n " + step_max + "\n" + step_min + "\n------------------------\n");
-
-                response.writeHead(200, {
-                    'content-type': 'application/json'
-                });
-
-                response.end(JSON.stringify(serie));
-
-            }
-
+        // Add id to serie to distinguish each serie for further remove
+        var id = obj.nuc + '.' + obj.operation + '.' + obj.percentValue + '.' + obj.propertyType + '.' + obj.propertyName;
+        var serie = {
+            name: obj.selnuc,
+            data: contents,
+            id: id
+        };
+        response.writeHead(200, {
+            'content-type': 'application/json'
         });
+        response.end(JSON.stringify(serie));
 
     });
-
 }
+
 
 function serveFileJS(response, request) {
     console.log("requesthandler: Request handler 'serveFileJS' was called");
@@ -731,6 +524,7 @@ exports.elbaVisualization = elbaVisualization;
 // exports.getResourceName = getResourceName;
 // exports.getColumnName = getColumnName;
 exports.getColumnData = getColumnData;
+exports.getStepFreq = getStepFreq;
 // exports.getColumnDataCorr = getColumnDataCorr;
 // exports.getStepFreq = getStepFreq;
 // exports.getStepPlot = getStepPlot;

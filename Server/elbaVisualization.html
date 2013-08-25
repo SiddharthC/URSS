@@ -194,6 +194,19 @@
                 </option>
             </select>
             <br />
+            RNA Type:
+            <select class="grapher_style" id="rnaType" style="width: 100px">
+                <option value="orna">
+                    O-RNA
+                </option>
+                <option value="srna">
+                    S-RNA
+                </option>
+                <option value="rrna">
+                    R-RNA
+                </option>
+            </select>
+            <br />
             Property Type:
             <select class="grapher_style" id="propertyType" style="width: 100px">
                 <option value="name">
@@ -243,6 +256,12 @@
                 value="Value" onfocus="if(this.value=='Value'){this.value='';}"
                 onblur="if(this.value==''){this.value='Value';}" style="width: 35px">
             </input>    
+            <br />
+            Step Size: 
+            <input class="grapher_style" id="stepSize" type="text" onkeypress="return isNumberKeyorDec(event)"
+                value="Value" onfocus="if(this.value=='Value'){this.value='';}"
+                onblur="if(this.value==''){this.value='Value';}" style="width: 50px">
+            </input>
             <br />
 
             <!-- Experiment Name:
