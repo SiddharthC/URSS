@@ -43,12 +43,12 @@ function handleDisconnect(myconnection){
 	}
 
 var connection = mysql.createConnection({
-	host: bioce32502.biology.gatech.edu, //host url
+	host: 'bioce32502.biology.gatech.edu', //host url
 	//mysql port
-	port: 3306, //put port number
-    user: root,//put username,
-    password: urss, //put password
-    database: urss,// database name 
+	port: '3306', //put port number
+    user: 'root',//put username,
+    password: 'urss', //put password
+    database: 'urss',// database name 
 });
 
 // to handle mysql disconnect
