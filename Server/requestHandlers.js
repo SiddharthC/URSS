@@ -138,11 +138,26 @@ function getStepFreq(response, request) {
     var data = url.parse(request.url).query;
     var obj = queryString.parse(data);
 
-    seqQuery = 'select orna_seq_id as SeqIds from orna where ' + obj.propertyType + '="' + obj.propertyName + '"';
+    if (obj.rnaType == "orna") {
 
-    var seqIds = [];
+        var maxminQuery = 'select max( ' + obj.selnuc + ') as max, min( ' + obj.selnuc + ' ) as min from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue +
+            ' and seq_id in ( select orna_seq_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '")';
 
-    connection.query(seqQuery, function(err, rows, fields) {
+    } else if (obj.rnaType == "srna") {
+
+        var maxminQuery = 'select max( ' + obj.selnuc + ') as max, min( ' + obj.selnuc + ' ) as min from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue + ' and seq_id in ( select srna_seq_id from srna where srna_orna_id in (select orna_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '"))';
+
+    } else {
+
+    }
+
+    console.log("The query is "+maxminQuery);
+
+
+    var max = 0,
+        min = 0;
+
+    connection.query(maxminQuery, function(err, rows, fields) {
         if (err) {
             console.log(err.code);
             throw err;
@@ -150,93 +165,85 @@ function getStepFreq(response, request) {
 
         rows.forEach(function(elem) {
             try {
-                seqIds.push(elem.SeqIds);
+                //        console.log(eval(funcs_eq));
+                max = parseFloat(elem.max);
+                min = parseFloat(elem.min);
+
             } catch (e) {
                 if (e instanceof SyntaxError) {
                     console.log("Syntax Error for input function");
                 }
             }
+
+            //console.log("Value of elem.A is "+ elem.A);
         });
 
-        maxminQuery = 'select max( ' + obj.selnuc + ') as max, min( ' + obj.selnuc + ' ) as min from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue + ' and seq_id in ( ' + seqIds + ')';
+        var resolution = 1;
 
+        var usedStep = (parseFloat(obj.stepSize) > 0.05) ? parseFloat(obj.stepSize) : 0.05;
 
-        var max = 0,
-            min = 0;
+        resolution = ((max - min) / usedStep) + 1;
 
-        connection.query(maxminQuery, function(err, rows, fields) {
-            if (err) {
-                console.log(err.code);
-                throw err;
-            }
+        var stepmin = min;
 
-            rows.forEach(function(elem) {
-                try {
-                    //        console.log(eval(funcs_eq));
-                    max = elem.max;
-                    min = elem.min;
-                } catch (e) {
-                    if (e instanceof SyntaxError) {
-                        console.log("Syntax Error for input function");
-                    }
-                }
+        var contents = [];
 
-                //console.log("Value of elem.A is "+ elem.A);
-            });
+        console.log("before loop");
 
-            var resolution = 1;
+        for (var i=0; i < resolution; i++) {
 
-            var usedStep = (parseFloat(obj.stepSize) > 0.05) ? parseFloat(obj.stepSize) : 0.05;
+            console.log(stepmin);
 
-            resolution++ = (max - min) / usedStep;
-
-            var stepmin = min;
-
-            var contents = [];
-
-            for (var i; i < resolution; i++) {
+            if (obj.rnaType == "orna") {
 
                 var query = 'select count(' + obj.selnuc + ') as Count from rnaseq where ' + obj.selnuc + ' >= ' + stepmin + ' and ' + obj.selnuc + ' < ' + (stepmin + usedStep) + ' and ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue +
-                    ' and seq_id in ( ' + seqIds + ')';
+                    ' and seq_id in ( select orna_seq_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '")';
 
-                connection.query(query, function(err, rows, fields) {
-                    if (err) {
-                        console.log(err.code);
-                        throw err;
-                    }
+            } else if (obj.rnaType == "srna") {
 
-                    rows.forEach(function(elem) {
-                        try {
-                            //        console.log(eval(funcs_eq));
-                            contents.push(elem.Count);
-                        } catch (e) {
-                            if (e instanceof SyntaxError) {
-                                console.log("Syntax Error for input function");
-                            }
-                        }
+                var query = 'select count(' + obj.selnuc + ') as Count from rnaseq where ' + obj.selnuc + ' >= ' + stepmin + ' and ' + obj.selnuc + ' < ' + (stepmin + usedStep) + ' and ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue + ' and seq_id in ( select srna_seq_id from srna where srna_orna_id in (select orna_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '")';
 
-                        //console.log("Value of elem.A is "+ elem.A);
-                    });
-
-                    stepmin += usedStep;
-
-                });
+            } else {
 
             }
 
-            // Add id to serie to distinguish each serie for further remove
-            var id = obj.nuc + '.' + obj.operation + '.' + obj.percentValue + '.' + obj.propertyType + '.' + obj.propertyName;
-            var serie = {
-                name: obj.selnuc,
-                data: contents,
-                id: id
-            };
-            response.writeHead(200, {
-                'content-type': 'application/json'
-            });
-            response.end(JSON.stringify(serie));
+            connection.query(query, function(err, rows, fields) {
+                if (err) {
+                    console.log(err.code);
+                    throw err;
+                }
 
+                rows.forEach(function(elem) {
+                    try {
+                        //        console.log(eval(funcs_eq));
+                        contents.push(elem.Count);
+                    } catch (e) {
+                        if (e instanceof SyntaxError) {
+                            console.log("Syntax Error for input function");
+                        }
+                    }
+
+                    //console.log("Value of elem.A is "+ elem.A);
+                });
+
+                stepmin += usedStep;
+
+            });
+
+        }
+
+        // Add id to serie to distinguish each serie for further remove
+        var id = obj.nuc + '.' + obj.operation + '.' + obj.percentValue + '.' + obj.propertyType + '.' + obj.propertyName;
+        var serie = {
+            name: obj.selnuc,
+            data: contents,
+            id: id
+        };
+        response.writeHead(200, {
+            'content-type': 'application/json'
         });
+        response.end(JSON.stringify(serie));
+
     });
 }
 
