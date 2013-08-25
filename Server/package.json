@@ -1,0 +1,22 @@
+{
+  "name": "Experstore",
+  "version": "2.0.0",
+  "scripts": {
+    "start": "node index"
+  },
+  "main": "index.js"
+  "contributors": [
+    {
+      "name": "Siddharth Choudhary",
+      "email": "siddharthchoudhary.ri@gmail.com"
+    },
+    {
+      "name": "Sreenidhy Sreepathy",
+      "email": "sreenidhy@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "mysql": "2.*",
+  }
+}
+
