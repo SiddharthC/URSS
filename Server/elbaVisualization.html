@@ -4,6 +4,7 @@
     <head>
         <title>
             ExperstoreRNA
+        </title>
         <img src="public/image/title.png" style="width: 100%" alt="Title Image - Experstore"
         />
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -193,58 +194,80 @@
                 </option>
             </select>
             <br />
-            Experiment Name:
-            <select class="grapher_style" id="exptID" style="width: 100px">
-                <option value="">
-                    --Select--
+            Property Name:
+            <select class="grapher_style" id="propertyName" style="width: 100px">
+                <option value="name">
+                    RNA Name
+                </option>
+                <option value="rna_class">
+                    RNA Class
+                </option>
+                <option value="org">
+                    Organism Name
+                </option>
+                <option value="org_type">
+                    Organism Type
                 </option>
             </select>
             <br />
-            Iteration: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <select class="grapher_style" id="exptITR" style="width: 100px">
-                <option value="">
-                    --Select--
-                </option>
-            </select>
-            <br />
-            Node Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-            <select class="grapher_style" id="nodeID" style="width: 100px">
-                <option value="">
-                    --Select--
-                </option>
-            </select>
-            <br />
-            Resource: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <select class="grapher_style" id="resName" style="width: 100px">
-                <option value="">
-                    --Select--
-                </option>
-            </select>
-            <br />
-            Series: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <select class="grapher_style" id="colName" style="width: 100px">
-                <option value="">
-                    --Select--
-                </option>
-            </select>
-            <br />
-            Range: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input class="grapher_style" id="lower" type="text" onkeypress="return isNumberKey(event)"
-            value="Lower" size=16 onfocus="if(this.value=='Lower'){this.value='';}"
-            onblur="if(this.value==''){this.value='Lower';}" style="width: 35px">
-            </input>
-            to
-            <input class="grapher_style" id="upper" type="text" onkeypress="return isNumberKey(event)"
-            value="Upper" size=16 onfocus="if(this.value=='Upper'){this.value='';}"
-            onblur="if(this.value==''){this.value='Upper';}" style="width: 35px">
-            </input>
-            <br />
-            Step Size: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input class="grapher_style" id="step" type="text" value="step" size=16
-            onfocus="if(this.value=='step'){this.value='';}" onblur="if(this.value==''){this.value='step';}"
+            Nueclotide: &nbsp;&nbsp;&nbsp;
+            <input class="grapher_style" id="nuc" type="text" value="Nuclotide" size=3
+            onfocus="if(this.value=='Nuclotide'){this.value='';}" onblur="if(this.value==''){this.value='Nuclotide';}"
             style="width: 100px">
             </input>
             <br />
+            <!-- Experiment Name:
+                <select class="grapher_style" id="exptID" style="width: 100px">
+                    <option value="">
+                        --Select--
+                    </option>
+                </select>
+                <br />
+                Iteration: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="grapher_style" id="exptITR" style="width: 100px">
+                    <option value="">
+                        --Select--
+                    </option>
+                </select>
+                <br />
+                Node Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                <select class="grapher_style" id="nodeID" style="width: 100px">
+                    <option value="">
+                        --Select--
+                    </option>
+                </select>
+                <br />
+                Resource: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="grapher_style" id="resName" style="width: 100px">
+                    <option value="">
+                        --Select--
+                    </option>
+                </select>
+                <br />
+                Series: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="grapher_style" id="colName" style="width: 100px">
+                    <option value="">
+                        --Select--
+                    </option>
+                </select>
+                <br />
+                Range: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="grapher_style" id="lower" type="text" onkeypress="return isNumberKey(event)"
+                value="Lower" size=16 onfocus="if(this.value=='Lower'){this.value='';}"
+                onblur="if(this.value==''){this.value='Lower';}" style="width: 35px">
+                </input>
+                to
+                <input class="grapher_style" id="upper" type="text" onkeypress="return isNumberKey(event)"
+                value="Upper" size=16 onfocus="if(this.value=='Upper'){this.value='';}"
+                onblur="if(this.value==''){this.value='Upper';}" style="width: 35px">
+                </input>
+                <br />
+                Step Size: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="grapher_style" id="step" type="text" value="step" size=16
+                onfocus="if(this.value=='step'){this.value='';}" onblur="if(this.value==''){this.value='step';}"
+                style="width: 100px">
+                </input>
+                <br /> -->
             Type of Graph: &nbsp;&nbsp;&nbsp;
             <select class="grapher_style" id="graph_type" style="width: 100px">
                 <option value="">
@@ -279,16 +302,16 @@
                 <!-- <option value="gauge">Gauge</option> -->
             </select>
             <br/>
-                 Advanced Graph:&nbsp;
+<!--                  Advanced Graph:&nbsp;
                  <select class="grapher_style" id="advanced_graph" style="width: 100px">
                 <option value="0">--Select--</option>
                 <option value="1">Correlate</option>
                 <option value="2">Cumulative</option>
-               <!-- <option value="3">3-D Graph</option>-->
+               <!- <option value="3">3-D Graph</option>->
                 </select>
                 <br />
             <br />
-            <div class="grapher_style" id="xy_label" style="text-align: left">
+ -->            <div class="grapher_style" id="xy_label" style="text-align: left">
                 Graph Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input class="grapher_style" id="graph_title" type="text" value="Title"
                 size=16 onfocus="if(this.value=='Title'){this.value='';}" onblur="if(this.value==''){this.value='Title';}"
@@ -328,14 +351,14 @@
                  <select class="grapher_style" id="operations" style="width: 100px">
                 <option value="0">--Select--</option>
                 <option value="1">Add Graph</option>
-                <option value="2">Add Dynamic</option>
+                <!-- <option value="2">Add Dynamic</option> -->
                 <option value="3">Delete</option>
                 <option value="4">Modify</option>
                 <option value="5">Add Series</option>
                 <option value="6">Remove Series</option>
-                <option value="7">Node Average</option>
+<!--                 <option value="7">Node Average</option>
                 <option value="8">Step Frequency</option>
-                <option value="9">Stepwise plot</option>
+                <option value="9">Stepwise plot</option> -->
                 </select>
                 <br />
                 <br />

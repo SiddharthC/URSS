@@ -517,883 +517,883 @@ $(document).ready(function() {
     }
 
 
-    var addDynamicFunc = function() {
-        if ($('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
-            alert("Please select all the fields");
-            return;
-        }
-        var params = {
-            exptID: jQuery('#exptID option:selected').val(),
-            exptITR: jQuery('#exptITR option:selected').val(),
-            nodeID: jQuery('#nodeID option:selected').val(),
-            resourceName: jQuery('#resName option:selected').val(),
-            columnName: jQuery('#colName option:selected').val(),
-        };
+        // var addDynamicFunc = function() {
+        //     if ($('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
+        //         alert("Please select all the fields");
+        //         return;
+        //     }
+        //     var params = {
+        //         exptID: jQuery('#exptID option:selected').val(),
+        //         exptITR: jQuery('#exptITR option:selected').val(),
+        //         nodeID: jQuery('#nodeID option:selected').val(),
+        //         resourceName: jQuery('#resName option:selected').val(),
+        //         columnName: jQuery('#colName option:selected').val(),
+        //     };
 
-        ctn = $('#container' + (graph_no));
-        ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
+        //     ctn = $('#container' + (graph_no));
+        //     ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
 
-        var options = {
-            chart: {
-                renderTo: ctn.attr('id'),
-                type: $('#graph_type option:selected').val(),
-                zoomType: 'x'
-            },
-            title: {
-                text: $('#graph_title').val()
-            },
-            subtitle: {
-                text: "Graph - " + (graph_no + 1)
-            },
-            xAxis: {
-                title: {
-                    text: $('#x_label').val()
-                }
-            },
-            yAxis: {
-                title: {
-                    text: $('#y_label').val()
-                }
-            },
-            plotOptions: {
-                spline: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                line: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                scatter: {
-                    marker: {
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    }
-                },
-                column: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                bar: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, 'rgba(2,0,0,0)']
-                        ]
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                areaspline: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, 'rgba(2,0,0,0)']
-                        ]
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: []
-        };
+        //     var options = {
+        //         chart: {
+        //             renderTo: ctn.attr('id'),
+        //             type: $('#graph_type option:selected').val(),
+        //             zoomType: 'x'
+        //         },
+        //         title: {
+        //             text: $('#graph_title').val()
+        //         },
+        //         subtitle: {
+        //             text: "Graph - " + (graph_no + 1)
+        //         },
+        //         xAxis: {
+        //             title: {
+        //                 text: $('#x_label').val()
+        //             }
+        //         },
+        //         yAxis: {
+        //             title: {
+        //                 text: $('#y_label').val()
+        //             }
+        //         },
+        //         plotOptions: {
+        //             spline: {
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             line: {
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             scatter: {
+        //                 marker: {
+        //                     radius: 2,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 }
+        //             },
+        //             column: {
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             bar: {
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             area: {
+        //                 fillColor: {
+        //                     linearGradient: {
+        //                         x1: 0,
+        //                         y1: 0,
+        //                         x2: 0,
+        //                         y2: 1
+        //                     },
+        //                     stops: [
+        //                         [0, Highcharts.getOptions().colors[0]],
+        //                         [1, 'rgba(2,0,0,0)']
+        //                     ]
+        //                 },
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             areaspline: {
+        //                 fillColor: {
+        //                     linearGradient: {
+        //                         x1: 0,
+        //                         y1: 0,
+        //                         x2: 0,
+        //                         y2: 1
+        //                     },
+        //                     stops: [
+        //                         [0, Highcharts.getOptions().colors[0]],
+        //                         [1, 'rgba(2,0,0,0)']
+        //                     ]
+        //                 },
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             }
+        //         },
+        //         credits: {
+        //             enabled: false
+        //         },
+        //         series: []
+        //     };
 
-        $.getJSON("getDynamicData", params, function(result) {
-            options.series.push(result);
-            // dynamic graph - start
-            options.chart.events = {
-                load: function f() {
-                    f.counter = result.data.length + 1;
-                    series = this.series[0];
-                    setInterval(function() {
-                        var params = {
-                            exptID: jQuery('#exptID option:selected').val(),
-                            exptITR: jQuery('#exptITR option:selected').val(),
-                            nodeID: jQuery('#nodeID option:selected').val(),
-                            resourceName: jQuery('#resName option:selected').val(),
-                            columnName: jQuery('#colName option:selected').val(),
-                            onlyOne: 'true',
-                        };
-                        $.getJSON("getDynamicData", params, function(result) {
-                            series.addPoint([f.counter++, /*754690*/ parseInt(result.data)], true, true);
-                        });
-                    }, 1000);
+        //     $.getJSON("getDynamicData", params, function(result) {
+        //         options.series.push(result);
+        //         // dynamic graph - start
+        //         options.chart.events = {
+        //             load: function f() {
+        //                 f.counter = result.data.length + 1;
+        //                 series = this.series[0];
+        //                 setInterval(function() {
+        //                     var params = {
+        //                         exptID: jQuery('#exptID option:selected').val(),
+        //                         exptITR: jQuery('#exptITR option:selected').val(),
+        //                         nodeID: jQuery('#nodeID option:selected').val(),
+        //                         resourceName: jQuery('#resName option:selected').val(),
+        //                         columnName: jQuery('#colName option:selected').val(),
+        //                         onlyOne: 'true',
+        //                     };
+        //                     $.getJSON("getDynamicData", params, function(result) {
+        //                         series.addPoint([f.counter++, /*754690*/ parseInt(result.data)], true, true);
+        //                     });
+        //                 }, 1000);
 
-                }
-            };
+        //             }
+        //         };
 
-            chart[graph_no] = new Highcharts.Chart(options);
-        });
-        $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
-        graph_no++;
-        ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
-    }
+        //         chart[graph_no] = new Highcharts.Chart(options);
+        //     });
+        //     $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
+        //     graph_no++;
+        //     ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+        // }
 
-    var nodeAverageFunc = function() {
-        if ($('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
-            alert("Please select all the fields");
-            return;
-        }
+        // var nodeAverageFunc = function() {
+        //     if ($('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
+        //         alert("Please select all the fields");
+        //         return;
+        //     }
 
-        var readonly = 1;
+        //     var readonly = 1;
 
-        var params = {
-            exptID: jQuery('#exptID option:selected').val(),
-            exptITR: jQuery('#exptITR option:selected').val(),
-            nodeID: jQuery('#nodeID option:selected').val(),
-            resourceName: jQuery('#resName option:selected').val(),
-            columnName: jQuery('#colName option:selected').val(),
+        //     var params = {
+        //         exptID: jQuery('#exptID option:selected').val(),
+        //         exptITR: jQuery('#exptITR option:selected').val(),
+        //         nodeID: jQuery('#nodeID option:selected').val(),
+        //         resourceName: jQuery('#resName option:selected').val(),
+        //         columnName: jQuery('#colName option:selected').val(),
 
-            readonly: readonly,
-        };
+        //         readonly: readonly,
+        //     };
 
-        ctn = $('#container' + (graph_no));
-        ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
+        //     ctn = $('#container' + (graph_no));
+        //     ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
 
-        var options = {
-            chart: {
-                renderTo: ctn.attr('id'),
-                type: $('#graph_type option:selected').val(),
-                zoomType: 'x'
-            },
-            title: {
-                text: $('#graph_title').val()
-            },
-            subtitle: {
-                text: "Graph - " + (graph_no + 1)
-            },
-            xAxis: {
-                title: {
-                    text: $('#x_label').val()
-                }
-            },
-            yAxis: {
-                title: {
-                    text: $('#y_label').val()
-                }
-            },
-            plotOptions: {
-                spline: {
-                    pointStart: 1,
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                line: {
-                    pointStart: 1,
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                scatter: {
-                    pointStart: 1,
-                    marker: {
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    }
-                },
-                column: {
-                    pointStart: 1,
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                bar: {
-                    pointStart: 1,
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                area: {
-                    pointStart: 1,
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, 'rgba(2,0,0,0)']
-                        ]
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                areaspline: {
-                    pointStart: 1,
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, 'rgba(2,0,0,0)']
-                        ]
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: []
-        };
+        //     var options = {
+        //         chart: {
+        //             renderTo: ctn.attr('id'),
+        //             type: $('#graph_type option:selected').val(),
+        //             zoomType: 'x'
+        //         },
+        //         title: {
+        //             text: $('#graph_title').val()
+        //         },
+        //         subtitle: {
+        //             text: "Graph - " + (graph_no + 1)
+        //         },
+        //         xAxis: {
+        //             title: {
+        //                 text: $('#x_label').val()
+        //             }
+        //         },
+        //         yAxis: {
+        //             title: {
+        //                 text: $('#y_label').val()
+        //             }
+        //         },
+        //         plotOptions: {
+        //             spline: {
+        //                 pointStart: 1,
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             line: {
+        //                 pointStart: 1,
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             scatter: {
+        //                 pointStart: 1,
+        //                 marker: {
+        //                     radius: 2,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 }
+        //             },
+        //             column: {
+        //                 pointStart: 1,
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             bar: {
+        //                 pointStart: 1,
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             area: {
+        //                 pointStart: 1,
+        //                 fillColor: {
+        //                     linearGradient: {
+        //                         x1: 0,
+        //                         y1: 0,
+        //                         x2: 0,
+        //                         y2: 1
+        //                     },
+        //                     stops: [
+        //                         [0, Highcharts.getOptions().colors[0]],
+        //                         [1, 'rgba(2,0,0,0)']
+        //                     ]
+        //                 },
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             },
+        //             areaspline: {
+        //                 pointStart: 1,
+        //                 fillColor: {
+        //                     linearGradient: {
+        //                         x1: 0,
+        //                         y1: 0,
+        //                         x2: 0,
+        //                         y2: 1
+        //                     },
+        //                     stops: [
+        //                         [0, Highcharts.getOptions().colors[0]],
+        //                         [1, 'rgba(2,0,0,0)']
+        //                     ]
+        //                 },
+        //                 lineWidth: 1,
+        //                 marker: {
+        //                     enabled: false,
+        //                     states: {
+        //                         hover: {
+        //                             enabled: true,
+        //                             radius: 5
+        //                         }
+        //                     }
+        //                 },
+        //                 shadow: false,
+        //                 states: {
+        //                     hover: {
+        //                         lineWidth: 1
+        //                     }
+        //                 }
+        //             }
+        //         },
+        //         credits: {
+        //             enabled: false
+        //         },
+        //         series: []
+        //     };
 
-        $.getJSON("getColumnDataForNodeAvg", params, function(result) {
-            //alert(JSON.stringify(result));
-            options.series.push(result);
-            //chart1 = new Highcharts.Chart(result);
-            //alert(graph_no);
-            chart[graph_no] = new Highcharts.Chart(options);
-        });
-        $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
-        graph_no++;
-        ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
-    }
+        //     $.getJSON("getColumnDataForNodeAvg", params, function(result) {
+        //         //alert(JSON.stringify(result));
+        //         options.series.push(result);
+        //         //chart1 = new Highcharts.Chart(result);
+        //         //alert(graph_no);
+        //         chart[graph_no] = new Highcharts.Chart(options);
+        //     });
+        //     $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
+        //     graph_no++;
+        //     ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+        // }
 
-    var stepFreencyFunc = function() {
-        if ($('#step').val() == 'step' || $('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
-            alert("Please select all the fields");
-            return;
-        }
-        var params = {
-            exptID: jQuery('#exptID option:selected').val(),
-            exptITR: jQuery('#exptITR option:selected').val(),
-            nodeID: jQuery('#nodeID option:selected').val(),
-            resourceName: jQuery('#resName option:selected').val(),
-            columnName: jQuery('#colName option:selected').val(),
+    // var stepFreencyFunc = function() {
+    //     if ($('#step').val() == 'step' || $('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
+    //         alert("Please select all the fields");
+    //         return;
+    //     }
+    //     var params = {
+    //         exptID: jQuery('#exptID option:selected').val(),
+    //         exptITR: jQuery('#exptITR option:selected').val(),
+    //         nodeID: jQuery('#nodeID option:selected').val(),
+    //         resourceName: jQuery('#resName option:selected').val(),
+    //         columnName: jQuery('#colName option:selected').val(),
 
-            lower: jQuery('#lower').val(),
-            upper: jQuery('#upper').val(),
-            func: jQuery('#func').val(),
+    //         lower: jQuery('#lower').val(),
+    //         upper: jQuery('#upper').val(),
+    //         func: jQuery('#func').val(),
 
-            step: jQuery('#step').val(),
-        };
+    //         step: jQuery('#step').val(),
+    //     };
 
-        ctn = $('#container' + (graph_no));
-        ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
+    //     ctn = $('#container' + (graph_no));
+    //     ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
 
-        var Xdisplay = [];
+    //     var Xdisplay = [];
 
-        $.getJSON("getXdisplay", params, function(result) {
+    //     $.getJSON("getXdisplay", params, function(result) {
 
-            Xdisplay = result;
-            sync();
-        });
+    //         Xdisplay = result;
+    //         sync();
+    //     });
 
-        function sync() {
+    //     function sync() {
 
-            var options = {
-                chart: {
-                    renderTo: ctn.attr('id'),
-                    type: $('#graph_type option:selected').val(),
-                    zoomType: 'x'
-                },
-                title: {
-                    text: $('#graph_title').val()
-                },
-                subtitle: {
-                    text: "Graph - " + (graph_no + 1)
-                },
-                xAxis: {
-                    title: {
-                        text: $('#x_label').val()
-                    },
-                    categories: Xdisplay
-                },
-                yAxis: {
-                    title: {
-                        text: $('#y_label').val()
-                    }
-                },
-                plotOptions: {
-                    spline: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    line: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    scatter: {
-                        marker: {
-                            radius: 2,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        }
-                    },
-                    column: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    bar: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    area: {
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[0]],
-                                [1, 'rgba(2,0,0,0)']
-                            ]
-                        },
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    areaspline: {
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[0]],
-                                [1, 'rgba(2,0,0,0)']
-                            ]
-                        },
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    }
-                },
-                credits: {
-                    enabled: false
-                },
-                series: []
-            };
-
-
-            $.getJSON("getStepFreq", params, function(result) {
-                //alert(JSON.stringify(result));
-                options.series.push(result);
-                //chart1 = new Highcharts.Chart(result);
-                //alert(graph_no);
-                chart[graph_no] = new Highcharts.Chart(options);
-            });
+    //         var options = {
+    //             chart: {
+    //                 renderTo: ctn.attr('id'),
+    //                 type: $('#graph_type option:selected').val(),
+    //                 zoomType: 'x'
+    //             },
+    //             title: {
+    //                 text: $('#graph_title').val()
+    //             },
+    //             subtitle: {
+    //                 text: "Graph - " + (graph_no + 1)
+    //             },
+    //             xAxis: {
+    //                 title: {
+    //                     text: $('#x_label').val()
+    //                 },
+    //                 categories: Xdisplay
+    //             },
+    //             yAxis: {
+    //                 title: {
+    //                     text: $('#y_label').val()
+    //                 }
+    //             },
+    //             plotOptions: {
+    //                 spline: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 line: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 scatter: {
+    //                     marker: {
+    //                         radius: 2,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     }
+    //                 },
+    //                 column: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 bar: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 area: {
+    //                     fillColor: {
+    //                         linearGradient: {
+    //                             x1: 0,
+    //                             y1: 0,
+    //                             x2: 0,
+    //                             y2: 1
+    //                         },
+    //                         stops: [
+    //                             [0, Highcharts.getOptions().colors[0]],
+    //                             [1, 'rgba(2,0,0,0)']
+    //                         ]
+    //                     },
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 areaspline: {
+    //                     fillColor: {
+    //                         linearGradient: {
+    //                             x1: 0,
+    //                             y1: 0,
+    //                             x2: 0,
+    //                             y2: 1
+    //                         },
+    //                         stops: [
+    //                             [0, Highcharts.getOptions().colors[0]],
+    //                             [1, 'rgba(2,0,0,0)']
+    //                         ]
+    //                     },
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             credits: {
+    //                 enabled: false
+    //             },
+    //             series: []
+    //         };
 
 
-            $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
-            graph_no++;
-            ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
-
-        }
-    }
-
-    var stepwiseFunc = function() {
-        if ($('#step').val() == 'step' || $('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
-            alert("Please select all the fields");
-            return;
-        }
-        var params = {
-            exptID: jQuery('#exptID option:selected').val(),
-            exptITR: jQuery('#exptITR option:selected').val(),
-            nodeID: jQuery('#nodeID option:selected').val(),
-            resourceName: jQuery('#resName option:selected').val(),
-            columnName: jQuery('#colName option:selected').val(),
-
-            lower: jQuery('#lower').val(),
-            upper: jQuery('#upper').val(),
-            func: jQuery('#func').val(),
-
-            step: jQuery('#step').val(),
-        };
-
-        ctn = $('#container' + (graph_no));
-        ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
-
-        var Xdisplay = [];
-
-        $.getJSON("getXdisplay", params, function(result) {
-
-            Xdisplay = result;
-            sync();
-        });
-
-        function sync() {
-
-            var options = {
-                chart: {
-                    renderTo: ctn.attr('id'),
-                    type: $('#graph_type option:selected').val(),
-                    zoomType: 'y'
-                },
-                title: {
-                    text: $('#graph_title').val()
-                },
-                subtitle: {
-                    text: "Graph - " + (graph_no + 1)
-                },
-                xAxis: {
-                    title: {
-                        text: $('#x_label').val()
-                    },
-                    categories: Xdisplay
-                },
-                yAxis: {
-                    title: {
-                        text: $('#y_label').val()
-                    }
-                },
-                plotOptions: {
-                    spline: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    line: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    scatter: {
-                        marker: {
-                            radius: 2,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        }
-                    },
-                    column: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    bar: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    area: {
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[0]],
-                                [1, 'rgba(2,0,0,0)']
-                            ]
-                        },
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    },
-                    areaspline: {
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, Highcharts.getOptions().colors[0]],
-                                [1, 'rgba(2,0,0,0)']
-                            ]
-                        },
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false,
-                            states: {
-                                hover: {
-                                    enabled: true,
-                                    radius: 5
-                                }
-                            }
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        }
-                    }
-                },
-                credits: {
-                    enabled: false
-                },
-                series: []
-            };
+    //         $.getJSON("getStepFreq", params, function(result) {
+    //             //alert(JSON.stringify(result));
+    //             options.series.push(result);
+    //             //chart1 = new Highcharts.Chart(result);
+    //             //alert(graph_no);
+    //             chart[graph_no] = new Highcharts.Chart(options);
+    //         });
 
 
-            $.getJSON("getStepPlot", params, function(result) {
-                //alert(JSON.stringify(result));
-                options.series.push(result);
-                //chart1 = new Highcharts.Chart(result);
-                //alert(graph_no);
-                chart[graph_no] = new Highcharts.Chart(options);
-            })
+    //         $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
+    //         graph_no++;
+    //         ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
 
-            $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
-            graph_no++;
-            ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+    //     }
+    // }
 
-        }
-    }
+    // var stepwiseFunc = function() {
+    //     if ($('#step').val() == 'step' || $('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
+    //         alert("Please select all the fields");
+    //         return;
+    //     }
+    //     var params = {
+    //         exptID: jQuery('#exptID option:selected').val(),
+    //         exptITR: jQuery('#exptITR option:selected').val(),
+    //         nodeID: jQuery('#nodeID option:selected').val(),
+    //         resourceName: jQuery('#resName option:selected').val(),
+    //         columnName: jQuery('#colName option:selected').val(),
+
+    //         lower: jQuery('#lower').val(),
+    //         upper: jQuery('#upper').val(),
+    //         func: jQuery('#func').val(),
+
+    //         step: jQuery('#step').val(),
+    //     };
+
+    //     ctn = $('#container' + (graph_no));
+    //     ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
+
+    //     var Xdisplay = [];
+
+    //     $.getJSON("getXdisplay", params, function(result) {
+
+    //         Xdisplay = result;
+    //         sync();
+    //     });
+
+    //     function sync() {
+
+    //         var options = {
+    //             chart: {
+    //                 renderTo: ctn.attr('id'),
+    //                 type: $('#graph_type option:selected').val(),
+    //                 zoomType: 'y'
+    //             },
+    //             title: {
+    //                 text: $('#graph_title').val()
+    //             },
+    //             subtitle: {
+    //                 text: "Graph - " + (graph_no + 1)
+    //             },
+    //             xAxis: {
+    //                 title: {
+    //                     text: $('#x_label').val()
+    //                 },
+    //                 categories: Xdisplay
+    //             },
+    //             yAxis: {
+    //                 title: {
+    //                     text: $('#y_label').val()
+    //                 }
+    //             },
+    //             plotOptions: {
+    //                 spline: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 line: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 scatter: {
+    //                     marker: {
+    //                         radius: 2,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     }
+    //                 },
+    //                 column: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 bar: {
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 area: {
+    //                     fillColor: {
+    //                         linearGradient: {
+    //                             x1: 0,
+    //                             y1: 0,
+    //                             x2: 0,
+    //                             y2: 1
+    //                         },
+    //                         stops: [
+    //                             [0, Highcharts.getOptions().colors[0]],
+    //                             [1, 'rgba(2,0,0,0)']
+    //                         ]
+    //                     },
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 },
+    //                 areaspline: {
+    //                     fillColor: {
+    //                         linearGradient: {
+    //                             x1: 0,
+    //                             y1: 0,
+    //                             x2: 0,
+    //                             y2: 1
+    //                         },
+    //                         stops: [
+    //                             [0, Highcharts.getOptions().colors[0]],
+    //                             [1, 'rgba(2,0,0,0)']
+    //                         ]
+    //                     },
+    //                     lineWidth: 1,
+    //                     marker: {
+    //                         enabled: false,
+    //                         states: {
+    //                             hover: {
+    //                                 enabled: true,
+    //                                 radius: 5
+    //                             }
+    //                         }
+    //                     },
+    //                     shadow: false,
+    //                     states: {
+    //                         hover: {
+    //                             lineWidth: 1
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             credits: {
+    //                 enabled: false
+    //             },
+    //             series: []
+    //         };
+
+
+    //         $.getJSON("getStepPlot", params, function(result) {
+    //             //alert(JSON.stringify(result));
+    //             options.series.push(result);
+    //             //chart1 = new Highcharts.Chart(result);
+    //             //alert(graph_no);
+    //             chart[graph_no] = new Highcharts.Chart(options);
+    //         })
+
+    //         $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
+    //         graph_no++;
+    //         ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+
+    //     }
+    // }
 
 
     var modifyFunc = function() {
@@ -1677,105 +1677,105 @@ $(document).ready(function() {
 }); // end of document.ready
 /*** functions to handle modifications of the elements of the html ***/
 // populate the experiment id combobox on page load
-jQuery(function() {
-    $.getJSON("getExptId", function(result) {
-        var tables = result;
-        var out = "";
-        $.each(result, function(i, obj) {
-            $('#exptID').append($('<option></option>').val(obj.experimentid).html(obj.name));
-        });
-    });
-});
+// jQuery(function() {
+//     $.getJSON("getExptId", function(result) {
+//         var tables = result;
+//         var out = "";
+//         $.each(result, function(i, obj) {
+//             $('#exptID').append($('<option></option>').val(obj.experimentid).html(obj.name));
+//         });
+//     });
+// });
 
 // jquery's live tells to add the handler to current element or a future element with id=xxxxxxxxx 
-$('#exptID').live("change", function(e) {
-    $('#exptITR').empty();
-    $('#nodeID').empty();
-    $('#resName').empty();
-    $('#colName').empty();
-    $('#exptITR').append($('<option></option>').html('--Select--').val(''));
-    $('#nodeID').append($('<option></option>').html('--Select--').val(''));
-    $('#resName').append($('<option></option>').html('--Select--').val(''));
-    $('#colName').append($('<option></option>').html('--Select--').val(''));
+// $('#exptID').live("change", function(e) {
+//     $('#exptITR').empty();
+//     $('#nodeID').empty();
+//     $('#resName').empty();
+//     $('#colName').empty();
+//     $('#exptITR').append($('<option></option>').html('--Select--').val(''));
+//     $('#nodeID').append($('<option></option>').html('--Select--').val(''));
+//     $('#resName').append($('<option></option>').html('--Select--').val(''));
+//     $('#colName').append($('<option></option>').html('--Select--').val(''));
 
-    $.getJSON("getExptItr", jQuery(this).val(), function(result) {
-        $.each(result, function(i, obj) {
-            $('#exptITR').append($('<option></option>').val(obj).html(obj));
-        });
-    });
+//     $.getJSON("getExptItr", jQuery(this).val(), function(result) {
+//         $.each(result, function(i, obj) {
+//             $('#exptITR').append($('<option></option>').val(obj).html(obj));
+//         });
+//     });
 
-    $.getJSON("getNodeId", jQuery(this).val(), function(result) {
-        $.each(result, function(i, obj) {
-            //alert(i + " " + obj);
-            $('#nodeID').append($('<option></option>').val(obj.id).html(obj.name));
-        });
-    });
+//     $.getJSON("getNodeId", jQuery(this).val(), function(result) {
+//         $.each(result, function(i, obj) {
+//             //alert(i + " " + obj);
+//             $('#nodeID').append($('<option></option>').val(obj.id).html(obj.name));
+//         });
+//     });
 
-}); // end of change
-$('#nodeID').live("change", function(e) {
+// }); // end of change
+// $('#nodeID').live("change", function(e) {
 
-    $('#resName').empty();
-    $('#colName').empty();
-    $('#resName').append($('<option></option>').html('--Select--').val(''));
-    $('#colName').append($('<option></option>').html('--Select--').val(''));
+//     $('#resName').empty();
+//     $('#colName').empty();
+//     $('#resName').append($('<option></option>').html('--Select--').val(''));
+//     $('#colName').append($('<option></option>').html('--Select--').val(''));
 
-    var params = {
-        exptID: jQuery('#exptID option:selected').val(),
-        exptITR: jQuery('#exptITR option:selected').val(),
-        nodeID: jQuery(this).val()
-    };
+//     var params = {
+//         exptID: jQuery('#exptID option:selected').val(),
+//         exptITR: jQuery('#exptITR option:selected').val(),
+//         nodeID: jQuery(this).val()
+//     };
 
-    $.getJSON("getResourceName", params, function(result) {
-        $.each(result, function(i, obj) {
-            $('#resName').append($('<option></option>').val(obj).html(obj));
-        });
-    });
+//     $.getJSON("getResourceName", params, function(result) {
+//         $.each(result, function(i, obj) {
+//             $('#resName').append($('<option></option>').val(obj).html(obj));
+//         });
+//     });
 
-}); // end of change
-$('#resName').live("change", function(e) {
+// }); // end of change
+// $('#resName').live("change", function(e) {
 
-    $('#colName').empty();
-    $('#colName').append($('<option></option>').html('--Select--').val(''));
+//     $('#colName').empty();
+//     $('#colName').append($('<option></option>').html('--Select--').val(''));
 
-    var params = {
-        exptID: jQuery('#exptID option:selected').val(),
-        exptITR: jQuery('#exptITR option:selected').val(),
-        nodeID: jQuery('#nodeID option:selected').val(),
-        resourceName: jQuery(this).val()
-    };
+//     var params = {
+//         exptID: jQuery('#exptID option:selected').val(),
+//         exptITR: jQuery('#exptITR option:selected').val(),
+//         nodeID: jQuery('#nodeID option:selected').val(),
+//         resourceName: jQuery(this).val()
+//     };
 
-    $.getJSON("getColumnName", params, function(result) {
-        $.each(result, function(i, obj) {
-            $('#colName').append($('<option></option>').val(obj).html(obj));
-        });
-    });
+//     $.getJSON("getColumnName", params, function(result) {
+//         $.each(result, function(i, obj) {
+//             $('#colName').append($('<option></option>').val(obj).html(obj));
+//         });
+//     });
 
-}); // end of change
+// }); // end of change
 //Change event for field "Series". Auto-completion when all fields "Experiment Name", "iteration", "Node name", "Resources" and "Series" are selected.
-$('#colName').live("change", function(e) {
-    //Validate all required fields are selected
-    if ($('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
-        return;
-    }
+// $('#colName').live("change", function(e) {
+//     //Validate all required fields are selected
+//     if ($('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
+//         return;
+//     }
 
-    //If all required fields are selected, auto-fill "Lower" and "Upper" Range. 
-    var params = {
-        //added for upper data
-        exptID: jQuery('#exptID option:selected').val(),
-        exptITR: jQuery('#exptITR option:selected').val(),
-        nodeID: jQuery('#nodeID option:selected').val(),
-        resourceName: jQuery('#resName option:selected').val(),
-    };
+//     //If all required fields are selected, auto-fill "Lower" and "Upper" Range. 
+//     var params = {
+//         //added for upper data
+//         exptID: jQuery('#exptID option:selected').val(),
+//         exptITR: jQuery('#exptITR option:selected').val(),
+//         nodeID: jQuery('#nodeID option:selected').val(),
+//         resourceName: jQuery('#resName option:selected').val(),
+//     };
 
-    $.getJSON("getUpper", params, function(result) {
-        $('#upper').val(result);
-    });
+//     $.getJSON("getUpper", params, function(result) {
+//         $('#upper').val(result);
+//     });
 
-    $.getJSON("getLower", params, function(result) {
-        $('#lower').val(result);
-    });
+//     $.getJSON("getLower", params, function(result) {
+//         $('#lower').val(result);
+//     });
 
-}); // end of change
+// }); // end of change
 
 function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode
