@@ -79,8 +79,6 @@ $(document).ready(function() {
             return;
         }
 
-        var stepFlag = 0;
-
         var params = {
 
             rnaType: jQuery('#rnaType option:selected').val(),
@@ -93,10 +91,7 @@ $(document).ready(function() {
             operation: jQuery('#operation option:selected').val(),
             percentValue: jQuery('#percentValue').val(),
 
-            if($('#stepSize').val() != 'Value'){
-                stepFlag == 1;
-                stepSize: jQuery('stepSize').val(),
-            }
+            stepSize: jQuery('stepSize').val(),
 
             func: jQuery('#func').val(),
         };
@@ -281,17 +276,21 @@ $(document).ready(function() {
         // To record all y values
         var yValues = new Array();
 
+        if ($('#stepSize').val() == 'Value') {
             $.getJSON("getColumnData", params, function(result) {
                 options.series.push(result);
                 chart[graph_no] = new Highcharts.Chart(options);
 
             });
 
+        } else {
             $.getJSON("getStepFreq", params, function(result) {
                 options.series.push(result);
                 chart[graph_no] = new Highcharts.Chart(options);
 
             });
+        }
+
 
 
         $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
