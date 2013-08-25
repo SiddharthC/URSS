@@ -130,38 +130,20 @@ $(document).ready(function() {
         }
     });
     var addGraphFunc = function() {
-        if ($('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
+        if ($('#percentValue').val() == 'Value' ) {
             alert("Please select all the fields");
             return;
         }
 
-        var cumm = 0;
-
-        if($('#advanced_graph option:selected').val() == '2'){
-            // Cumulative is selected
-            cumm = 1;
-        }
-
         var params = {
-            exptID: jQuery('#exptID option:selected').val(),
-            exptITR: jQuery('#exptITR option:selected').val(),
-            nodeID: jQuery('#nodeID option:selected').val(),
-            resourceName: jQuery('#resName option:selected').val(),
-            columnName: jQuery('#colName option:selected').val(),
-            lower: jQuery('#lower').val(),
-            upper: jQuery('#upper').val(),
+            propertyType: jQuery('#propertyType option:selected').val(),
+            propertyName: jQuery('#propertyName option:selected').val(),
+                        
+            nuc: jQuery('#nuc').val(),
+            operation: jQuery('#operation option:selected').val(),
+            percentValue: jQuery('#percentValue').val(),
+
             func: jQuery('#func').val(),
-
-            x_exptID: x_exptID,
-            x_exptITR: x_exptITR,
-            x_nodeID: x_nodeID,
-            x_resName: x_resName,
-            x_colName: x_colName,
-            x_lower: x_lower,
-            x_upper: x_upper,
-
-            cumm: cumm
-
         };
 
         ctn = $('#container' + (graph_no));
@@ -192,7 +174,7 @@ $(document).ready(function() {
             },
             plotOptions: {
                 spline: {
-                    pointStart: parseInt($('#lower').val()),
+                    pointStart: 1,
                     lineWidth: 1,
                     marker: {
                         enabled: false,
@@ -211,7 +193,7 @@ $(document).ready(function() {
                     }
                 },
                 line: {
-                    pointStart: parseInt($('#lower').val()),
+                    pointStart: 1,
                     lineWidth: 1,
                     marker: {
                         enabled: false,
@@ -230,7 +212,7 @@ $(document).ready(function() {
                     }
                 },
                 scatter: {
-                    pointStart: parseInt($('#lower').val()),
+                    pointStart: 1,
                     marker: {
                         radius: 2,
                         states: {
@@ -242,7 +224,7 @@ $(document).ready(function() {
                     }
                 },
                 column: {
-                    pointStart: parseInt($('#lower').val()),
+                    pointStart: 1,
                     lineWidth: 1,
                     marker: {
                         enabled: false,
@@ -261,7 +243,7 @@ $(document).ready(function() {
                     }
                 },
                 bar: {
-                    pointStart: parseInt($('#lower').val()),
+                    pointStart: 1,
                     lineWidth: 1,
                     marker: {
                         enabled: false,
@@ -280,7 +262,7 @@ $(document).ready(function() {
                     }
                 },
                 area: {
-                    pointStart: parseInt($('#lower').val()),
+                    pointStart: 1,
                     fillColor: {
                         linearGradient: {
                             x1: 0,
@@ -311,7 +293,7 @@ $(document).ready(function() {
                     }
                 },
                 areaspline: {
-                    pointStart: parseInt($('#lower').val()),
+                    pointStart: 1,
                     fillColor: {
                         linearGradient: {
                             x1: 0,
@@ -351,169 +333,169 @@ $(document).ready(function() {
         // To record all y values
         var yValues = new Array();
 
-        if($('#advanced_graph option:selected').val() == '1') {
+//        if($('#advanced_graph option:selected').val() == '1') {
             // Correlate is selected
 
-            $.getJSON("getColumnDataCorr", params, function(result) {
-                options.series.push(result);
-                chart[graph_no] = new Highcharts.Chart(options);
-            });
-        } else {
+            // $.getJSON("getColumnDataCorr", params, function(result) {
+            //     options.series.push(result);
+            //     chart[graph_no] = new Highcharts.Chart(options);
+            // });
+//        } else {
         	 $.getJSON("getColumnData", params, function(result) {
                 options.series.push(result);
                 chart[graph_no] = new Highcharts.Chart(options);
                 
                 /* Draw 3d graph starts*/
-                if($('#advanced_graph option:selected').val() == '3'){
-                    // 3d option is selected
-                    // Insert three-d graph div to the new added two-d graph div first
-                    var three_d_id = "Graph-" + graph_no+ "_3d_surfacePlotDiv";
-                    ctn = $('#container' + graph_no);
-                    ctn.clone().attr('id', three_d_id).insertAfter(ctn);
+                // if($('#advanced_graph option:selected').val() == '3'){
+                //     // 3d option is selected
+                //     // Insert three-d graph div to the new added two-d graph div first
+                //     var three_d_id = "Graph-" + graph_no+ "_3d_surfacePlotDiv";
+                //     ctn = $('#container' + graph_no);
+                //     ctn.clone().attr('id', three_d_id).insertAfter(ctn);
                     
-                    // Start drawing the 3d graph
-                    var surfacePlot;
-                    // Get max x value as number of rows
-                    var numRows =  $('#upper').val();
-                    // Get max y value as number of columns. Shrink all y values to be less than 10
-                    var numCols =Math.max.apply(Math, result.data);
-                    var maxZ = numCols;
-                    var yShrink = 1;
-                    var temp = numCols;
-                    while(temp > 10){
-                        temp = temp / 10;
-                        yShrink *= 10;
-                    }
-                    numCols = Math.ceil(numCols / yShrink);
+                //     // Start drawing the 3d graph
+                //     var surfacePlot;
+                //     // Get max x value as number of rows
+                //     var numRows =  $('#upper').val();
+                //     // Get max y value as number of columns. Shrink all y values to be less than 10
+                //     var numCols =Math.max.apply(Math, result.data);
+                //     var maxZ = numCols;
+                //     var yShrink = 1;
+                //     var temp = numCols;
+                //     while(temp > 10){
+                //         temp = temp / 10;
+                //         yShrink *= 10;
+                //     }
+                //     numCols = Math.ceil(numCols / yShrink);
             
                  
-                    var tooltipStrings = new Array();
-                    var values = new Array();
-                    var data = {nRows: numRows, nCols: numCols, formattedValues: values};
+                //     var tooltipStrings = new Array();
+                //     var values = new Array();
+                //     var data = {nRows: numRows, nCols: numCols, formattedValues: values};
                 
-                    var max = 0;
-                    for (var i = 0; i < numRows; i++ ) 
-                    {
-                        values[i] = new Array(); 
-                        var zValue = result.data[i];
+                //     var max = 0;
+                //     for (var i = 0; i < numRows; i++ ) 
+                //     {
+                //         values[i] = new Array(); 
+                //         var zValue = result.data[i];
                         
-                        for (var j = 0; j < numCols; j++)
-                        {
-                            // Execute the 3d plot function here(current function is f(x,y) = y)
-                            // Z value should be transformed to the range from 0 to 1
-                            values[i][j] = zValue / (maxZ - 1);
-                        }
-                    }
-                    // Need to update the max Z value if function is changed. 
-                    max = i;
+                //         for (var j = 0; j < numCols; j++)
+                //         {
+                //             // Execute the 3d plot function here(current function is f(x,y) = y)
+                //             // Z value should be transformed to the range from 0 to 1
+                //             values[i][j] = zValue / (maxZ - 1);
+                //         }
+                //     }
+                //     // Need to update the max Z value if function is changed. 
+                //     max = i;
                 
-                    surfacePlot = new SurfacePlot(document.getElementById(three_d_id));
+                //     surfacePlot = new SurfacePlot(document.getElementById(three_d_id));
                     
-                    // Don't fill polygons in IE. It's too slow.
-                    var fillPly = true;
+                //     // Don't fill polygons in IE. It's too slow.
+                //     var fillPly = true;
                     
-                    // Define a colour gradient.
-                    var colour1 = {red:0, green:0, blue:255};
-                    var colour2 = {red:0, green:255, blue:255};
-                    var colour3 = {red:0, green:255, blue:0};
-                    var colour4 = {red:255, green:255, blue:0};
-                    var colour5 = {red:255, green:0, blue:0};
-                    var colours = [colour1, colour2, colour3, colour4, colour5];
+                //     // Define a colour gradient.
+                //     var colour1 = {red:0, green:0, blue:255};
+                //     var colour2 = {red:0, green:255, blue:255};
+                //     var colour3 = {red:0, green:255, blue:0};
+                //     var colour4 = {red:255, green:255, blue:0};
+                //     var colour5 = {red:255, green:0, blue:0};
+                //     var colours = [colour1, colour2, colour3, colour4, colour5];
                     
-                    // Axis labels.
-                    var xAxisHeader = $('#x_label').attr('value');
-                    var yAxisHeader = $('#y_label').attr('value');
-                    var zAxisHeader = $('#z_label').attr('value');
+                //     // Axis labels.
+                //     var xAxisHeader = $('#x_label').attr('value');
+                //     var yAxisHeader = $('#y_label').attr('value');
+                //     var zAxisHeader = $('#z_label').attr('value');
                     
-                    var renderDataPoints = false;
-                    var background = '#ffffff';
-                    var axisForeColour = '#000000';
-                    var hideFloorPolygons = true;
-                    var chartOrigin = {x: 150, y:150};
+                //     var renderDataPoints = false;
+                //     var background = '#ffffff';
+                //     var axisForeColour = '#000000';
+                //     var hideFloorPolygons = true;
+                //     var chartOrigin = {x: 150, y:150};
                     
-                    // Options for the basic canvas pliot.
-                    var basicPlotOptions = {fillPolygons: fillPly, tooltips: tooltipStrings, renderPoints: renderDataPoints }
+                //     // Options for the basic canvas pliot.
+                //     var basicPlotOptions = {fillPolygons: fillPly, tooltips: tooltipStrings, renderPoints: renderDataPoints }
                     
-                    // Options for the webGL plot.
-                    var xLabels = new Array();
-                    var i = 0;
-                    var divide = 1;
-                    // Divide x-axis to be pieces with length of 10 or 100
-                    if(numRows > 10 && numRows <= 100) divide = 10;
-                    if(numRows > 100) divide = 100;
-                    for(;i<= numRows/divide ; i++){
-                        xLabels[i] = i * divide;
-                    }
+                //     // Options for the webGL plot.
+                //     var xLabels = new Array();
+                //     var i = 0;
+                //     var divide = 1;
+                //     // Divide x-axis to be pieces with length of 10 or 100
+                //     if(numRows > 10 && numRows <= 100) divide = 10;
+                //     if(numRows > 100) divide = 100;
+                //     for(;i<= numRows/divide ; i++){
+                //         xLabels[i] = i * divide;
+                //     }
                 
-                    if(xLabels[i-1] < numRows){
-                        xLabels[i] = numRows;
-                    }
+                //     if(xLabels[i-1] < numRows){
+                //         xLabels[i] = numRows;
+                //     }
             
-                    // Divide y-axis to be pieces with length of 10 or 100
-                    divide = 1;
-                    if(numCols > 10 && numCols <= 100) divide = 10;
-                    if(numCols > 100) divide = 100;
-                    var yLabels = new Array();
-                    for(i=0;i<= numCols/divide ; i++){
-                        yLabels[i] = i * divide;
-                    }
+                //     // Divide y-axis to be pieces with length of 10 or 100
+                //     divide = 1;
+                //     if(numCols > 10 && numCols <= 100) divide = 10;
+                //     if(numCols > 100) divide = 100;
+                //     var yLabels = new Array();
+                //     for(i=0;i<= numCols/divide ; i++){
+                //         yLabels[i] = i * divide;
+                //     }
                 
-                    if(yLabels[i-1] < numCols){
-                        yLabels[i] = numCols;
-                    }
+                //     if(yLabels[i-1] < numCols){
+                //         yLabels[i] = numCols;
+                //     }
                 
-                    // Divide z-axis to be pieces with length of 10 or 100
-                    /*var zLabels = new Array(); // These labels ar eused when autoCalcZScale is false;
-                    divide = 1;
-                    if(max > 10 && max <= 100) divide = 10;
-                    if(max > 100) divide = 100;
-                    for(i=0;i<= max/divide ; i++){
-                        zLabels[i] = i * divide;
-                    }
+                //     // Divide z-axis to be pieces with length of 10 or 100
+                //     /*var zLabels = new Array(); // These labels ar eused when autoCalcZScale is false;
+                //     divide = 1;
+                //     if(max > 10 && max <= 100) divide = 10;
+                //     if(max > 100) divide = 100;
+                //     for(i=0;i<= max/divide ; i++){
+                //         zLabels[i] = i * divide;
+                //     }
                 
-                    if(zLabels[i-1] < max){
-                        zLabels[i] = max;
-                    }*/
+                //     if(zLabels[i-1] < max){
+                //         zLabels[i] = max;
+                //     }*/
 
-                    divide = 1;
-                    if(numCols > 10 && numCols <= 100) divide = 10;
-                    if(numCols > 100) divide = 100;
-                    var zLabels = new Array();
-                    for(i=0;i<= numCols/divide ; i++){
-                        zLabels[i] = i * divide;
-                    }
+                //     divide = 1;
+                //     if(numCols > 10 && numCols <= 100) divide = 10;
+                //     if(numCols > 100) divide = 100;
+                //     var zLabels = new Array();
+                //     for(i=0;i<= numCols/divide ; i++){
+                //         zLabels[i] = i * divide;
+                //     }
                 
-                    if(zLabels[i-1] < numCols){
-                        zLabels[i] = numCols;
-                    }
+                //     if(zLabels[i-1] < numCols){
+                //         zLabels[i] = numCols;
+                //     }
 
 
                     
-                    var glOptions = {xLabels: xLabels, yLabels: yLabels, zLabels: zLabels, chkControlId: "allowWebGL" ,autoCalcZScale: false};
+                //     var glOptions = {xLabels: xLabels, yLabels: yLabels, zLabels: zLabels, chkControlId: "allowWebGL" ,autoCalcZScale: false};
                     
-                    // Options common to both types of plot.
-                    var commonOptions = {xPos: 0, yPos: 0, width: $(window).width() - 400, height: 400, colourGradient: colours, 
-                        xTitle: xAxisHeader, yTitle: yAxisHeader, zTitle: zAxisHeader, 
-                        backColour: background, axisTextColour: axisForeColour, hideFlatMinPolygons: hideFloorPolygons, origin: chartOrigin};
+                //     // Options common to both types of plot.
+                //     var commonOptions = {xPos: 0, yPos: 0, width: $(window).width() - 400, height: 400, colourGradient: colours, 
+                //         xTitle: xAxisHeader, yTitle: yAxisHeader, zTitle: zAxisHeader, 
+                //         backColour: background, axisTextColour: axisForeColour, hideFlatMinPolygons: hideFloorPolygons, origin: chartOrigin};
                     
-                    surfacePlot.draw(data, commonOptions, basicPlotOptions, glOptions);
+                //     surfacePlot.draw(data, commonOptions, basicPlotOptions, glOptions);
                     
-                    $('#'+three_d_id).prepend('X: 1:1 ');
-                    $('#'+three_d_id).prepend('Y: 1:' + yShrink + ' </br>');
-                    $('#'+three_d_id).prepend('Z: 1:1 </br>');
-                    $('#'+three_d_id).prepend('3D graph for ' + "'Graph - " + graph_no + "'</br>");
-                }
+                //     $('#'+three_d_id).prepend('X: 1:1 ');
+                //     $('#'+three_d_id).prepend('Y: 1:' + yShrink + ' </br>');
+                //     $('#'+three_d_id).prepend('Z: 1:1 </br>');
+                //     $('#'+three_d_id).prepend('3D graph for ' + "'Graph - " + graph_no + "'</br>");
+                // }
                 
                 
                 /* Draw 3d graph ends*/
-            });
+            //}
+            );
 
         }
 
         $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
         graph_no++;
         ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');     
-      
     }
 
 
@@ -1793,9 +1775,9 @@ $('#propertyType').live("change", function(e) {
 
 // }); // end of change
 
-function isNumberKey(evt) {
+function isNumberKeyorDec(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+    if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) return false;
 
     return true;
 }

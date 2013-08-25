@@ -66,83 +66,83 @@ function elbaVisualization(response, request) {
     });
 }
 
-function getExptId(response, request) {
-    console.log("requesthandler: Request handler 'getExptId' was called");
+// function getExptId(response, request) {
+//     console.log("requesthandler: Request handler 'getExptId' was called");
 
-    var query = 'select experimentid,name ' + 'from ' + 'experiment';
-    var contents = [];
+//     var query = 'select experimentid,name ' + 'from ' + 'experiment';
+//     var contents = [];
 
-    connection.query(query, function(err, rows, fields) {
-        if (err) {
-            console.log(err.code);
-            throw err;
-        }
+//     connection.query(query, function(err, rows, fields) {
+//         if (err) {
+//             console.log(err.code);
+//             throw err;
+//         }
 
-        rows.forEach(function(elem) {
-            var object = new Object();
-            object.experimentid = elem.experimentid;
-            object.name = elem.name;
-            contents.push(object);
-        });
+//         rows.forEach(function(elem) {
+//             var object = new Object();
+//             object.experimentid = elem.experimentid;
+//             object.name = elem.name;
+//             contents.push(object);
+//         });
 
-        response.writeHead(200, {
-            'content-type': 'application/json'
-        });
-        response.end(JSON.stringify(contents));
-    });
+//         response.writeHead(200, {
+//             'content-type': 'application/json'
+//         });
+//         response.end(JSON.stringify(contents));
+//     });
 
-}
+// }
 
-function getExptItr(response, request) {
-    console.log("requesthandler: Request handler 'getExptItr' was called");
+// function getExptItr(response, request) {
+//     console.log("requesthandler: Request handler 'getExptItr' was called");
 
-    var data = url.parse(request.url).query;
-    var query = 'select iterationid ' + 'from ' + 'experimentiteration ' + 'where ' + 'experimentid="' + data + '"';
-    var contents = [];
+//     var data = url.parse(request.url).query;
+//     var query = 'select iterationid ' + 'from ' + 'experimentiteration ' + 'where ' + 'experimentid="' + data + '"';
+//     var contents = [];
 
-    connection.query(query, function(err, rows, fields) {
-        if (err) {
-            console.log(err.code);
-            throw err;
-        }
+//     connection.query(query, function(err, rows, fields) {
+//         if (err) {
+//             console.log(err.code);
+//             throw err;
+//         }
 
-        rows.forEach(function(elem) {
-            contents.push(elem.iterationid);
-        });
+//         rows.forEach(function(elem) {
+//             contents.push(elem.iterationid);
+//         });
 
-        response.writeHead(200, {
-            'content-type': 'application/json'
-        });
-        response.end(JSON.stringify(contents));
-    });
-}
+//         response.writeHead(200, {
+//             'content-type': 'application/json'
+//         });
+//         response.end(JSON.stringify(contents));
+//     });
+// }
 
-function getNodeId(response, request) {
-    console.log("requesthandler: Request handler 'getNodeId' was called");
+// function getNodeId(response, request) {
+//     console.log("requesthandler: Request handler 'getNodeId' was called");
 
-    var data = url.parse(request.url).query;
-    var query = 'select id,name ' + 'from ' + 'experimentnode ' + 'where ' + 'experimentid="' + data + '"';
-    var contents = [];
+//     var data = url.parse(request.url).query;
+//     var query = 'select id,name ' + 'from ' + 'experimentnode ' + 'where ' + 'experimentid="' + data + '"';
+//     var contents = [];
 
-    connection.query(query, function(err, rows, fields) {
-        if (err) {
-            console.log(err.code);
-            throw err;
-        }
+//     connection.query(query, function(err, rows, fields) {
+//         if (err) {
+//             console.log(err.code);
+//             throw err;
+//         }
 
-        rows.forEach(function(elem) {
-            var object = new Object();
-            object.id = elem.id;
-            object.name = elem.name;
-            contents.push(object);
-        });
+//         rows.forEach(function(elem) {
+//             var object = new Object();
+//             object.id = elem.id;
+//             object.name = elem.name;
+//             contents.push(object);
+//         });
 
-        response.writeHead(200, {
-            'content-type': 'application/json'
-        });
-        response.end(JSON.stringify(contents));
-    });
-}
+//         response.writeHead(200, {
+//             'content-type': 'application/json'
+//         });
+//         response.end(JSON.stringify(contents));
+//     });
+// }
 
 function getPropertyName(response, request) {
     console.log("requesthandler: Request handler 'getPropertyName' was called");
@@ -174,70 +174,70 @@ function getPropertyName(response, request) {
     //console.log("getPropertyName returned");
 }
 
-function getResourceName(response, request) {
-    console.log("requesthandler: Request handler 'getResourceName' was called");
+// function getResourceName(response, request) {
+//     console.log("requesthandler: Request handler 'getResourceName' was called");
 
-    var reqQuery = url.parse(request.url).query;
-    var obj = queryString.parse(reqQuery);
-    var query = 'select resourcename ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID;
-    var contents = [];
+//     var reqQuery = url.parse(request.url).query;
+//     var obj = queryString.parse(reqQuery);
+//     var query = 'select resourcename ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID;
+//     var contents = [];
 
-    connection.query(query, function(err, rows, fields) {
-        if (err) {
-            console.log(err.code);
-            throw err;
-        }
+//     connection.query(query, function(err, rows, fields) {
+//         if (err) {
+//             console.log(err.code);
+//             throw err;
+//         }
 
-        rows.forEach(function(elem) {
-            contents.push(elem.resourcename);
-        });
+//         rows.forEach(function(elem) {
+//             contents.push(elem.resourcename);
+//         });
 
-        response.writeHead(200, {
-            'content-type': 'application/json'
-        });
-        response.end(JSON.stringify(contents));
-    });
-}
+//         response.writeHead(200, {
+//             'content-type': 'application/json'
+//         });
+//         response.end(JSON.stringify(contents));
+//     });
+// }
 
-function getColumnName(response, request) {
-    console.log("requesthandler: Request handler 'getColumnName' was called");
+// function getColumnName(response, request) {
+//     console.log("requesthandler: Request handler 'getColumnName' was called");
 
-    var reqQuery = url.parse(request.url).query;
-    var obj = queryString.parse(reqQuery);
-    var query = 'select tablename,dictionaryid ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID + ' and resourcename="' + obj.resourceName + '"';
+//     var reqQuery = url.parse(request.url).query;
+//     var obj = queryString.parse(reqQuery);
+//     var query = 'select tablename,dictionaryid ' + 'from ' + 'dictionary ' + 'where ' + 'experimentid="' + obj.exptID + '" and iterationid=' + obj.exptITR + ' and nodeid=' + obj.nodeID + ' and resourcename="' + obj.resourceName + '"';
 
-    connection.query(query, function(err, rows, fields) {
-        if (err) {
-            console.log(err.code);
-            throw err;
-        }
+//     connection.query(query, function(err, rows, fields) {
+//         if (err) {
+//             console.log(err.code);
+//             throw err;
+//         }
 
-        query = 'desc ' + rows[0].tablename;
-        connection.query(query, function(err, rows1, fields) {
-            if (err) {
-                console.log(err.code);
-                throw err;
-            }
+//         query = 'desc ' + rows[0].tablename;
+//         connection.query(query, function(err, rows1, fields) {
+//             if (err) {
+//                 console.log(err.code);
+//                 throw err;
+//             }
 
-            var i = 0;
-            var contents = [];
-            rows1.forEach(function(elem) {
-                i++;
-                if (i == 1 || i == 2) {
-                    return true;
-                }
-                contents.push(elem.Field);
-            });
+//             var i = 0;
+//             var contents = [];
+//             rows1.forEach(function(elem) {
+//                 i++;
+//                 if (i == 1 || i == 2) {
+//                     return true;
+//                 }
+//                 contents.push(elem.Field);
+//             });
 
-            response.writeHead(200, {
-                'content-type': 'application/json'
-            });
-            response.end(JSON.stringify(contents));
+//             response.writeHead(200, {
+//                 'content-type': 'application/json'
+//             });
+//             response.end(JSON.stringify(contents));
 
-        });
-    });
+//         });
+//     });
 
-}
+// }
 
 function getColumnData(response, request) {
     console.log("requesthandler: Request handler 'getColumnData' was called");

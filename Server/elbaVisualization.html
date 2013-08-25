@@ -218,11 +218,27 @@
             </select>
             <br />
             Nueclotide: &nbsp;&nbsp;&nbsp;
-            <input class="grapher_style" id="nuc" type="text" value="Nuclotide" size=3
-            onfocus="if(this.value=='Nuclotide'){this.value='';}" onblur="if(this.value==''){this.value='Nuclotide';}"
-            style="width: 100px">
+            <input class="grapher_style" id="nuc" type="text" value="A" maxlength="3"
+            onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}"
+            style="width: 30px">
             </input>
+            <select class="grapher_style" id="operation" style="width: 50px">
+                <option value=">">
+                    &gt;=
+                </option>
+                <option value="<">
+                    &lt;=
+                </option>
+                <option value="=">
+                    =
+                </option>
+            </select>
+            <input class="grapher_style" id="percentValue" type="text" onkeypress="return isNumberKeyorDec(event)"
+                value="Value" onfocus="if(this.value=='Value'){this.value='';}"
+                onblur="if(this.value==''){this.value='Value';}" style="width: 35px">
+            </input>    
             <br />
+
             <!-- Experiment Name:
                 <select class="grapher_style" id="exptID" style="width: 100px">
                     <option value="">
