@@ -319,195 +319,202 @@ $(document).ready(function() {
             graph_type = $('#graph_type option:selected').val();
         }
 
+        $.getJSON("getXdisplay", params, function(result) {
 
-        var options = {
-            chart: {
-                renderTo: ctn.attr('id'),
-                type: graph_type,
-                zoomType: 'x'
-            },
-            title: {
-                text: $('#graph_title').val()
-            },
-            subtitle: {
-                text: "Graph - " + (graph_no + 1)
-            },
-            xAxis: {
-
-                title: {
-                    text: $('#x_label').val()
-                }
-            },
-            yAxis: {
-                title: {
-                    text: $('#y_label').val()
-                }
-            },
-            plotOptions: {
-                spline: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                line: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                scatter: {
-                    marker: {
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    }
-                },
-                column: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                bar: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, 'rgba(2,0,0,0)']
-                        ]
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                },
-                areaspline: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, 'rgba(2,0,0,0)']
-                        ]
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                radius: 5
-                            }
-                        }
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: []
-        };
-
-        // To record all y values
-        var yValues = new Array();
-
-        $.getJSON("getStepFreq", params, function(result) {
-            options.series.push(result);
-            chart[graph_no] = new Highcharts.Chart(options);
-
+            Xdisplay = result;
+            sync();
         });
 
+        function sync() {
+            var options = {
+                chart: {
+                    renderTo: ctn.attr('id'),
+                    type: graph_type,
+                    zoomType: 'x'
+                },
+                title: {
+                    text: $('#graph_title').val()
+                },
+                subtitle: {
+                    text: "Graph - " + (graph_no + 1)
+                },
+                xAxis: {
+                    title: {
+                        text: $('#x_label').val()
+                    },
+                    categories: Xdisplay
+                },
+                yAxis: {
+                    title: {
+                        text: $('#y_label').val()
+                    }
+                },
+                plotOptions: {
+                    spline: {
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        }
+                    },
+                    line: {
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        }
+                    },
+                    scatter: {
+                        marker: {
+                            radius: 2,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        }
+                    },
+                    column: {
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        }
+                    },
+                    bar: {
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        }
+                    },
+                    area: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, 'rgba(2,0,0,0)']
+                            ]
+                        },
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        }
+                    },
+                    areaspline: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, 'rgba(2,0,0,0)']
+                            ]
+                        },
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    radius: 5
+                                }
+                            }
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: []
+            };
+
+            // To record all y values
+            var yValues = new Array();
+
+            $.getJSON("getStepFreq", params, function(result) {
+                options.series.push(result);
+                chart[graph_no] = new Highcharts.Chart(options);
+
+            });
 
 
-        $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
-        graph_no++;
-        ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+
+            $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
+            graph_no++;
+            ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+        }
     }
 
     var modifyFunc = function() {

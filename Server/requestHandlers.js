@@ -235,6 +235,53 @@ function getStepFreq(response, request) {
     });
 }
 
+function getXdisplay(response, request) {
+
+    console.log("requesthandler: Request handler 'getXdisplay' was called");
+
+    var reqQuery = url.parse(request.url).query;
+    var obj = queryString.parse(reqQuery);
+
+    var maxminQuery;
+
+    if (obj.rnaType == "orna") {
+        maxminQuery = 'select max( ' + obj.selnuc + ') as max, min( ' + obj.selnuc + ' ) as min from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue +
+            ' and seq_id in ( select orna_seq_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '")';
+    } else if (obj.rnaType == "srna") {
+        maxminQuery = 'select max( ' + obj.selnuc + ') as max, min( ' + obj.selnuc + ' ) as min from rnaseq where ' + obj.nuc + ' ' + obj.operation + ' ' + obj.percentValue + ' and seq_id in ( select srna_seq_id from srna where srna_orna_id in (select orna_id from orna where ' + obj.propertyType + '="' + obj.propertyName + '"))';
+    } else {}
+
+    var step = parseFloat(obj.stepSize);
+
+    var serie, step_max = 0,
+        step_min = 0;
+
+    var contents = [];
+
+    connection.query(maxminQuery, function(err, rows, fields) {
+        if (err) {
+            console.log(err.code);
+            throw err;
+        }
+
+        step_max = rows[0].max;
+        step_min = rows[0].min;
+
+        var xstring = [];
+
+        for (var i = step_min; i < (step_max + step); i += step) {
+            xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + step).toFixed(2)));
+        }
+
+        response.writeHead(200, {
+            'content-type': 'application/json'
+        });
+
+        response.end(JSON.stringify(xstring));
+    });
+
+}
+
 
 function serveFileJS(response, request) {
     console.log("requesthandler: Request handler 'serveFileJS' was called");
@@ -296,6 +343,7 @@ function serveFileImage(response, request) {
 exports.elbaVisualization = elbaVisualization;
 exports.getColumnData = getColumnData;
 exports.getStepFreq = getStepFreq;
+exports.getXdisplay = getXdisplay;
 exports.getPropertyName = getPropertyName;
 exports.serveFileJS = serveFileJS;
 exports.serveFileCSS = serveFileCSS;
