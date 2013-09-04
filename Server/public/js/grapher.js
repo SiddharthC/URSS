@@ -736,31 +736,27 @@ $(document).ready(function() {
     }
 
     var addSeriesFunc = function() {
-        if ($('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
+        if ($('#percentValue').val() == 'Value') {
             alert("Please select all the fields");
             return;
         }
 
-        var cumm = 0;
-
-        if ($('#advanced_graph option:selected').val() == '2') {
-            cumm = 1;
-        }
-
-
         var params = {
-            exptID: jQuery('#exptID option:selected').val(),
-            exptITR: jQuery('#exptITR option:selected').val(),
-            nodeID: jQuery('#nodeID option:selected').val(),
-            resourceName: jQuery('#resName option:selected').val(),
-            columnName: jQuery('#colName option:selected').val(),
-            lower: jQuery('#lower').val(),
-            upper: jQuery('#upper').val(),
-            func: jQuery('#func').val(),
 
-            cumm: cumm
+            rnaType: jQuery('#rnaType option:selected').val(),
+
+            propertyType: jQuery('#propertyType option:selected').val(),
+            propertyName: jQuery('#propertyName option:selected').val(),
+
+            selnuc: jQuery('#selnuc').val(),
+            nuc: jQuery('#nuc').val(),
+            operation: jQuery('#operation option:selected').val(),
+            percentValue: jQuery('#percentValue').val(),
+
+            func: jQuery('#func').val(),
         };
-        $.getJSON("getColumnData", params, function(result) {
+
+            $.getJSON("getColumnData", params, function(result) {
             var no = $('#graph_name option:selected').val();
             chart[no].addSeries(result);
         });
