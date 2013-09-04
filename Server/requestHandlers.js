@@ -149,9 +149,9 @@ function getStepFreq(response, request) {
 
     var step = parseFloat(obj.stepSize);
 
-    console.log("The step size used is " + step);
+    //console.log("The step size used is " + step);
 
-    console.log("maxminQuery is " + maxminQuery);
+    //console.log("maxminQuery is " + maxminQuery);
 
     var serie, step_max = 0,
         step_min = 0;
@@ -164,14 +164,14 @@ function getStepFreq(response, request) {
             throw err;
         }
 
-        console.log("max is " + rows[0].max);
-        console.log("min is " + rows[0].min);
+        // console.log("max is " + rows[0].max);
+        // console.log("min is " + rows[0].min);
 
         step_max = rows[0].max;
         step_min = rows[0].min;
 
-        console.log("Value of step min is " + step_min);
-        console.log("Value of step max is " + step_max);
+        // console.log("Value of step min is " + step_min);
+        // console.log("Value of step max is " + step_max);
 
         var lock = 0;
 
@@ -179,7 +179,7 @@ function getStepFreq(response, request) {
             lock++;
         }
 
-        console.log("The value of lock is " + lock);
+        // console.log("The value of lock is " + lock);
 
         for (var i = step_min; i < (step_max + step); i += step) {
 
@@ -192,7 +192,7 @@ function getStepFreq(response, request) {
 
             } else {}
 
-            console.log("The query fired is " + query);
+            // console.log("The query fired is " + query);
 
             connection.query(query, function(err, rows1, fields) {
                 if (err) {
@@ -202,7 +202,7 @@ function getStepFreq(response, request) {
 
                 try {
 
-                    console.log("The count value pushed is " + parseInt(rows1[0].num_count));
+                    // console.log("The count value pushed is " + parseInt(rows1[0].num_count));
                     contents.push(parseInt(rows1[0].num_count));
 
                 } catch (e) {

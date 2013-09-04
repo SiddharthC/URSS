@@ -39,8 +39,8 @@ $(document).ready(function() {
             addGraphFunc();
             $('#operations').val('0').prop('selected', true);
         } else if ($('#operations option:selected').val() == '2') {
-            // "Add Dynamic" is selected
-            addDynamicFunc();
+            // "Add Histogram" is selected
+            addStepFreqFunc();
             $('#operations').val('0').prop('selected', true);
         } else if ($('#operations option:selected').val() == '3') {
             // "Delete" is selected
@@ -91,6 +91,218 @@ $(document).ready(function() {
             operation: jQuery('#operation option:selected').val(),
             percentValue: jQuery('#percentValue').val(),
 
+            func: jQuery('#func').val(),
+        };
+
+        ctn = $('#container' + (graph_no));
+        ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
+
+        var options = {
+            chart: {
+                renderTo: ctn.attr('id'),
+                type: $('#graph_type option:selected').val(),
+                zoomType: 'x'
+            },
+            title: {
+                text: $('#graph_title').val()
+            },
+            subtitle: {
+                text: "Graph - " + (graph_no + 1)
+            },
+            xAxis: {
+
+                title: {
+                    text: $('#x_label').val()
+                }
+            },
+            yAxis: {
+                title: {
+                    text: $('#y_label').val()
+                }
+            },
+            plotOptions: {
+                spline: {
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                radius: 5
+                            }
+                        }
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    }
+                },
+                line: {
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                radius: 5
+                            }
+                        }
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    }
+                },
+                scatter: {
+                    marker: {
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                radius: 5
+                            }
+                        }
+                    }
+                },
+                column: {
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                radius: 5
+                            }
+                        }
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    }
+                },
+                bar: {
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                radius: 5
+                            }
+                        }
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    }
+                },
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, 'rgba(2,0,0,0)']
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                radius: 5
+                            }
+                        }
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    }
+                },
+                areaspline: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, 'rgba(2,0,0,0)']
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                radius: 5
+                            }
+                        }
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: []
+        };
+
+        // To record all y values
+        var yValues = new Array();
+
+        $.getJSON("getColumnData", params, function(result) {
+            options.series.push(result);
+            chart[graph_no] = new Highcharts.Chart(options);
+
+        });
+
+        $('#graph_name').append($('<option></option>').val(graph_no + 1).html("Graph - " + (graph_no + 1)).attr('selected', true));
+        graph_no++;
+        ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+    }
+
+    var addStepFreqFunc = function() {
+        if (($('#percentValue').val() == 'Value') || ($('#stepSize').val() == "Value")) {
+            alert("Please select all the fields");
+            return;
+        }
+
+        var params = {
+
+            rnaType: jQuery('#rnaType option:selected').val(),
+
+            propertyType: jQuery('#propertyType option:selected').val(),
+            propertyName: jQuery('#propertyName option:selected').val(),
+
+            selnuc: jQuery('#selnuc').val(),
+            nuc: jQuery('#nuc').val(),
+            operation: jQuery('#operation option:selected').val(),
+            percentValue: jQuery('#percentValue').val(),
+
             stepSize: jQuery('#stepSize').val(),
 
             func: jQuery('#func').val(),
@@ -101,10 +313,9 @@ $(document).ready(function() {
 
         var graph_type;
 
-        if (($('#stepSize').val() != "Value") && ($('#graph_type option:selected').val() == "")){
+        if ($('#graph_type option:selected').val() == "") {
             graph_type = "column";
-        }
-        else{
+        } else {
             graph_type = $('#graph_type option:selected').val();
         }
 
@@ -286,20 +497,11 @@ $(document).ready(function() {
         // To record all y values
         var yValues = new Array();
 
-        if ($('#stepSize').val() == 'Value') {
-            $.getJSON("getColumnData", params, function(result) {
-                options.series.push(result);
-                chart[graph_no] = new Highcharts.Chart(options);
+        $.getJSON("getStepFreq", params, function(result) {
+            options.series.push(result);
+            chart[graph_no] = new Highcharts.Chart(options);
 
-            });
-
-        } else {
-            $.getJSON("getStepFreq", params, function(result) {
-                options.series.push(result);
-                chart[graph_no] = new Highcharts.Chart(options);
-
-            });
-        }
+        });
 
 
 
@@ -307,8 +509,6 @@ $(document).ready(function() {
         graph_no++;
         ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
     }
-
-
 
     var modifyFunc = function() {
         if ($('#lower').val() == 'Lower' || $('#upper').val() == 'Upper' || $('exptID option:selected').val() == '' || $('#exptITR option:selected').val() == '' || $('#nodeID option:selected').val() == '' || $('#resName option:selected').val() == '' || $('#colName option:selected').val() == '') {
