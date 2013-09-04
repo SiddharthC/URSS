@@ -91,7 +91,7 @@ $(document).ready(function() {
             operation: jQuery('#operation option:selected').val(),
             percentValue: jQuery('#percentValue').val(),
 
-            stepSize: jQuery('stepSize').val(),
+            stepSize: jQuery('#stepSize').val(),
 
             func: jQuery('#func').val(),
         };
@@ -99,10 +99,20 @@ $(document).ready(function() {
         ctn = $('#container' + (graph_no));
         ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
 
+        var graph_type;
+
+        if (($('#stepSize').val() != "Value") && ($('#graph_type option:selected').val() == "")){
+            graph_type = "column";
+        }
+        else{
+            graph_type = $('#graph_type option:selected').val();
+        }
+
+
         var options = {
             chart: {
                 renderTo: ctn.attr('id'),
-                type: $('#graph_type option:selected').val(),
+                type: graph_type,
                 zoomType: 'x'
             },
             title: {
