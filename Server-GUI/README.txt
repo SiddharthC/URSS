@@ -1,0 +1,1 @@
+Please create and store all files for GUI server in this folder.
