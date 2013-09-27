@@ -118,8 +118,9 @@ function getColumnData(response, request) {
         });
 
         // Add id to serie to distinguish each serie for further remove
-        var id = obj.nuc + '.' + obj.operation + '.' + obj.percentValue + '.' + obj.propertyType + '.' + obj.propertyName;
+        var id = obj.serieid;
         var serie = {
+            histogramFlag: false,
             name: obj.selnuc,
             data: contents,
             id: id
@@ -220,8 +221,20 @@ function getStepFreq(response, request) {
         }
 
         function queryDone() {
-            var id = obj.nuc + '.' + obj.operation + '.' + obj.percentValue + '.' + obj.propertyType + '.' + obj.propertyName;
+            var id = obj.serieid;
             serie = {
+                rnaType: obj.rnaType,
+                propertyType: obj.propertyType,
+                propertyName: obj.propertyName,
+                selnuc: obj.selnuc,
+                nuc: obj.nuc,
+                operation: obj.operation,
+                percentValue: obj.percentValue,
+                func: obj.func,
+                max: step_max,
+                min: step_min,
+                step: step,
+                histogramFlag: true,
                 name: obj.selnuc + " frequency",
                 data: contents,
                 id: id

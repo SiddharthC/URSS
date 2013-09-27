@@ -1,303 +1,276 @@
 <!DOCTYPE HTML>
 <html>
-    
-    <head>
-        <title>
-            ExperstoreRNA
-        </title>
-        <img src="public/image/title.png" style="width: 100%" alt="Title Image - Experstore"
-        />
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <script type='text/javascript' src='public/js/jquery-1.8.2.js'>
-                        
-        </script>
-        <script type='text/javascript' src='public/js/highcharts.js'>
-                        
-        </script>
-        <script type='text/javascript' src='public/js/modules/exporting.js'>
-                        
-        </script>
-        <!-- Added 3D surface -->
-        <!--[if IE]>
+
+<head>
+    <title>
+        ExperstoreRNA
+    </title>
+    <img src="public/image/title.png" style="width: 100%" alt="Title Image - Experstore" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type='text/javascript' src='public/js/jquery-1.8.2.js'>
+    </script>
+    <script type='text/javascript' src='public/js/highcharts.js'>
+    </script>
+    <script type='text/javascript' src='public/js/modules/exporting.js'>
+    </script>
+    <!-- Added 3D surface -->
+    <!--[if IE]>
             <script type="text/javascript" src="public/js/excanvas.js">
                                     
             </script>
         <![endif]-->
-        <script type="text/javascript" src="public/js/glMatrix-0.9.5.min.js">
-                        
-        </script>
-        <script type="text/javascript" src="public/js/webgl-utils.js">
-                        
-        </script>
-        <script type="text/javascript" src='public/js/SurfacePlot.js'>
-                        
-        </script>
-        <script type="text/javascript" src='public/js/ColourGradient.js'>
-                        
-        </script>
-        <script type="text/javascript" src="http://www.google.com/jsapi">
-                        
-        </script>
-        <!-- end 3D surface -->
-        <script type='text/javascript' src='public/js/grapher.js'>
-                        
-        </script>
-        <link rel="StyleSheet" href="public/css/grapher_style.css" type="text/css"
-        />
-        <!-- stylesheet for 3D -->
-        <link rel="Stylesheet" href="public/css/3d_style.css" type="text/css"
-        />
-        <script type="text/javascript" src="public/js/jquery.fancybox.js?v=2.1.3">
-                        
-        </script>
-        <link rel="stylesheet" type="text/css" href="public/css/jquery.fancybox.css?v=2.1.2"
-        media="screen" />
-        <!-- 3d graph initialization starts -->
-        <!-- Please do not remove the scripts below -->
-        <script id="shader-fs" type="x-shader/x-fragment">
-                    #ifdef GL_ES
-            precision highp float;
-            #endif
+    <script type="text/javascript" src="public/js/glMatrix-0.9.5.min.js">
+    </script>
+    <script type="text/javascript" src="public/js/webgl-utils.js">
+    </script>
+    <script type="text/javascript" src='public/js/SurfacePlot.js'>
+    </script>
+    <script type="text/javascript" src='public/js/ColourGradient.js'>
+    </script>
+    <script type="text/javascript" src="http://www.google.com/jsapi">
+    </script>
+    <!-- end 3D surface -->
+    <script type='text/javascript' src='public/js/grapher.js'>
+    </script>
+    <link rel="StyleSheet" href="public/css/grapher_style.css" type="text/css" />
+    <!-- stylesheet for 3D -->
+    <link rel="Stylesheet" href="public/css/3d_style.css" type="text/css" />
+    <script type="text/javascript" src="public/js/jquery.fancybox.js?v=2.1.3">
+    </script>
+    <link rel="stylesheet" type="text/css" href="public/css/jquery.fancybox.css?v=2.1.2" media="screen" />
+    <!-- 3d graph initialization starts -->
+    <!-- Please do not remove the scripts below -->
+    <script id="shader-fs" type="x-shader/x-fragment">
+    #
+    ifdef GL_ES
+    precision highp float;#
+    endif
 
-             varying vec4 vColor;
-            varying vec3 vLightWeighting;
+    varying vec4 vColor;
+    varying vec3 vLightWeighting;
 
-            void main(void)
-            {
-                gl_FragColor = vec4(vColor.rgb * vLightWeighting, vColor.a);
-            }
-        </script>
-        
-        <script id="shader-vs" type="x-shader/x-vertex">
-                    attribute vec3 aVertexPosition;
-            attribute vec3 aVertexNormal;
-            attribute vec4 aVertexColor;
+    void main(void) {
+        gl_FragColor = vec4(vColor.rgb * vLightWeighting, vColor.a);
+    }
+    </script>
 
-            uniform mat4 uMVMatrix;
-            uniform mat4 uPMatrix;
-            uniform mat3 uNMatrix;
-            varying vec4 vColor;
+    <script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec3 aVertexNormal;
+    attribute vec4 aVertexColor;
 
-            uniform vec3 uAmbientColor;
-            uniform vec3 uLightingDirection;
-            uniform vec3 uDirectionalColor;
-            varying vec3 vLightWeighting;
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    uniform mat3 uNMatrix;
+    varying vec4 vColor;
 
-            void main(void)
-            {
-                gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    uniform vec3 uAmbientColor;
+    uniform vec3 uLightingDirection;
+    uniform vec3 uDirectionalColor;
+    varying vec3 vLightWeighting;
 
-                vec3 transformedNormal = uNMatrix * aVertexNormal;
-                float directionalLightWeighting = max(dot(transformedNormal, uLightingDirection), 0.0);
-                vLightWeighting = uAmbientColor + uDirectionalColor * directionalLightWeighting;
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 
-                vColor = aVertexColor;
-            }
-        </script>
-        
-        <script id="axes-shader-fs" type="x-shader/x-fragment">
-                    precision mediump float;
-            varying vec4 vColor;
+        vec3 transformedNormal = uNMatrix * aVertexNormal;
+        float directionalLightWeighting = max(dot(transformedNormal, uLightingDirection), 0.0);
+        vLightWeighting = uAmbientColor + uDirectionalColor * directionalLightWeighting;
 
-			void main(void)
-			{
-                gl_FragColor = vColor;
-            }
-        </script>
-        
-        <script id="axes-shader-vs" type="x-shader/x-vertex">
-                    attribute vec3 aVertexPosition;
-            attribute vec4 aVertexColor;
-            uniform mat4 uMVMatrix;
-            uniform mat4 uPMatrix;
-            varying vec4 vColor;
-            uniform vec3 uAxesColour;
+        vColor = aVertexColor;
+    }
+    </script>
 
-			void main(void)
-			{
-                gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-                vColor = vec4(uAxesColour, 1.0);
-            }
-        </script>
-        
-        <script id="texture-shader-fs" type="x-shader/x-fragment">
-                    #ifdef GL_ES
-            precision highp float;
-            #endif
+    <script id="axes-shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 vColor;
 
-             varying vec2 vTextureCoord;
+    void main(void) {
+        gl_FragColor = vColor;
+    }
+    </script>
 
-            uniform sampler2D uSampler;
+    <script id="axes-shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec4 aVertexColor;
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    varying vec4 vColor;
+    uniform vec3 uAxesColour;
 
-            void main(void)
-            {
-                gl_FragColor = texture2D(uSampler, vTextureCoord);
-            }
-        </script>
-        
-        <script id="texture-shader-vs" type="x-shader/x-vertex">
-                    attribute vec3 aVertexPosition;
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vColor = vec4(uAxesColour, 1.0);
+    }
+    </script>
 
-            attribute vec2 aTextureCoord;
-            varying vec2 vTextureCoord;
+    <script id="texture-shader-fs" type="x-shader/x-fragment">
+    #
+    ifdef GL_ES
+    precision highp float;#
+    endif
 
-            uniform mat4 uMVMatrix;
-            uniform mat4 uPMatrix;
+    varying vec2 vTextureCoord;
 
-            void main(void)
-            {
-                gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-                vTextureCoord = aTextureCoord;
-            }
-        </script>
-        <!-- 3d graph initialization ends -->
+    uniform sampler2D uSampler;
 
-        <!-- script to adjust the width of div showing the graphs according to
+    void main(void) {
+        gl_FragColor = texture2D(uSampler, vTextureCoord);
+    }
+    </script>
+
+    <script id="texture-shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+
+    attribute vec2 aTextureCoord;
+    varying vec2 vTextureCoord;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aTextureCoord;
+    }
+    </script>
+    <!-- 3d graph initialization ends -->
+
+    <!-- script to adjust the width of div showing the graphs according to
         the real browser width -->
-        <script type="text/javascript" charset="utf-8">
-                            $(document).ready(function() {
-                        //Initialize the width of div #graph_holder to be browser width - selector width
-                        var newWindowWidth = $(window).width();
-                        $("#graph_holder").css("width", newWindowWidth - 300);
-                        //If the User resizes the window, adjust the #graph_holder width
-                        $(window).bind("resize", resizeWindow);
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        //Initialize the width of div #graph_holder to be browser width - selector width
+        var newWindowWidth = $(window).width();
+        $("#graph_holder").css("width", newWindowWidth - 300);
+        //If the User resizes the window, adjust the #graph_holder width
+        $(window).bind("resize", resizeWindow);
 
-                        function resizeWindow(e) {
-                            var newWindowWidth = $(window).width();
-                            $("#graph_holder").css("width", newWindowWidth - 300);
+        function resizeWindow(e) {
+            var newWindowWidth = $(window).width();
+            $("#graph_holder").css("width", newWindowWidth - 300);
 
-                        }
+        }
 
-                    });
-        </script>
-    </head>
-    
-    <body>
-        <div class="grapher_style" id="sub_re" style="min-width: 300px; float: right; text-align: right">
-            <!-- checkbox to set webgl to be true all the time. Please do not remove the checkbox -->
-            <input id="allowWebGL" type="checkbox" checked="true" hidden="true">
-            <input class="grapher_style" type="reset" id="grapher_reset" value="Reset Page"
-            onClick="document.location.reload(true)" style="width: 100px">
-            </input>
-            &nbsp; &nbsp;
-            <a class="fancybox-effects-d" href="#help_content" title="Experstore - Help"><button class="grapher_style"
-                style="width: 100px">Help</button></a>
-        </div>
-        <div class="grapher_style" id="selector" style="text-align: left; width: 214px; height: 400; float: left; box-shadow: 10px 10px 5px #888888; margin: 0px 10px 10px 10px; padding: 0px 10px 10px 10px;">
-            <h3>
-                Please Select Graph Data
-            </h3>
-            Select Graph: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <select class="grapher_style" id="graph_name" style="width: 100px">
-                <option value="0">
-                    --New--
-                </option>
-            </select>
-            <br />
-            RNA Type:
-            <select class="grapher_style" id="rnaType" style="width: 100px">
-                <option value="orna">
-                    O-RNA
-                </option>
-                <option value="srna">
-                    S-RNA
-                </option>
-                <option value="rrna">
-                    R-RNA
-                </option>
-            </select>
-            <br />
-            Property Type:
-            <select class="grapher_style" id="propertyType" style="width: 100px">
-                <option value="name">
-                    RNA Name
-                </option>
-                <option value="rna_class">
-                    RNA Class
-                </option>
-                <option value="org">
-                    Organism Name
-                </option>
-                <option value="org_type">
-                    Organism Type
-                </option>
-            </select>
-            <br />
-            Property Name:
-            <select class="grapher_style" id="propertyName" style="width: 100px">
-                <option value="">
-                    --Select--
-                </option>
-            </select>
-            <br />
-            Nueclotide: &nbsp;&nbsp;&nbsp;
-            <input class="grapher_style" id="selnuc" type="text" value="A" maxlength="3"
-            onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}"
-            style="width: 30px">
-            </input>
-            <br />
-            Condition: &nbsp;&nbsp;&nbsp;&nbsp;
-            <input class="grapher_style" id="nuc" type="text" value="A" maxlength="3"
-            onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}"
-            style="width: 30px">
-            </input>
-            <select class="grapher_style" id="operation" style="width: 50px">
-                <option value=">">
-                    &gt;=
-                </option>
-                <option value="<">
-                    &lt;=
-                </option>
-                <option value="=">
-                    =
-                </option>
-            </select>
-            <input class="grapher_style" id="percentValue" type="text" onkeypress="return isNumberKeyorDec(event)"
-                value="Value" onfocus="if(this.value=='Value'){this.value='';}"
-                onblur="if(this.value==''){this.value='Value';}" style="width: 35px">
-            </input>    
-            <br />
-            Step Size: 
-            <input class="grapher_style" id="stepSize" type="text" onkeypress="return isNumberKeyorDec(event)"
-                value="Value" onfocus="if(this.value=='Value'){this.value='';}"
-                onblur="if(this.value==''){this.value='Value';}" style="width: 50px">
-            </input>
-            <br />
-            Type of Graph: &nbsp;&nbsp;&nbsp;
-            <select class="grapher_style" id="graph_type" style="width: 100px">
-                <option value="">
-                    --Select--
-                </option>
-                <option value="line">
-                    Line
-                </option>
-                <option value="spline">
-                    Spline
-                </option>
-                <option value="column">
-                    Bar
-                </option>
-                <option value="scatter">
-                    Scatter
-                </option>
-                <option value="area">
-                    Area Line
-                </option>
-                <option value="areaspline">
-                    Area Spline
-                </option>
-                <option value="bar">
-                    Bar-Horizontal
-                </option>
-                <option value="pie">
-                    Pie
-                </option>
-                <!-- <option value="columnrange">Column Range</option> -->
-                <!-- <option value="arearange">Area Range</option> -->
-                <!-- <option value="gauge">Gauge</option> -->
-            </select>
-            <br/>
-<!--                  Advanced Graph:&nbsp;
+    });
+    </script>
+</head>
+
+<body>
+    <div class="grapher_style" id="sub_re" style="min-width: 300px; float: right; text-align: right">
+        <!-- checkbox to set webgl to be true all the time. Please do not remove the checkbox -->
+        <input id="allowWebGL" type="checkbox" checked="true" hidden="true">
+        <input class="grapher_style" type="reset" id="grapher_reset" value="Reset Page" onClick="document.location.reload(true)" style="width: 100px">
+        </input>
+        &nbsp; &nbsp;
+        <a class="fancybox-effects-d" href="#help_content" title="Experstore - Help">
+            <button class="grapher_style" style="width: 100px">Help</button>
+        </a>
+    </div>
+    <div class="grapher_style" id="selector" style="text-align: left; width: 214px; height: 400; float: left; box-shadow: 10px 10px 5px #888888; margin: 0px 10px 10px 10px; padding: 0px 10px 10px 10px;">
+        <h3>
+            Please Select Graph Data
+        </h3>
+        Select Graph: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select class="grapher_style" id="graph_name" style="width: 100px">
+            <option value="0">
+                --New--
+            </option>
+        </select>
+        <br />Select Series:
+        <select class="grapher_style" id="graph_name_series" style="width: 100px">
+            <option value="0">
+                --New--
+            </option>
+        </select>
+        <br />RNA Type:
+        <select class="grapher_style" id="rnaType" style="width: 100px">
+            <option value="orna">
+                O-RNA
+            </option>
+            <option value="srna">
+                S-RNA
+            </option>
+            <option value="rrna">
+                R-RNA
+            </option>
+        </select>
+        <br />Property Type:
+        <select class="grapher_style" id="propertyType" style="width: 100px">
+            <option value="name">
+                RNA Name
+            </option>
+            <option value="rna_class">
+                RNA Class
+            </option>
+            <option value="org">
+                Organism Name
+            </option>
+            <option value="org_type">
+                Organism Type
+            </option>
+        </select>
+        <br />Property Name:
+        <select class="grapher_style" id="propertyName" style="width: 100px">
+            <option value="">
+                --Select--
+            </option>
+        </select>
+        <br />Nueclotide: &nbsp;&nbsp;&nbsp;
+        <input class="grapher_style" id="selnuc" type="text" value="A" maxlength="3" onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}" style="width: 30px">
+        </input>
+        <br />Condition: &nbsp;&nbsp;&nbsp;&nbsp;
+        <input class="grapher_style" id="nuc" type="text" value="A" maxlength="3" onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}" style="width: 30px">
+        </input>
+        <select class="grapher_style" id="operation" style="width: 50px">
+            <option value=">">
+                &gt;=
+            </option>
+            <option value="<">
+                &lt;=
+            </option>
+            <option value="=">
+                =
+            </option>
+        </select>
+        <input class="grapher_style" id="percentValue" type="text" onkeypress="return isNumberKeyorDec(event)" value="0" onfocus="if(this.value=='Value'){this.value='';}" onblur="if(this.value==''){this.value='Value';}" style="width: 35px">
+        </input>
+        <br />Step Size:
+        <input class="grapher_style" id="stepSize" type="text" onkeypress="return isNumberKeyorDec(event)" value="Value" onfocus="if(this.value=='Value'){this.value='';}" onblur="if(this.value==''){this.value='Value';}" style="width: 50px">
+        </input>
+        <br />Type of Graph: &nbsp;&nbsp;&nbsp;
+        <select class="grapher_style" id="graph_type" style="width: 100px">
+            <option value="">
+                --Select--
+            </option>
+            <option value="line">
+                Line
+            </option>
+            <option value="spline">
+                Spline
+            </option>
+            <option value="column">
+                Bar
+            </option>
+            <option value="scatter">
+                Scatter
+            </option>
+            <option value="area">
+                Area Line
+            </option>
+            <option value="areaspline">
+                Area Spline
+            </option>
+            <option value="bar">
+                Bar-Horizontal
+            </option>
+            <option value="pie">
+                Pie
+            </option>
+            <!-- <option value="columnrange">Column Range</option> -->
+            <!-- <option value="arearange">Area Range</option> -->
+            <!-- <option value="gauge">Gauge</option> -->
+        </select>
+        <br/>
+        <!--                  Advanced Graph:&nbsp;
                  <select class="grapher_style" id="advanced_graph" style="width: 100px">
                 <option value="0">--Select--</option>
                 <option value="1">Correlate</option>
@@ -306,44 +279,32 @@
                 </select>
                 <br />
             <br />
- -->            <div class="grapher_style" id="xy_label" style="text-align: left">
-                Graph Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input class="grapher_style" id="graph_title" type="text" value="Title"
-                size=16 onfocus="if(this.value=='Title'){this.value='';}" onblur="if(this.value==''){this.value='Title';}"
-                style="width: 100px">
-                </input>
-                <br />
-                X-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input class="grapher_style" id="x_label" type="text" value="X-Label"
-                size=16 onfocus="if(this.value=='X-Label'){this.value='';}" onblur="if(this.value==''){this.value='X-Label';}"
-                style="width: 100px">
-                </input>
-                <br />
-                Y-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input class="grapher_style" id="y_label" type="text" value="Y-Label"
-                size=16 onfocus="if(this.value=='Y-Label'){this.value='';}" onblur="if(this.value==''){this.value='Y-Label';}"
-                style="width: 100px">
-                </input>
-                <br />
-                Z-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input class="grapher_style" id="z_label" type="text" value="Z-Label"
-                size=16 onfocus="if(this.value=='Z-Label'){this.value='';}" onblur="if(this.value==''){this.value='Z-Label';}"
-                style="width: 100px">
-                </input>
-                <br />
-                Function for plot: &nbsp;
-                <input class="grapher_style" id="func" type="text" value="x" size=16 onfocus="if(this.value=='x'){this.value='';}"
-                onblur="if(this.value==''){this.value='x';}" style="width: 100px">
-                </input>
-                <br />
-                <br />
-            </div>
-            <div style="text-align: center">
-                <h3>
+ -->
+        <div class="grapher_style" id="xy_label" style="text-align: left">
+            Graph Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="grapher_style" id="graph_title" type="text" value="Title" size=16 onfocus="if(this.value=='Title'){this.value='';}" onblur="if(this.value==''){this.value='Title';}" style="width: 100px">
+            </input>
+            <br />X-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="grapher_style" id="x_label" type="text" value="X-Label" size=16 onfocus="if(this.value=='X-Label'){this.value='';}" onblur="if(this.value==''){this.value='X-Label';}" style="width: 100px">
+            </input>
+            <br />Y-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="grapher_style" id="y_label" type="text" value="Y-Label" size=16 onfocus="if(this.value=='Y-Label'){this.value='';}" onblur="if(this.value==''){this.value='Y-Label';}" style="width: 100px">
+            </input>
+            <br />Z-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="grapher_style" id="z_label" type="text" value="Z-Label" size=16 onfocus="if(this.value=='Z-Label'){this.value='';}" onblur="if(this.value==''){this.value='Z-Label';}" style="width: 100px">
+            </input>
+            <br />Function for plot: &nbsp;
+            <input class="grapher_style" id="func" type="text" value="x" size=16 onfocus="if(this.value=='x'){this.value='';}" onblur="if(this.value==''){this.value='x';}" style="width: 100px">
+            </input>
+            <br />
+            <br />
+        </div>
+        <div style="text-align: center">
+            <h3>
                 Please Select Graph Operation
             </h3>
-                 Operations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <select class="grapher_style" id="operations" style="width: 100px">
+            Operations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select class="grapher_style" id="operations" style="width: 100px">
                 <option value="0">--Select--</option>
                 <option value="1">Add Graph</option>
                 <option value="2">Add Histogram</option>
@@ -351,67 +312,55 @@
                 <option value="4">Modify</option>
                 <option value="5">Add Series</option>
                 <option value="6">Remove Series</option>
-<!--                 <option value="7">Node Average</option>
+                <opton value="7">Add Histogram Series</option>
+                    <!--                 <option value="7">Node Average</option>
                 <option value="8">Step Frequency</option>
                 <option value="9">Stepwise plot</option> -->
-                </select>
-                <br />
-                <br />
-            </div>
+            </select>
+            <br />
+            <br />
         </div>
-        <div id="graph_holder" style="min-width: 400px; min-height: 400px; width: 900px; float: right;">
-            <!-- <div id="container0" style="min-width: 400px; min-height: 400px;
+    </div>
+    <div id="graph_holder" style="min-width: 400px; min-height: 400px; width: 900px; float: right;">
+        <!-- <div id="container0" style="min-width: 400px; min-height: 400px;
             width: 1000px; float:right;"></div>-->
-            <div id="container0">
-            </div>
+        <div id="container0">
         </div>
-        <!-- 3D surface test -->
-        <!-- 3D surface end-->
-        <div id="help_content" style="padding: 20px; width: 600px; display: none;">
-            <h3>
-                Directions for Use - Experstore
-            </h3>
-            <p>
-                Steps to follow:
-                </br>
-                1. Select the experiment id
-                </br>
-                2. Select the iteration id after selecting the experiment id
-                </br>
-                3. Select the node id after selecting the experiment id
-                </br>
-                4. Select the resource name after selecting experiment id, iteration id
-                and node id
-                </br>
-                5. Select the columns that you want to plot the chart for
-                </br>
-                6. Finally select the type of graph that you want to view
-                </br>
-                7. Click the add graph or add series button based on your requirement
-                <br />
-                8. Use delete and modify button with respect to the selected graph
-                <br />
-                9. Currently the program supports only one dynamic chart
-                <br />
-                10. Use the 'Node Average' button to get the average of the complete series
-                of the selected resource
-                <br />
-                11. For displaying the graph as a function of the value present in the
-                database, enter the function as a function of x in the 'Function for plot'
-                <br />
-                <br />
-                Note: The due to certain dependencies, for power function instead of '^'
-                use Math.pow(&lt;number>,&lt;exponent>). The application is capable of
-                handling many advanced functions like logarith, sine etc. to use them,
-                use the syntax Math.&lt;function_name>. For accurate results, please use
-                artimetamic operations explicitly i.e., 2*x instead of 2x
-                <br />
-                For details on available functions
-                <a href="http://www.irt.org/articles/js069/" target="_blank">click
+    </div>
+    <!-- 3D surface test -->
+    <!-- 3D surface end-->
+    <div id="help_content" style="padding: 20px; width: 600px; display: none;">
+        <h3>
+            Directions for Use - Experstore
+        </h3>
+        <p>
+            Steps to follow:
+            </br>
+            1. Select the experiment id
+            </br>
+            2. Select the iteration id after selecting the experiment id
+            </br>
+            3. Select the node id after selecting the experiment id
+            </br>
+            4. Select the resource name after selecting experiment id, iteration id and node id
+            </br>
+            5. Select the columns that you want to plot the chart for
+            </br>
+            6. Finally select the type of graph that you want to view
+            </br>
+            7. Click the add graph or add series button based on your requirement
+            <br />8. Use delete and modify button with respect to the selected graph
+            <br />9. Currently the program supports only one dynamic chart
+            <br />10. Use the 'Node Average' button to get the average of the complete series of the selected resource
+            <br />11. For displaying the graph as a function of the value present in the database, enter the function as a function of x in the 'Function for plot'
+            <br />
+            <br />Note: The due to certain dependencies, for power function instead of '^' use Math.pow(&lt;number>,&lt;exponent>). The application is capable of handling many advanced functions like logarith, sine etc. to use them, use the syntax Math.&lt;function_name>. For accurate results, please use artimetamic operations explicitly i.e., 2*x instead of 2x
+            <br />For details on available functions
+            <a href="http://www.irt.org/articles/js069/" target="_blank">click
                 here</a>
-                .
-                <br />
-            </p>
-        </div>
+            .
+            <br />
+        </p>
+    </div>
 
 </html>
