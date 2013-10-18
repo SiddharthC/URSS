@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<body>
+	<form id="userQuery" action="/page1" method="post">
+		Insert Query: <input type="text" name="uquery">
+		<input type="submit" value="Submit">
+	</form>
+	
+	
+	<!-- the result of the search will be rendered inside this div -->
+	<div id="result"></div>
+</body>
+<script>
+// Attach a submit handler to the form
+$("#userQuery").submit(function(event){
+  console.log('this is the correctversiuon');
+  // Stop form from submitting normally
+  event.preventDefault();
+  // Get some values from elements on the page:
+  var $form = $(this),
+    term = $form.find("input[name='uquery']").val(),
+    url = $form.attr("action");
+	
+	console.log($form);
+	console.log(term);
+	console.log(url);
+	
+  // Send the data using post
+  var posting = $.post(
+					url,
+					{ userquery: term },
+					function(data){
+						console.log(data);
+						$("#result").append(data);
+					},
+					'text'
+				);
+  //posting.done( );
+				
+  posting.fail( function(obj, err, arr){ 
+					console.log('oops errors');
+					console.log(obj);
+					console.log(err);
+					console.log(arr);
+					});
+	
+				
+	//console.log(posting);
+});
+</script>
+</html>

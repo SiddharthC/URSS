@@ -1,0 +1,9 @@
+Server running at http://localhost:3000/
+[90mGET / [36m304 [90m10ms[0m
+select * from srna
+[90mPOST /page1 [32m200 [90m155ms[0m
+Server running at http://localhost:3000/
+[90mGET / [36m304 [90m9ms[0m
+select * from srna
+{"srna_id":"actin_NCBI|NC_014441.1.shuffle1","srna_orna_id":"actin_NCBI|NC_014441.1","srna_seq_id":"actin_NCBI|NC_014441.1.shuffle1.seq","shuffle_no":"1","shuffle_seed":"1367078925813733"}
+[90mPOST /page1 [32m200 [90m140ms[0m

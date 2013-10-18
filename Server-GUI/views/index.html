@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> -->
+
+    <title>RNA database</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/mockup.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/html5shiv.js"></script>
+    <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Vim and Tonic</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <!-- <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Analyze</a></li>
+                </ul> -->
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="">Login</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div> <!-- container -->
+    </div> <!-- navbar -->
+
+    <div class="container maindoc">
+        <div class="row">
+            <ul class="nav nav-tabs nav-justified" id="tab-nav">
+                <li><a href="#jumbo1" data-toggle="tab" id="select-tab">Select</a></li>
+                <!-- <li><a href="#jumbo2" data-toggle="tab">Advanced</a></li> -->
+                <li><a href="#jumbo3" data-toggle="tab" id="popular-tab">Popular</a></li>
+                <li><a href="#jumbo4" data-toggle="tab" id="history-tab">History</a></li>
+            </ul>
+        </div>
+        <div class="row search tab-content">
+            <div class="frame fade tab-pane" id="jumbo1">
+                <div class="search_frame">
+                    <h2>Select RNA</h2>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <h4>RNA Class</h4>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <h4>Biological Domain</h4>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <h4>Organism</h4>
+                        </div>
+                    </div>
+                    <!-- <div id="labels">
+                        <label id="rna_type_label">RNA Type</label>
+                        <label for="rna_sequence">Sequence</label>
+                        <label for="biological_domain">Biological Domain</label>
+                        <label for="organism">Organism</label>
+                    </div> -->
+                    <div class="row">
+
+                        <div class="col-xs-6 col-md-4">
+                            <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="rna_class">
+                            	<option selected value="all">All</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="biological_domain">
+                            	<option selected value="all">All</option>
+                            	<option value="orna">Eukaryote</option>
+                                <option value="srna">Eubacteria</option>
+                                <option value="rrna">Archaebacteria</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="organism">
+                            	<option selected value="all">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <h4>RNA Type</h4>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <h4>RNA Name</h4>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <h4>RNA ID</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <select class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="rna_type">
+                                <option selected value="orna">Original Sequence</option>
+                                <option value="srna">Shuffle Sequence</option>
+                                <option value="rrna">Random Sequence</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="rna_name">
+                                <option selected value="all">All</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="rna_id">
+                                <option selected value="all">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <br />
+                    <div id="advance">
+                        <div class="adv_group">
+                            <form class="row adv">
+                                <div class="col-md-2">
+                                    <select class="form-control" placeholder=".col-md-2">
+                                        <option></option>
+                                        <option>NOT</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" placeholder=".col-md-3">
+                                        <option></option>
+                                        <option value="rnaseq.len">Length of Sequence</option>
+                                       <!-- <option value="len">Composition</option> -->
+                                        <option value="rnastr.mld">Max ladder distance</option>
+                                        <!--<option>Numbers of Branches</option> -->
+                                        <option value="rnastr.energy">Energy</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <select class="form-control" placeholder=".col-md-1">
+                                        <option></option>
+                                        <option>=</option>
+                                        <option>&gt;</option>
+                                        <option>&lt;</option>
+                                        <!-- <option>Like</option> -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control userinput" placeholder="Search Properties" id="advSearch0">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-default or_button">OR</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div> <!-- search frame -->
+                <div class="row">
+                    <div class="search_button col-xs-12 col-md-12">
+                        <button type="button" class="btn btn-default" id="search_button" >Select</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <button type="button" class="btn btn-default" id="select-properties-button">Select Properties</button>
+                    </div>
+                </div>
+                <div class="row" id="select-properties">
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="name" checked> Name
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="orna_id" checked> Original RNA ID
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="rrna_id"> Random RNA ID
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="srna_id"> Shuffle RNA ID
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="str_id" checked> Structure ID
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="mld"> Max Ladder Distance
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="len"> Length of Sequence
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <input type="checkbox" value="energy"> Energy
+                    </div>
+                </div>
+            </div> <!-- end of jumbo1 -->
+            <div class="frame fade tab-pane" id="jumbo3">
+                <div class="search_frame">
+                </div>
+            </div>
+
+            <div class="frame fade tab-pane" id="jumbo4">
+                <div class="search_frame">
+                </div>
+            </div>
+        </div> <!-- Search Panels -->
+
+        <div class="row" id="plot-result">
+            
+        </div> <!-- Plot Panels -->
+
+        <div class="row" id="search-result">
+            
+        </div> <!-- Search Results -->
+        
+        <div id="footer">
+            <button type="button" class="btn btn-default" id="top-button">TOP</button>
+        </div>
+
+    </div> <!-- maindoc -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/mockup.js"></script>
+</body>

@@ -1,0 +1,111 @@
+.nav-tabs>li>a{
+	color: rgb(85, 85, 85);
+}
+
+.nav-tabs>li.active>a{
+	background-color: rgb(238,238,238);
+	border-radius: 2px;
+	border-bottom-color: rgb(238,238,238);
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.maindoc{
+	padding-top: 20px;
+}
+
+.multiselect{
+	display: block;
+	width:100%;
+	border-radius: 3px;
+	border: 1px solid #cccccc;
+}
+
+.multiselect:focus{
+	border-color: #66afe9;
+}
+
+.search{
+	background-color: rgb(238,238,238);
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-left: 1px solid #DDD;
+	border-right: 1px solid #DDD; 
+	border-bottom: 1px solid #DDD;
+}
+
+.frame{
+	padding: 5px 20px 25px;
+}
+
+.resultbox
+{
+	overflow:scroll;
+	width:100%;
+	height:280px;
+}
+
+#search_button{
+	margin-top: 10px;
+	width: 100%;
+}
+
+.chevron-right{
+	background-image: url(../pic/chevron-right.png);
+	height:14px;
+	width:10px;
+	float:left;
+	position:relative;
+	margin-right:10px;
+	padding-top: 5px;
+	cursor: pointer;
+}
+
+.chevron-down{
+	background-image: url(../pic/chevron-down.png);
+	height:10px;
+	width:14px;
+	float:left;
+	position:relative;
+	margin-right:10px;
+	padding-top: 5px;
+	cursor: pointer;
+}
+
+.remove-icon{
+	background-image: url(../pic/remove.png);
+	height: 14px;
+	width: 14px;
+	position: relative;
+	cursor: pointer;
+}
+
+.result-table{
+	position: relative;
+}
+
+#search-result{
+	margin-bottom: 75px;
+}
+
+#top-button{
+	position: fixed;
+    bottom: 1.5em;
+    right: 0px;
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 12px;
+    padding: 1em;
+    border: none;
+    display: none;
+}
+
+#top-button:hover{
+	background-color: rgba(135, 135, 135, 0.50);
+}
+
+/*.header-fixed {
+    position: fixed;
+    background-color:white;
+}*/
