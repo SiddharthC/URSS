@@ -1,0 +1,29 @@
+.plus-sign{
+	background-image: url(../pic/plus.png);
+	height:15px;
+	width:15px;
+	float:left;
+	position:relative;
+	margin-right:10px;
+	margin-top: 2px;
+	padding-top:5px;
+	cursor: pointer;
+}
+.minus-sign{
+	background-image: url(../pic/minus.png);
+	height:4px;
+	width:15px;
+	float:left;
+	position:relative;
+	margin-right:10px;
+	margin-top: 7px;
+	padding-top:5px;
+	cursor: pointer;
+}
+.panel-heading{
+	cursor: pointer;
+}
+.toggle-table{
+	display: block;
+	margin-bottom: -20px;
+}

@@ -54,13 +54,28 @@ app.get('/original', function (req, res) {
   res.render('indexOriginal.html');
 });
 
-
+app.get('/detail', function (req,res){
+	res.render('structure.html');
+});
 
 app.get('/classload', function (req, res) {
   var results;
   connection.query('select distinct rna_class from orna', function(err, rows, fs){
 		if(err){
 			console.log('Something is broken');
+			console.log(err);
+			console.log(fs);
+		}	
+		results = JSON.stringify(rows);
+		res.json(results);
+	});
+});
+
+app.get('/biodomainload', function (req, res) {
+  var results;
+  connection.query('select distinct org_type from orna', function(err, rows, fs){
+		if(err){
+			console.log('Something is broken, errors are what follows');
 			console.log(err);
 			console.log(fs);
 		}	

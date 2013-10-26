@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Structure Detail</title>
+
+	<!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/structure.css">
+</head>
+<body>
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Vim and Tonic</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <!-- <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Analyze</a></li>
+            </ul> -->
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="">Login</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div> <!-- container -->
+</div> <!-- navbar -->
+<div class="container maindoc">
+	<div class="col-md-offset-1 col-md-10">
+		<div class="row">
+			<h2>Structure Detail</h2>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="minus-sign"></i>Original RNA Properties</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td class="col-md-5">RNA ID</td><td class="col-md-5" id="orna_id"></td></tr>
+						<tr><td>RNA Name</td><td id="name"></td></tr>
+						<tr><td>RNA Class </td><td id="rna_class"></td></tr>
+						<tr><td>Organism</td><td id="org"></td></tr>
+						<tr><td>Organism Type</td><td id="org_type"></td></tr>
+						<tr><td>Structure ID</td><td id="str_id"></td></tr>
+						<tr><td>Sequence ID</td><td id="seq_id"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div> <!-- end of common panel -->
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Structure Properties</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td class="col-md-5">Structure Source</td><td class="col-md-5" id="str_src"></td></tr>
+						<tr><td>Determination Method</td><td id="det_method"></td></tr>
+						<tr><td>Energy</td><td id="energy"></td></tr>
+						<tr><td>Maximum Ladder Distance</td><td id="mld"></td></tr>
+						<tr><td>Total Pseudoknot</td><td id="pkn_tot"></td></tr>
+						<tr><td>Knot Base Pair (Pseudo stems)</td><td id="bp_pkn"></td></tr>
+						<tr><td>Total Stem</td><td id="stem_tot"></td></tr>
+						<tr><td>Stem Base Pairs</td><td id="bp_stem"></td></tr>
+						<tr><td>Total Hairpin loop</td><td id="hpl_tot"></td></tr>
+						<tr><td>Total Bulge loop</td><td id="bl_tot"></td></tr>
+						<tr><td>Total Internal loop</td><td id="inl_tot"></td></tr>
+						<tr><td>Total Multi loop</td><td id="ml_tot"></td></tr>
+						<tr><td>Total External loop</td><td id="exl_tot"></td></tr>
+						<tr><td>Max Hairpin Length</td><td id="max_hpl_len"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Stems Composition</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td class="col-md-5">Percent A in all Stem</td><td class="col-md-5" id="stem_a"></td></tr>
+						<tr><td>Percent C in all Stem</td><td id="stem_c"></td></tr>
+						<tr><td>Percent G in all Stem</td><td id="stem_g"></td></tr>
+						<tr><td>Percent U in all Stem</td><td id="stem_u"></td></tr>
+						<tr><td>Percent AA in all Stem</td><td id="stem_aa"></td></tr>
+						<tr><td>Percent AC in all Stem</td><td id="stem_ac"></td></tr>
+						<tr><td>Percent AG in all Stem</td><td id="stem_ag"></td></tr>
+						<tr><td>Percent AU in all Stem</td><td id="stem_au"></td></tr>
+						<tr><td>Percent CC in all Stem</td><td id="stem_cc"></td></tr>
+						<tr><td>Percent GC in all Stem</td><td id="stem_gc"></td></tr>
+						<tr><td>Percent GG in all Stem</td><td id="stem_gg"></td></tr>
+						<tr><td>Percent UC in all Stem</td><td id="stem_uc"></td></tr>
+						<tr><td>Percent UG in all Stem</td><td id="stem_ug"></td></tr>
+						<tr><td>Percent UU in all Stem</td><td id="stem_uu"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Hairpin Loops Base Composition</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td>Total unpaired bases</td><td id="hpl_fb_tot"></td></tr>
+						<tr><td class="col-md-5">Percent A in all Hairpin Loops</td><td class="col-md-5" id="hpl_a"></td></tr>
+						<tr><td>Percent C in all Hairpin Loops</td><td id="hpl_c"></td></tr>
+						<tr><td>Percent G in all Hairpin Loops</td><td id="hpl_g"></td></tr>
+						<tr><td>Percent U in all Hairpin Loops</td><td id="hpl_u"></td></tr>
+						<tr><td>Percent AA in all Hairpin Loops</td><td id="hpl_cbpc_aa"></td></tr>
+						<tr><td>Percent AC in all Hairpin Loops</td><td id="hpl_cbpc_ac"></td></tr>
+						<tr><td>Percent AG in all Hairpin Loops</td><td id="hpl_cbpc_ag"></td></tr>
+						<tr><td>Percent AU in all Hairpin Loops</td><td id="hpl_cbpc_au"></td></tr>
+						<tr><td>Percent CC in all Hairpin Loops</td><td id="hpl_cbpc_cc"></td></tr>
+						<tr><td>Percent GC in all Hairpin Loops</td><td id="hpl_cbpc_gc"></td></tr>
+						<tr><td>Percent GG in all Hairpin Loops</td><td id="hpl_cbpc_gg"></td></tr>
+						<tr><td>Percent UC in all Hairpin Loops</td><td id="hpl_cbpc_uc"></td></tr>
+						<tr><td>Percent UG in all Hairpin Loops</td><td id="hpl_cbpc_ug"></td></tr>
+						<tr><td>Percent UU in all Hairpin Loops</td><td id="hpl_cbpc_uu"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Bulge Loops Base Composition</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td>Total unpaired bases</td><td id="bl_fb_tot"></td></tr>
+						<tr><td class="col-md-5">Percent A in all Bulge Loops</td><td class="col-md-5" id="bl_a"></td></tr>
+						<tr><td>Percent C in all Bulge Loops</td><td id="bl_c"></td></tr>
+						<tr><td>Percent G in all Bulge Loops</td><td id="bl_g"></td></tr>
+						<tr><td>Percent U in all Bulge Loops</td><td id="bl_u"></td></tr>
+						<tr><td>Percent AA in all Bulge Loops</td><td id="bl_cbpc_aa"></td></tr>
+						<tr><td>Percent AC in all Bulge Loops</td><td id="bl_cbpc_ac"></td></tr>
+						<tr><td>Percent AG in all Bulge Loops</td><td id="bl_cbpc_ag"></td></tr>
+						<tr><td>Percent AU in all Bulge Loops</td><td id="bl_cbpc_au"></td></tr>
+						<tr><td>Percent CC in all Bulge Loops</td><td id="bl_cbpc_cc"></td></tr>
+						<tr><td>Percent GC in all Bulge Loops</td><td id="bl_cbpc_gc"></td></tr>
+						<tr><td>Percent GG in all Bulge Loops</td><td id="bl_cbpc_gg"></td></tr>
+						<tr><td>Percent UC in all Bulge Loops</td><td id="bl_cbpc_uc"></td></tr>
+						<tr><td>Percent UG in all Bulge Loops</td><td id="bl_cbpc_ug"></td></tr>
+						<tr><td>Percent UU in all Bulge Loops</td><td id="bl_cbpc_uu"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Internal Loops Base Composition</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td>Total unpaired bases</td><td id="inl_fb_tot"></td></tr>
+						<tr><td class="col-md-5">Percent A in all Internal Loops</td><td class="col-md-5" id="inl_a"></td></tr>
+						<tr><td>Percent C in all Internal Loops</td><td id="inl_c"></td></tr>
+						<tr><td>Percent G in all Internal Loops</td><td id="inl_g"></td></tr>
+						<tr><td>Percent U in all Internal Loops</td><td id="inl_u"></td></tr>
+						<tr><td>Percent AA in all Internal Loops</td><td id="inl_cbpc_aa"></td></tr>
+						<tr><td>Percent AC in all Internal Loops</td><td id="inl_cbpc_ac"></td></tr>
+						<tr><td>Percent AG in all Internal Loops</td><td id="inl_cbpc_ag"></td></tr>
+						<tr><td>Percent AU in all Internal Loops</td><td id="inl_cbpc_au"></td></tr>
+						<tr><td>Percent CC in all Internal Loops</td><td id="inl_cbpc_cc"></td></tr>
+						<tr><td>Percent GG in all Internal Loops</td><td id="inl_cbpc_gg"></td></tr>
+						<tr><td>Percent GC in all Internal Loops</td><td id="inl_cbpc_gc"></td></tr>
+						<tr><td>Percent UC in all Internal Loops</td><td id="inl_cbpc_uc"></td></tr>
+						<tr><td>Percent UG in all Internal Loops</td><td id="inl_cbpc_ug"></td></tr>
+						<tr><td>Percent UU in all Internal Loops</td><td id="inl_cbpc_uu"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Multi Loops Base Composition</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td>Total unpaired bases</td><td id="ml_fb_tot"></td></tr>
+						<tr><td class="col-md-5">Percent A in all Multi Loops</td><td class="col-md-5" id="ml_a"></td></tr>
+						<tr><td>Percent C in all Multi Loops</td><td id="ml_c"></td></tr>
+						<tr><td>Percent G in all Multi Loops</td><td id="ml_g"></td></tr>
+						<tr><td>Percent U in all Multi Loops</td><td id="ml_u"></td></tr>
+						<tr><td>Percent AA in all Multi Loops</td><td id="ml_cbpc_aa"></td></tr>
+						<tr><td>Percent AC in all Multi Loops</td><td id="ml_cbpc_ac"></td></tr>
+						<tr><td>Percent AG in all Multi Loops</td><td id="ml_cbpc_ag"></td></tr>
+						<tr><td>Percent AU in all Multi Loops</td><td id="ml_cbpc_au"></td></tr>
+						<tr><td>Percent CC in all Multi Loops</td><td id="ml_cbpc_cc"></td></tr>
+						<tr><td>Percent GC in all Multi Loops</td><td id="ml_cbpc_gc"></td></tr>
+						<tr><td>Percent GG in all Multi Loops</td><td id="ml_cbpc_gg"></td></tr>
+						<tr><td>Percent UC in all Multi Loops</td><td id="ml_cbpc_uc"></td></tr>
+						<tr><td>Percent UG in all Multi Loops</td><td id="ml_cbpc_ug"></td></tr>
+						<tr><td>Percent UU in all Multi Loops</td><td id="ml_cbpc_uu"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>External Loops Base Composition</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td>Total unpaired bases</td><td id="exl_fb_tot"></td></tr>
+						<tr><td class="col-md-5">Percent A in all External Loops</td><td class="col-md-5" id="exl_a"></td></tr>
+						<tr><td>Percent C in all External Loops</td><td id="exl_c"></td></tr>
+						<tr><td>Percent G in all External Loops</td><td id="exl_g"></td></tr>
+						<tr><td>Percent U in all External Loops</td><td id="exl_u"></td></tr>
+						<tr><td>Percent AA in all External Loops</td><td id="exl_cbpc_aa"></td></tr>
+						<tr><td>Percent AC in all External Loops</td><td id="exl_cbpc_ac"></td></tr>
+						<tr><td>Percent AG in all External Loops</td><td id="exl_cbpc_ag"></td></tr>
+						<tr><td>Percent AU in all External Loops</td><td id="exl_cbpc_au"></td></tr>
+						<tr><td>Percent CC in all External Loops</td><td id="exl_cbpc_cc"></td></tr>
+						<tr><td>Percent GC in all External Loops</td><td id="exl_cbpc_gc"></td></tr>
+						<tr><td>Percent GG in all External Loops</td><td id="exl_cbpc_gg"></td></tr>
+						<tr><td>Percent UC in all External Loops</td><td id="exl_cbpc_uc"></td></tr>
+						<tr><td>Percent UG in all External Loops</td><td id="exl_cbpc_ug"></td></tr>
+						<tr><td>Percent UU in all External Loops</td><td id="exl_cbpc_uu"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Number of Known Loop Motifs in Hairpins</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td class="col-md-5">GNRA's (in Tetra Loops)</td><td class="col-md-5" id="gnra_tetrahpl"></td></tr>
+						<tr><td>UNCG's (in Tetra Loops)</td><td id="uncg_tetrahpl"></td></tr>
+						<tr><td>CUUG's (in Tetra Loops)</td><td id="cuug_tetrahpl"></td></tr>
+						<tr><td>GNRA's (in all Hairpins)</td><td id="hpl_gnra"></td></tr>
+						<tr><td>UNCG's (in all Hairpins)</td><td id="hpl_uncg"></td></tr>
+						<tr><td>CUUG's (in all Hairpins)</td><td id="hpl_cuug"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel panel-default"> <!-- panel-primary -->
+			<div class="panel-heading">
+				<h4><i class="plus-sign"></i>Frequency Distribution of all Hairpin Loops</h4>
+			</div>
+			<div class="toggle-table">
+				<table class="table table-bordered">
+					<tbody>
+						<tr><td class="col-md-5">3 NT</td><td class="col-md-5" id="nt3hpl"></td></tr>
+						<tr><td>4 NT</td><td id="nt4hpl"></td></tr>
+						<tr><td>5 NT</td><td id="nt5hpl"></td></tr>
+						<tr><td>6 NT</td><td id="nt6hpl"></td></tr>
+						<tr><td>7 NT</td><td id="nt7hpl"></td></tr>
+						<tr><td>8 NT</td><td id="nt8hpl"></td></tr>
+						<tr><td>9 NT</td><td id="nt9hpl"></td></tr>
+						<tr><td>10 NT</td><td id="nt10hpl"></td></tr>
+						<tr><td>11 NT</td><td id="nt11hpl"></td></tr>
+						<tr><td>12 NT</td><td id="nt12hpl"></td></tr>
+						<tr><td>13 NT</td><td id="nt13hpl"></td></tr>
+						<tr><td>14 NT</td><td id="nt14hpl"></td></tr>
+						<tr><td>15 NT</td><td id="nt15hpl"></td></tr>
+						<tr><td>16 NT+</td><td id="nt16plushpl"></td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div> <!-- end of middle layout -->
+</div>
+</body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/structure.js"></script>
+</html>

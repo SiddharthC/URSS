@@ -11,8 +11,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="css/mockup.css">
+    <link rel="stylesheet" href="css/nprogress.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -22,6 +23,9 @@
 </head>
 
 <body>
+
+	<div id="loading_dialog" style="display: none;"><div style="text-align:center; vertical-align:middle;"><p>Loading...</p></div>
+	</div>
     <div class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -53,6 +57,11 @@
                 <div class="search_frame">
                     <h2>Select RNA</h2>
                     <div class="row">
+                    	<div class="search_button col-xs-12 col-md-12">
+                       		<button type="button" class="btn btn-default" id="clear_criteria_button" >Clear</button>
+                    	</div>
+                	</div>
+                    <div class="row">
                         <div class="col-xs-6 col-md-4">
                             <h4>RNA Class</h4>
                         </div>
@@ -73,20 +82,17 @@
 
                         <div class="col-xs-6 col-md-4">
                             <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="rna_class">
-                            	<option selected value="all">All</option>
+
                             </select>
                         </div>
                         <div class="col-xs-6 col-md-4">
                             <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="biological_domain">
-                            	<option selected value="all">All</option>
-                            	<option value="orna">Eukaryote</option>
-                                <option value="srna">Eubacteria</option>
-                                <option value="rrna">Archaebacteria</option>
+
                             </select>
                         </div>
                         <div class="col-xs-6 col-md-4">
                             <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="organism">
-                            	<option selected value="all">All</option>
+
                             </select>
                         </div>
                     </div>
@@ -111,12 +117,12 @@
                         </div>
                         <div class="col-xs-6 col-md-4">
                             <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="rna_name">
-                                <option selected value="all">All</option>
+
                             </select>
                         </div>
                         <div class="col-xs-6 col-md-4">
                             <select multiple class="multiselect" placeholder=".col-xs-6 .col-md-4" size="12" id="rna_id">
-                                <option selected value="all">All</option>
+
                             </select>
                         </div>
                     </div>
@@ -227,4 +233,6 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/mockup.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/nprogress.js"></script>
 </body>

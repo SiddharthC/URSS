@@ -1,10 +1,20 @@
-$(function (){
+function addAll(select){
+	//Add the option "All" back in
+	$('<option/>').attr('value', 'all')
+		.attr('selected', 'selected')
+		.html('All')
+		.appendTo(select);
+}
+
+function page_load() {
+	$(function (){
     $('#tab-nav a:first').tab('show');
     
     jQuery(function($){
 		$.getJSON('/classload', function(data) {
 			var select = $('#rna_class');
 			var tryme = JSON.parse(data);
+			addAll(select);
 			$.each(tryme, function(key, val){
 				$('<option/>').attr('value', val.rna_class)
 					  .html(val.rna_class)
@@ -14,9 +24,23 @@ $(function (){
 	});
 
 	jQuery(function($){
+		$.getJSON('/biodomainload', function(data) {
+			var select = $('#biological_domain');
+			var tryme = JSON.parse(data);
+			addAll(select);
+			$.each(tryme, function(key, val){
+				$('<option/>').attr('value', val.org_type)
+					  .html(val.org_type)
+					  .appendTo(select);
+			});
+		});
+	});
+
+	jQuery(function($){
 		$.getJSON('/orgload', function(data) {
 			var select = $('#organism');
 			var tryme = JSON.parse(data);
+			addAll(select);
 			$.each(tryme, function(key, val){
 				$('<option/>').attr('value', val.org)
 					  .html(val.org)
@@ -29,6 +53,7 @@ $(function (){
 		$.getJSON('/nameload', function(data) {
 			var select = $('#rna_name');
 			var tryme = JSON.parse(data);
+			addAll(select);
 			$.each(tryme, function(key, val){
 				$('<option/>').attr('value', val.name)
 					  .html(val.name)
@@ -41,6 +66,7 @@ $(function (){
 		$.getJSON('/ornaidload', function(data) {
 			var select = $('#rna_id');
 			var tryme = JSON.parse(data);
+			addAll(select);
 			$.each(tryme, function(key, val){
 				$('<option/>').attr('value', val.orna_id)
 					  .html(val.orna_id)
@@ -49,6 +75,9 @@ $(function (){
 		});
 	});
 })
+}
+
+page_load();
 
 $('#tab-nav a').click(function (e) {
   e.preventDefault()
@@ -75,12 +104,49 @@ function getWhereClause(box, columnName){
 	return whereClause;
 }
 
+function updateBioDomainBox(whereClause){
+
+	//get ones that were selected
+	var selectedValues = $('#biological_domain :selected');
+	
+    var term = "select distinct org_type from orna where " + whereClause;
+    $('#biological_domain').empty();
+    var posting = $.post(
+					'/page1',
+					{ userquery: term },
+					function(data){
+						var select = $('#biological_domain');
+						var results = jQuery.parseJSON(JSON.parse(data));
+						addAll(select);
+
+						$.each(results, function(key, val){
+							
+					  		$('<option/>').attr('value', val.org_type)
+					  			.html(val.org_type)
+					  			.appendTo(select);
+						});
+						$.each(selectedValues, function(i){
+							if ($(this).val()!='all'){
+								$('#biological_domain option[value="all"]').prop('selected', false);
+								$('#biological_domain option[value=\"'+$(this).val()+'\"]').prop('selected', true);
+							}
+						});
+						if ($('#biological_domain :selected').val()==null){
+							$('#biological_domain option[value="all"]').prop('selected', true);
+						}
+						clause2 = getWhereClause('#biological_domain', 'org_type');
+						updateOrganismBox(whereClause+' and '+clause2);
+					},
+					'text'
+				);
+}
+
 function updateOrganismBox(whereClause){
 
 	//get ones that were selected
 	var selectedValues = $('#organism :selected');
 	
-    var term = "select distinct * from orna where " + whereClause;
+    var term = "select distinct org from orna where " + whereClause;
     $('#organism').empty();
     var posting = $.post(
 					'/page1',
@@ -88,11 +154,7 @@ function updateOrganismBox(whereClause){
 					function(data){
 						var select = $('#organism');
 						var results = jQuery.parseJSON(JSON.parse(data));
-						//Add the option "All" back in
-						$('<option/>').attr('value', 'all')
-							.attr('selected', 'selected')
-					  		.html('All')
-					  		.appendTo(select);
+						addAll(select);
 
 						$.each(results, function(key, val){
 							
@@ -121,7 +183,7 @@ function updateNameBox(whereClause){
 	//get ones that were selected
 	var selectedValues = $('#rna_name :selected');
 	
-    var term = "select distinct * from orna where " + whereClause;
+    var term = "select distinct name from orna where " + whereClause;
     	
     	
     $('#rna_name').empty();
@@ -131,11 +193,7 @@ function updateNameBox(whereClause){
 					function(data){
 						var select = $('#rna_name');
 						var results = jQuery.parseJSON(JSON.parse(data));
-						//Add the option "All" back in
-						$('<option/>').attr('value', 'all')
-							.attr('selected', 'selected')
-					  		.html('All')
-					  		.appendTo(select);
+						addAll(select);
 
 						$.each(results, function(key, val){
 							
@@ -164,7 +222,7 @@ function updateIdBox(whereClause){
 	//get ones that were selected
 	var selectedValues = $('#rna_id :selected');
 
-    var term = "select distinct * from orna where " + whereClause;
+    var term = "select distinct orna_id from orna where " + whereClause;
     	
     $('#rna_id').empty();
     var posting = $.post(
@@ -173,11 +231,7 @@ function updateIdBox(whereClause){
 					function(data){
 						var select = $('#rna_id');
 						var results = jQuery.parseJSON(JSON.parse(data));
-						//Add the option "All" back in
-						$('<option/>').attr('value', 'all')
-							.attr('selected', 'selected')
-					  		.html('All')
-					  		.appendTo(select);
+						addAll(select);
 
 						$.each(results, function(key, val){
 							
@@ -200,27 +254,97 @@ function updateIdBox(whereClause){
 }
 
 $('#rna_class').click(function(){
-	var RNAClassWhereClause = getWhereClause('#rna_class', 'rna_class');
-	updateOrganismBox(RNAClassWhereClause);
+	var clause = getWhereClause('#rna_class', 'rna_class');
+	updateBioDomainBox(clause);
+});
+
+$('#biological_domain').click(function(){
+	var clause = getWhereClause('#rna_class', 'rna_class');
+	clause += ' and ' + getWhereClause('#biological_domain', 'org_type');
+	updateOrganismBox(clause);
 });
 
 $('#organism').click(function(){
 	var clause = getWhereClause('#rna_class', 'rna_class');
+	clause += ' and ' + getWhereClause('#biological_domain', 'org_type');
 	clause += ' and ' + getWhereClause('#organism', 'org');
 	updateNameBox(clause);
 });
 
 $('#rna_name').click(function(){
 	var clause = getWhereClause('#rna_class', 'rna_class');
+	clause += ' and ' + getWhereClause('#biological_domain', 'org_type');
 	clause += ' and ' + getWhereClause('#organism', 'org');
 	clause += ' and ' + getWhereClause('#rna_name', 'name');
 	updateIdBox(clause);
+});
+
+//Clear all selection criteria (essentially a refresh of the page, but keep the results
+$('#clear_criteria_button').click(function(){
+	//empty all boxes
+	$('#rna_class').empty();
+	$('#biological_domain').empty();
+	$('#organism').empty();
+	$('#rna_name').empty();
+	$('#rna_id').empty();
+	//set select boxes to all non-filtered values
+	page_load();
+	
+	//set selected RNA type to original
+	$('#rna_type option[value="orna"]').prop('selected', true);
+
+
+	//reset the 'advanced' select part
+	$('#advance').empty();
+	var html = '<div class="adv_group">\
+                            <form class="row adv">\
+                                <div class="col-md-2">\
+                                    <select class="form-control" placeholder=".col-md-2">\
+                                        <option></option>\
+                                        <option>NOT</option>\
+                                    </select>\
+                                </div>\
+                                <div class="col-md-3">\
+                                    <select class="form-control" placeholder=".col-md-3">\
+                                        <option></option>\
+                                        <option value="rnaseq.len">Length of Sequence</option>\
+                                        <option value="rnastr.mld">Max ladder distance</option>\
+                                        <option value="rnastr.energy">Energy</option>\
+                                    </select>\
+                                </div>\
+                                <div class="col-md-1">\
+                                    <select class="form-control" placeholder=".col-md-1">\
+                                        <option></option>\
+                                        <option>=</option>\
+                                        <option>&gt;</option>\
+                                        <option>&lt;</option>\
+                                    </select>\
+                                </div>\
+                                <div class="col-md-6">\
+                                    <input type="text" class="form-control userinput" placeholder="Search Properties" id="advSearch0">\
+                                </div>\
+                            </form>\
+                        </div>\
+                        <div class="row">\
+                            <div class="col-md-1">\
+                                <button type="button" class="btn btn-default or_button">OR</button>\
+                            </div>\
+                        </div>';
+                        
+	$('#advance').append(html);
+
+	//currently does not affect the checked properties
+	
 });
 
 // Select/Search Button
 var selectNumber = 1;
 var tableOffset = [];
 $('#search_button').click(function(){
+
+	//pop up loading dialog
+	$("#loading_dialog").dialog({dialogClass: "no-titlebar", modal: true});
+	NProgress.start();
 	/*
 	var selectedTypeValues = []; 
 	$( ".multiselect" ).each(function(i, selectBox){
@@ -466,26 +590,35 @@ $('#search_button').click(function(){
 	
 	
 	//statement += ' LIMIT 5;';  //limiting for testing purposes	
-	
+	console.log(statement);
 	//get results!
 	var url = '/page1';
     var posting = $.post(
 					url,
 					{ userquery: statement },
 					function(data){
-						// var results = jQuery.parseJSON(JSON.parse(data));
-						var table = "<div class=\"row result-table\"><h4><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+"<i class=\"pull-right remove-icon\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
+						//close loading dialog opened at top of function
+						NProgress.done();
+						$("#loading_dialog").dialog('close');
+						
+						var jsonData = jQuery.parseJSON(JSON.parse(data));
+						var table = "<div class=\"row result-table\"><h4><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
 					 	$('input:checkbox:checked').each(function(i,input){
 					 		table += "<th>" + input.value + "</th>";
 					 	})
 					 	table+="</tr></thead><tbody>";
 					 	//add data into select result
-						var jsonData = jQuery.parseJSON(JSON.parse(data));
+						//var jsonData = jQuery.parseJSON(JSON.parse(data));
 						$.each(jsonData, function(key, val){
-							dataToAppend = "<tr>"
+							dataToAppend = "<tr value='"+val["str_id"]+"'>"
 							$('input:checkbox:checked').each(function(i,input){
 						 		var tmp =  input.value;
-						 		table += "<td>" + val[tmp] + "</td>";
+						 		// if(tmp=='name'){
+						 		// 	table += "<td><a href='/detail?"+ val["str_id"] +"' target='_blank'>" + val[tmp] + "</a></td>"
+						 		// }
+						 		// else{
+							 		dataToAppend += "<td>" + val[tmp] + "</td>";						 			
+						 		// }
 						 	})
 							dataToAppend += "</tr>";
 							table+=dataToAppend;
@@ -494,6 +627,7 @@ $('#search_button').click(function(){
 						
 						// console.log(table);
 					 	$(table).appendTo('#search-result');
+						//console.log(table);
 					 	// var tableId = '#tableFrame'+selectNumber;
 					 	// tableOffset.push($(tableId).offset().top); //push offset top to array
 					 	// var header = $(tableId+" thead").clone().attr("id",function(){return "thead"+selectNumber});
@@ -511,6 +645,11 @@ $('#search_button').click(function(){
 // $(document).on('scroll', 'table', function(){
 // 	alert('bitch');
 // })
+
+$('#search-result').on('click','tr',function(){
+	var structureid = $(this).attr("value");
+	window.open("/detail?"+structureid, "_blank");
+});
 
 // Select properties
 $('#select-properties').hide();
