@@ -96,6 +96,8 @@ $(document).ready(function() {
 
             serieid: 1,
         };
+		
+		disp(vars);
 
         ctn = $('#container' + (graph_no));
         ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);

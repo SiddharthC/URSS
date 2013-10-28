@@ -57,7 +57,8 @@
 	float:left;
 	position:relative;
 	margin-right:10px;
-	padding-top: 5px;
+	margin-left: 10px;
+	margin-top: 5px;
 	cursor: pointer;
 }
 
@@ -68,7 +69,8 @@
 	float:left;
 	position:relative;
 	margin-right:10px;
-	padding-top: 5px;
+	margin-left: 10px;
+	margin-top: 5px;
 	cursor: pointer;
 }
 
@@ -88,9 +90,9 @@
 	margin-bottom: 75px;
 }
 
-#top-button{
+#top-button, #plot-button{
 	position: fixed;
-    bottom: 1.5em;
+	width: 50px;
     right: 0px;
     text-decoration: none;
     color: #000000;
@@ -98,10 +100,18 @@
     font-size: 12px;
     padding: 1em;
     border: none;
-    display: none;
 }
 
-#top-button:hover{
+#plot-button{
+	bottom: 4.5em;
+}
+
+#top-button{
+    display: none;
+    bottom: 1em;
+}
+
+#top-button:hover,#plot-button:hover{
 	background-color: rgba(135, 135, 135, 0.50);
 }
 
@@ -127,4 +137,7 @@
 }
 tbody{
 	cursor: pointer;
+}
+.result-checkbox{
+	float: left;
 }

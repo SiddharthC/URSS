@@ -602,7 +602,7 @@ $('#search_button').click(function(){
 						$("#loading_dialog").dialog('close');
 						
 						var jsonData = jQuery.parseJSON(JSON.parse(data));
-						var table = "<div class=\"row result-table\"><h4><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
+						var table = "<div class=\"row result-table\"><h4><input class=\"result-checkbox\" type=\"checkbox\" id=\"result-checkbox-"+selectNumber+"\"><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
 					 	$('input:checkbox:checked').each(function(i,input){
 					 		table += "<th>" + input.value + "</th>";
 					 	})
