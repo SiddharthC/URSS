@@ -770,7 +770,7 @@ $(document).on('click','.or_button',function(){
 })
 
 // hide result table
-$("#popular-tab,#history-tab").click(function(){
+$("#plot-tab,#history-tab").click(function(){
 	$("#search-result").hide();
 });
 $("#select-tab").click(function(){
