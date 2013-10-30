@@ -1,3 +1,6 @@
+var query_group = [];
+var result_group = [];
+
 function addAll(select){
 	//Add the option "All" back in
 	$('<option/>').attr('value', 'all')
@@ -476,8 +479,8 @@ $('#search_button').click(function(){
 	selectedRNAIdValues = selectedRNAIdValues.substring(0,selectedRNAIdValues.length-4);
 	selectedRNAIdValues = selectedRNAIdValues+')';
 	
-	
-	var statement = 'SELECT ' + columns + ' FROM ' + random_select + ' (SELECT * FROM orna JOIN rnaseq on rnaseq.seq_id = orna_seq_id WHERE 1=1 ';
+	// ' + columns + '
+	var statement = 'SELECT * FROM ' + random_select + ' (SELECT * FROM orna JOIN rnaseq on rnaseq.seq_id = orna_seq_id WHERE 1=1 ';
 	
 	if(selectedOrg.val()!= undefined){
 		statement = statement +' AND ' + selectedOrgValues;
@@ -602,7 +605,7 @@ $('#search_button').click(function(){
 						$("#loading_dialog").dialog('close');
 						
 						var jsonData = jQuery.parseJSON(JSON.parse(data));
-						var table = "<div class=\"row result-table\"><h4><input class=\"result-checkbox\" type=\"checkbox\" id=\"result-checkbox-"+selectNumber+"\"><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
+						var table = "<div class=\"row result-table\"><h4><input class=\"result-checkbox\" type=\"checkbox\" id=\"result-checkbox-"+selectNumber+"\"><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"  value=\""+selectNumber+"\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
 					 	$('input:checkbox:checked').each(function(i,input){
 					 		table += "<th>" + input.value + "</th>";
 					 	})
@@ -634,6 +637,8 @@ $('#search_button').click(function(){
 					 	// $('#header-fixed'+selectNumber).append(header);
 
 					 	$("body").animate({scrollTop:$('#result-'+selectNumber).offset().top},{queue:false, duration:800, easing: 'swing'});
+					 	query_group.push({"index":selectNumber, "query":statement});
+                        result_group.push({"index":selectNumber, "data":jsonData});
 						selectNumber+=1;
 					},
 					'text'
@@ -665,6 +670,9 @@ $('#select-properties-button').click(function(){
 
 // Delete Result Table
 $(document).on('click','i.remove-icon',function(){
+	//console.log();
+	var index = $(this).attr("value") - 1;
+	result_group[index] = 0;
 	var parent = $(this).parent().parent();
 	parent.animate({left:'-1500px'},700,function(){
 		parent.remove();
