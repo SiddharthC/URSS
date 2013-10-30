@@ -1,5 +1,6 @@
 var query_group = [];
 var result_group = [];
+var plot_group = [];
 
 function addAll(select){
 	//Add the option "All" back in
@@ -593,7 +594,7 @@ $('#search_button').click(function(){
 	
 	
 	//statement += ' LIMIT 5;';  //limiting for testing purposes	
-	console.log(statement);
+	//console.log(statement);
 	//get results!
 	var url = '/page1';
     var posting = $.post(
@@ -605,7 +606,7 @@ $('#search_button').click(function(){
 						$("#loading_dialog").dialog('close');
 						
 						var jsonData = jQuery.parseJSON(JSON.parse(data));
-						var table = "<div class=\"row result-table\"><h4><input class=\"result-checkbox\" type=\"checkbox\" id=\"result-checkbox-"+selectNumber+"\"><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"  value=\""+selectNumber+"\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
+						var table = "<div class=\"row result-table\"><h4><input class=\"result-checkbox\" type=\"checkbox\" id=\"result-checkbox-"+selectNumber+"\" value="+selectNumber+"><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"  value=\""+selectNumber+"\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
 					 	$('input:checkbox:checked').each(function(i,input){
 					 		table += "<th>" + input.value + "</th>";
 					 	})
@@ -791,4 +792,16 @@ $('#top-button').click(function(event) {
     event.preventDefault();
     $('body').animate({scrollTop: 0}, {duration:500,easing:'swing'});
     return false;
+});
+
+$('#plot-button').click(function(event) {
+    event.preventDefault();
+    plot_group = [];
+    $(".result-checkbox").each(function(i,d){ 
+    	if(d.checked){
+    		plot_group.push(result_group[d.value-1]);
+    	}
+    });
+    return false;
 })
+
