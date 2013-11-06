@@ -169,40 +169,39 @@
                     </div>
                     
                 </div> <!-- search frame -->
+                <hr>
                 <div class="row">
-                    <div class="search_button col-xs-12 col-md-12">
-                        <button type="button" class="btn btn-default" id="search_button" >Select</button>
+                    <div class="search_button col-xs-6 col-md-6">
+                        <button type="button" class="btn btn-default" id="select-properties-button">Properties</button>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-12">
-                        <button type="button" class="btn btn-default" id="select-properties-button">Select Properties</button>
+                    <div class="search_button col-xs-6 col-md-6">
+                        <button type="button" class="btn btn-default" id="search_button" >Select</button>
                     </div>
                 </div>
                 <div class="row" id="select-properties">
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="name" checked> Name
+                        <label><input type="checkbox" value="name" checked> Name </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="orna_id" checked> Original RNA ID
+                        <label><input type="checkbox" value="orna_id" id="orna_properties" checked> Original RNA ID </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="rrna_id"> Random RNA ID
+                        <label><input type="checkbox" value="rrna_id" id="rrna_properties"> Random RNA ID </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="srna_id"> Shuffle RNA ID
+                        <label><input type="checkbox" value="srna_id" id="srna_properties"> Shuffle RNA ID </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="str_id" checked> Structure ID
+                        <label><input type="checkbox" value="str_id" checked> Structure ID </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="mld"> Max Ladder Distance
+                        <label><input type="checkbox" value="mld"> Max Ladder Distance </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="len"> Length of Sequence
+                        <label><input type="checkbox" value="len"> Length of Sequence </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <input type="checkbox" value="energy"> Energy
+                        <label><input type="checkbox" value="energy"> Energy </label>
                     </div>
                 </div>
             </div> <!-- end of jumbo1 -->

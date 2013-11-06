@@ -648,9 +648,12 @@ $('#search_button').click(function(){
     return;
 });
 
-// $(document).on('scroll', 'table', function(){
-// 	alert('bitch');
-// })
+$('#rna_type').click(function(){
+	$("#rrna_properties").prop("checked",false);
+	$("#srna_properties").prop("checked",false);
+	if ($('#rna_type').val() == "rrna"){$("#rrna_properties").prop("checked",true);}
+	else if ($('#rna_type').val()== "srna"){$("#srna_properties").prop("checked",true);}
+});
 
 $('#search-result').on('click','tr',function(){
 	var structureid = $(this).attr("value");

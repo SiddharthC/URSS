@@ -45,9 +45,25 @@
 	height:280px;
 }
 
-#search_button{
-	margin-top: 10px;
+#search_button,#select-properties-button{
 	width: 100%;
+}
+
+#search_button{
+	font-weight:bold;
+}
+
+#select-properties{
+	margin-top: 10px;
+}
+
+#select-properties label{
+	font-weight: normal;
+	display: inline;
+}
+
+hr{
+	border-top-color:rgb(170, 170, 170);
 }
 
 .chevron-right{
