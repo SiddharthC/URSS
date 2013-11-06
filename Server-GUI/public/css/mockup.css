@@ -45,7 +45,7 @@
 	height:280px;
 }
 
-#search_button,#select-properties-button{
+#search_button,#select-properties-button,#clear_criteria_button{
 	width: 100%;
 }
 
@@ -53,7 +53,7 @@
 	font-weight:bold;
 }
 
-#select-properties{
+#select-properties,#search_button{
 	margin-top: 10px;
 }
 
