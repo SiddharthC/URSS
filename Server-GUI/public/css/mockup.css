@@ -157,3 +157,11 @@ tbody{
 .result-checkbox{
 	float: left;
 }
+
+form.adv{
+	margin-bottom: 5px;
+}
+
+p.or_text{
+	padding-left: 5px;
+}

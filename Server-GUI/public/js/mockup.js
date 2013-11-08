@@ -770,6 +770,7 @@ var orHtml2 = '">\
 $(document).on('click','.or_button',function(){
 	$(this).parent().parent().after(orHtml1+advSearchCount+orHtml2);
 	advSearchCount++;
+	$(this).replaceWith("<p class='or_text'> OR</p>");
 })
 
 // hide result table
