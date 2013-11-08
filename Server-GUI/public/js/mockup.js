@@ -607,6 +607,7 @@ $('#search_button').click(function(){
 						
 						var jsonData = jQuery.parseJSON(JSON.parse(data));
 						var table = "<div class=\"row result-table\"><h4><input class=\"result-checkbox\" type=\"checkbox\" id=\"result-checkbox-"+selectNumber+"\" value="+selectNumber+"><i class=\"chevron-down arrow\" value=\""+selectNumber+"\"></i>Select Result "+selectNumber+" - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"  value=\""+selectNumber+"\"></h4><div id=\"tableFrame"+selectNumber+"\" class=\"resultbox\" ><div id=\"result-"+selectNumber+"\"><table class=\"table table-hover\"><thead><tr>";
+					 	// table+="<th></th>";
 					 	$('input:checkbox:checked').each(function(i,input){
 					 		table += "<th>" + input.value + "</th>";
 					 	})
@@ -614,15 +615,10 @@ $('#search_button').click(function(){
 					 	//add data into select result
 						//var jsonData = jQuery.parseJSON(JSON.parse(data));
 						$.each(jsonData, function(key, val){
-							dataToAppend = "<tr value='"+val["str_id"]+"'>"
+							dataToAppend = "<tr value='"+val["str_id"]+"'>"//"<td><input type=\"checkbox\" value='"+val["str_id"]+"'></td>"
 							$('input:checkbox:checked').each(function(i,input){
 						 		var tmp =  input.value;
-						 		// if(tmp=='name'){
-						 		// 	table += "<td><a href='/detail?"+ val["str_id"] +"' target='_blank'>" + val[tmp] + "</a></td>"
-						 		// }
-						 		// else{
-							 		dataToAppend += "<td>" + val[tmp] + "</td>";						 			
-						 		// }
+						 		dataToAppend += "<td>" + val[tmp] + "</td>";						 			
 						 	})
 							dataToAppend += "</tr>";
 							table+=dataToAppend;
