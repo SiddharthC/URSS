@@ -150,18 +150,8 @@ app.get('/ornaidload', function (req, res) {
 });
 
 //Grapher section
-app.get('/elbaVisualization', function (response, request) {
-    console.log("requesthandler: Request handler 'elbaVisualization' was called");
 
-    fs.readFile('elbaVisualization.html', function(error, data) {
-        response.writeHead(200, {
-            'content-type': 'text/html'
-        });
-        response.end(data);
-    });
-});
-
-app.get('/getPropertyName', function (response, request){
+app.get('/getPropertyName', function (request, response){
     console.log("requesthandler: Request handler 'getPropertyName' was called");
 
     var data = url.parse(request.url).query;
@@ -191,7 +181,7 @@ app.get('/getPropertyName', function (response, request){
     //console.log("getPropertyName returned");
 });
 
-app.get('/getColumnData', function (response, request){
+app.get('/getColumnData', function (request, response){
     console.log("requesthandler: Request handler 'getColumnData' was called");
 
     var data = url.parse(request.url).query;
@@ -249,7 +239,7 @@ app.get('/getColumnData', function (response, request){
     });
 });
 
-app.get('/getStepFreq', function (response, request){
+app.get('/getStepFreq', function (request, response){
     console.log("requesthandler: Request handler 'getStepFreq' was called");
 
     var reqQuery = url.parse(request.url).query;
@@ -364,7 +354,7 @@ app.get('/getStepFreq', function (response, request){
     });
 });
 
-app.get('/getXdisplay', function (response, request){
+app.get('/getXdisplay', function (request, response){
     console.log("requesthandler: Request handler 'getXdisplay' was called");
 
     var reqQuery = url.parse(request.url).query;

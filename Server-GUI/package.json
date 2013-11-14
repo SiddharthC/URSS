@@ -8,6 +8,9 @@
     "stylus": "*",
     "nib": "*",
     "ejs": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "querystring": "*",
+    "url": "*",
+    "util": "*" 
   }
 }

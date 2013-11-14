@@ -804,123 +804,123 @@ var addSeriesFunc = function() {
 	});
 }
 
-// var addHistogramSeries = function() {
-// 	if (($('#percentValue').val() == 'Value') || ($('#stepSize').val() == "Value")) {
-// 		alert("Please select all the fields");
-// 		return;
-// 	}
+var addHistogramSeries = function() {
+	if (($('#percentValue').val() == 'Value') || ($('#stepSize').val() == "Value")) {
+		alert("Please select all the fields");
+		return;
+	}
 
-// 	var no = $('#graph_name option:selected').val();
+	var no = $('#graph_name option:selected').val();
 
-// 	var best_max = 0,
-// 		best_min = 0,
-// 		best_step = jQuery('#stepSize').val();
+	var best_max = 0,
+		best_min = 0,
+		best_step = jQuery('#stepSize').val();
 
-// 	var currentSeriesCount = 0;
+	var currentSeriesCount = 0;
 
-// 	var temp = jQuery.extend(true, {}, chart[no]);
+	var temp = jQuery.extend(true, {}, chart[no]);
 
-// 	$(chart[no].series).each(function(i, serie) {
+	$(chart[no].series).each(function(i, serie) {
 
-// 		if (best_max < serie.options.max) {
-// 			best_max = serie.options.max;
-// 		}
+		if (best_max < serie.options.max) {
+			best_max = serie.options.max;
+		}
 
-// 		if (1 == 0) {
-// 			best_min = serie.options.min;
-// 		}
+		if (1 == 0) {
+			best_min = serie.options.min;
+		}
 
-// 		if (best_step > serie.options.step) {
-// 			best_step = serie.options.step;
-// 		}
+		if (best_step > serie.options.step) {
+			best_step = serie.options.step;
+		}
 
-// 		if (i != 0 && best_min > serie.options.min) {
-// 			best_min = serie.options.min;
-// 		}
+		if (i != 0 && best_min > serie.options.min) {
+			best_min = serie.options.min;
+		}
 
-// 		currentSeriesCount++;
+		currentSeriesCount++;
 
-// 		serie.remove();
+		serie.remove();
 
-// 	});
+	});
 
-// 	currentSeriesCount++;
+	currentSeriesCount++;
 
-// 	var xstring = [];
+	var xstring = [];
 
-// 	for (var i = best_min; i < (best_max + best_step); i += best_step) {
-// 		xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + best_step).toFixed(2)));
-// 	}
+	for (var i = best_min; i < (best_max + best_step); i += best_step) {
+		xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + best_step).toFixed(2)));
+	}
 
-// 	chart[no].xAxis[0].setCategories();
+	chart[no].xAxis[0].setCategories();
 
-// 	$('#graph_name_series').empty();
-
-
-// 	$(temp.series).each(function(i, serie) {
-
-// 		var params = {
-
-// 			rnaType: serie.options.rnaType,
-
-// 			propertyType: serie.options.propertyType,
-// 			propertyName: serie.options.propertyName,
-
-// 			selnuc: serie.options.selnuc,
-// 			nuc: serie.options.nuc,
-// 			operation: serie.options.operation,
-// 			percentValue: serie.options.percentValue,
-
-// 			stepSize: best_step,
-
-// 			bestMax: best_max,
-// 			bestMin: best_min,
-
-// 			bestFlag: 1,
-
-// 			func: serie.options.func,
-
-// 			serieid: i,
-// 		};
+	$('#graph_name_series').empty();
 
 
-// 		$.getJSON("/getStepFreq", params, function(result) {
-// 			chart[no].addSeries(result);
-// 		});
+//	$(temp.series).each(function(i, serie) {
 
-// 		$('#graph_name_series').append($('<option></option>').val(i).html("Series - " + i).attr('selected', false));
-// 	}):
+		// var params = {
 
-// 	var params = {
+			// rnaType: serie.options.rnaType,
 
-// 		rnaType: jQuery('#rnaType option:selected').val(),
+			// propertyType: serie.options.propertyType,
+			// propertyName: serie.options.propertyName,
 
-// 		propertyType: jQuery('#propertyType option:selected').val(),
-// 		propertyName: jQuery('#propertyName option:selected').val(),
+			// selnuc: serie.options.selnuc,
+			// nuc: serie.options.nuc,
+			// operation: serie.options.operation,
+			// percentValue: serie.options.percentValue,
 
-// 		selnuc: jQuery('#selnuc').val(),
-// 		nuc: jQuery('#nuc').val(),
-// 		operation: jQuery('#operation option:selected').val(),
-// 		percentValue: jQuery('#percentValue').val(),
+			// stepSize: best_step,
 
-// 		stepSize: best_step,
+			// bestMax: best_max,
+			// bestMin: best_min,
 
-// 		bestMax: best_max,
-// 		bestMin: best_min,
+			// bestFlag: 1,
 
-// 		bestFlag: 1,
+			// func: serie.options.func,
 
-// 		func: jQuery('#func').val(),
+			// serieid: i,
+		// };
 
-// 		serieid: currentSeriesCount,
-// 	};
 
-// 	$.getJSON("/getStepFreq", params, function(result) {
-// 		chart[no].addSeries(result);
-// 	});
+		// $.getJSON("/getStepFreq", params, function(result) {
+		// 	chart[no].addSeries(result);
+		// });
 
-// 	$('#graph_name_series').append($('<option></option>').val(currentSeriesCount).html("Series - " + currentSeriesCount).attr('selected', true));
-// }
+		// $('#graph_name_series').append($('<option></option>').val(i).html("Series - " + i).attr('selected', false));
+//	}):
+
+	var params = {
+
+		rnaType: jQuery('#rnaType option:selected').val(),
+
+		propertyType: jQuery('#propertyType option:selected').val(),
+		propertyName: jQuery('#propertyName option:selected').val(),
+
+		selnuc: jQuery('#selnuc').val(),
+		nuc: jQuery('#nuc').val(),
+		operation: jQuery('#operation option:selected').val(),
+		percentValue: jQuery('#percentValue').val(),
+
+		stepSize: best_step,
+
+		bestMax: best_max,
+		bestMin: best_min,
+
+		bestFlag: 1,
+
+		func: jQuery('#func').val(),
+
+		serieid: currentSeriesCount,
+	};
+
+	$.getJSON("/getStepFreq", params, function(result) {
+		chart[no].addSeries(result);
+	});
+
+	$('#graph_name_series').append($('<option></option>').val(currentSeriesCount).html("Series - " + currentSeriesCount).attr('selected', true));
+}
 
 // Add function to remove selected series from selected grah
 var removeSeriesFunc = function() {
@@ -1497,7 +1497,7 @@ $(document).on('click', '.or_button', function() {
 	$(this).parent().parent().after(orHtml1 + advSearchCount + orHtml2);
 	advSearchCount++;
 	$(this).replaceWith("<p class='or_text'> OR</p>");
-})
+});
 
 // hide result table
 $("#plot-tab,#history-tab").click(function() {
@@ -1542,9 +1542,10 @@ $('#plot-button').click(function(event) {
 
 //Grapher actions and functions
 
-$('#operations').live("change", function(e) {
+$('#operations').on("change", function(e) {
 	if ($('#operations option:selected').val() == '1') {
 		// "Add Graph" is selected
+		alert("hey in function");
 		addGraphFunc();
 		$('#operations').val('0').prop('selected', true);
 	} else if ($('#operations option:selected').val() == '2') {
@@ -1583,7 +1584,7 @@ $('#operations').live("change", function(e) {
 	}
 });
 
-$('#graph_name').live("change", function(e) {
+$('#graph_name').on("change", function(e) {
 
 	$('#graph_name_series').empty();
 
@@ -1596,7 +1597,9 @@ $('#graph_name').live("change", function(e) {
 	});
 });
 
-$('#propertyType').live("change", function(e) {
+
+//NOTE live is depreciated in jquery so use on instead
+$('#propertyType').on("change", function(e) {
 
 	$('#propertyName').empty();
 
