@@ -45,7 +45,9 @@ app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
 //weird changes
-app.use(express.bodyParser());
+//app.use(express.bodyParser());    //connect warning fix
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.logger('dev'));
 app.use(express.static(__dirname + '/public'));
 
