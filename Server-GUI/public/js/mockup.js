@@ -269,6 +269,7 @@ function updateIdBox(whereClause) {
 //Grapher functions
 
 var addGraphFunc = function() {
+
 	if ($('#percentValue').val() == 'Value') {
 		alert("Please select all the fields");
 		return;
@@ -290,8 +291,6 @@ var addGraphFunc = function() {
 
 		serieid: 1,
 	};
-
-	disp(vars);
 
 	ctn = $('#container' + (graph_no));
 	ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
@@ -707,6 +706,7 @@ var addStepFreqFunc = function() {
 		var yValues = new Array();
 
 		$.getJSON("/getStepFreq", params, function(result) {
+			// alert(JSON.stringify(result, null, 4));
 			options.series.push(result);
 			chart[graph_no] = new Highcharts.Chart(options);
 
@@ -816,17 +816,28 @@ var addHistogramSeries = function() {
 		best_min = 0,
 		best_step = jQuery('#stepSize').val();
 
+	var temp2 = [];
+
 	var currentSeriesCount = 0;
 
-	var temp = jQuery.extend(true, {}, chart[no]);
+	//var temp = jQuery.extend(true, {}, chart[no]);
+
+	// $(temp.series).each(function(i, serie) {
+
+	// 	// alert("Values are: " + serie.options.rnaType + serie.options.propertyType + serie.options.propertyName + serie.options.selnuc + serie.options.nuc + serie.options.operation serie.options.percentValue + best_step + best_max + best_min + serie.options.func + i);
+	// 	alert(JSON.stringify(serie.options));
+	// });
+
 
 	$(chart[no].series).each(function(i, serie) {
+
+		temp2[i] = jQuery.extend(true, {}, serie);
 
 		if (best_max < serie.options.max) {
 			best_max = serie.options.max;
 		}
 
-		if (1 == 0) {
+		if (i == 0) {
 			best_min = serie.options.min;
 		}
 
@@ -848,6 +859,8 @@ var addHistogramSeries = function() {
 
 	var xstring = [];
 
+	// alert("Bounds are : best_min - " + best_min + " best_max - " + best_max + "best step - " + best_step);
+
 	for (var i = best_min; i < (best_max + best_step); i += best_step) {
 		xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + best_step).toFixed(2)));
 	}
@@ -856,40 +869,47 @@ var addHistogramSeries = function() {
 
 	$('#graph_name_series').empty();
 
+	// $(temp2).each(function(i, serie) {
+	// 	alert(JSON.stringify(serie.options, null, 4));
+	// 	alert(serie.options.rnaType);
+	// });
 
-//	$(temp.series).each(function(i, serie) {
+	$(temp2).each(function(i, serie) {
 
-		// var params = {
+		// alert("Values are: " + serie.options.rnaType + serie.options.propertyType + serie.options.propertyName + serie.options.selnuc + serie.options.nuc + serie.options.operation serie.options.percentValue + best_step + best_max + best_min + serie.options.func + i);
+		// alert(JSON.stringify(serie.options));
+		var params = {
 
-			// rnaType: serie.options.rnaType,
+			rnaType: serie.options.rnaType,
 
-			// propertyType: serie.options.propertyType,
-			// propertyName: serie.options.propertyName,
+			propertyType: serie.options.propertyType,
+			propertyName: serie.options.propertyName,
 
-			// selnuc: serie.options.selnuc,
-			// nuc: serie.options.nuc,
-			// operation: serie.options.operation,
-			// percentValue: serie.options.percentValue,
+			selnuc: serie.options.selnuc,
+			nuc: serie.options.nuc,
+			operation: serie.options.operation,
+			percentValue: serie.options.percentValue,
 
-			// stepSize: best_step,
+			stepSize: best_step,
 
-			// bestMax: best_max,
-			// bestMin: best_min,
+			bestMax: best_max,
+			bestMin: best_min,
 
-			// bestFlag: 1,
+			bestFlag: 1,
 
-			// func: serie.options.func,
+			func: serie.options.func,
 
-			// serieid: i,
-		// };
+			serieid: i,
+		};
 
+		// alert(JSON.stringify(params));
 
-		// $.getJSON("/getStepFreq", params, function(result) {
-		// 	chart[no].addSeries(result);
-		// });
+		$.getJSON("/getStepFreq", params, function(result) {
+			chart[no].addSeries(result);
+		});
 
-		// $('#graph_name_series').append($('<option></option>').val(i).html("Series - " + i).attr('selected', false));
-//	}):
+		$('#graph_name_series').append($('<option></option>').val(i).html("Series - " + i).attr('selected', false));
+	});
 
 	var params = {
 
@@ -1545,7 +1565,6 @@ $('#plot-button').click(function(event) {
 $('#operations').on("change", function(e) {
 	if ($('#operations option:selected').val() == '1') {
 		// "Add Graph" is selected
-		alert("hey in function");
 		addGraphFunc();
 		$('#operations').val('0').prop('selected', true);
 	} else if ($('#operations option:selected').val() == '2') {
