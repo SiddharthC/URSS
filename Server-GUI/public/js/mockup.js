@@ -4,7 +4,7 @@ var plot_group = [];
 
 //Extension.
 var result_search = [];
-var result_count=0;
+var result_count = 0;
 
 //Grapher variables
 var graph_no = 0;
@@ -1309,13 +1309,6 @@ $('#search_button').click(function() {
 		},
 		function(data) {
 
-			//addition to store results.
-			result_search[result_count++] = data;
-			alert(JSON.stringify(data, null, 4));
-
-			// var tempdata = JSON.stringify(data);
-			// data = tempdata;
-
 			//close loading dialog opened at top of function
 			NProgress.done();
 			$("#loading_dialog").dialog('close');
@@ -1361,7 +1354,7 @@ $('#search_button').click(function() {
 				"query": statement
 			});
 			result_group.push({
-				"index": selectNumber,
+				"index": selectNumber - 1,
 				"data": jsonData
 			});
 			selectNumber += 1;
@@ -1542,6 +1535,7 @@ $('#top-button').click(function(event) {
 	return false;
 });
 
+<<<<<<< HEAD
 // $('#plot-button').click(function(event) {
 // 	event.preventDefault();
 
@@ -1581,10 +1575,9 @@ $('#plot-button').popover(popSetting);
 
 $('body').on("click","#goPlot",function(){
 	alert("James here!");
-});
 
 $('#adv-graph-button').click(function() {
-	if($("#grapher_section").is(':visible')){
+	if ($("#grapher_section").is(':visible')) {
 		$('#graph-selector').toggle(500);
 	}
 	return false;
@@ -1671,7 +1664,7 @@ function isNumberKeyorDec(evt) {
 	return true;
 }
 
-function graph_plotter(name, num){
+function graph_plotter(name, num) {
 
 	ctn = $('#container' + (graph_no));
 	ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
@@ -1851,11 +1844,14 @@ function graph_plotter(name, num){
 	};
 
 	var contents = [];
-	$(result_search[num]).each(function(i, serie) {
-		contents.push(serie.energy);
-	});
 
-	alert(JSON.stringify(contents, null, 4));
+	// $(result_group[num]).each(function(i, serie) {
+	// 	contents.push(serie.energy);
+	// });
+
+	result_group[num].data.forEach(function(obj) {
+		contents.push(obj[name]);
+	});
 
 	var tempseries = {
 		name: name,
@@ -1863,11 +1859,8 @@ function graph_plotter(name, num){
 		id: 1,
 	};
 
-	$.getJSON("/getColumnData", params, function(result) {
-		options.series.push(tempseries);
-		chart[graph_no] = new Highcharts.Chart(options);
-
-	});
+	options.series.push(tempseries);
+	chart[graph_no] = new Highcharts.Chart(options);
 
 	$('#graph_name').append($('<option></option>').val(graph_no + 1).html("Result Graph - " + (graph_no + 1)).attr('selected', true));
 	$('#graph_name_series').empty();
