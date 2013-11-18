@@ -212,179 +212,273 @@
                 </div>
             </div>
             <!-- end of jumbo1 -->
-            <!--start jumbo 3 graph page-->
-            <div id="jumbo3">
-                <!-- <div class="frame fade tab-pane" id="jumbo3"> -->
-                <!-- <div class="search_frame"> -->
-                <div class="grapher_style" id="selector" style="text-align: left; width: 214px; height: 400; float: left; box-shadow: 10px 10px 5px #888888; margin: 0px 10px 10px 10px; padding: 0px 10px 10px 10px;background-color: #ffffff;">
-                    <h5>
-                        Please Select Graph Data
-                    </h5>
-                    Select Graph: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select class="grapher_style" id="graph_name" style="width: 100px">
-                        <option value="0">
-                            --New--
-                        </option>
-                    </select>
-                    <br />Select Series:
-                    <select class="grapher_style" id="graph_name_series" style="width: 100px">
-                        <option value="0">
-                            --New--
-                        </option>
-                    </select>
-                    <br />RNA Type:
-                    <select class="grapher_style" id="rnaType" style="width: 100px">
-                        <option value="orna">
-                            O-RNA
-                        </option>
-                        <option value="srna">
-                            S-RNA
-                        </option>
-                        <option value="rrna">
-                            R-RNA
-                        </option>
-                    </select>
-                    <br />Property Type:
-                    <select class="grapher_style" id="propertyType" style="width: 100px">
-                        <option value="name">
-                            RNA Name
-                        </option>
-                        <option value="rna_class">
-                            RNA Class
-                        </option>
-                        <option value="org">
-                            Organism Name
-                        </option>
-                        <option value="org_type">
-                            Organism Type
-                        </option>
-                    </select>
-                    <br />Property Name:
-                    <select class="grapher_style" id="propertyName" style="width: 100px">
-                        <option value="">
-                            --Select--
-                        </option>
-                    </select>
-                    <br />Nueclotide: &nbsp;&nbsp;&nbsp;
-                    <input class="grapher_style" id="selnuc" type="text" value="A" maxlength="3" onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}" style="width: 30px">
-                    </input>
-                    <br />Condition: &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="grapher_style" id="nuc" type="text" value="A" maxlength="3" onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}" style="width: 30px">
-                    </input>
-                    <select class="grapher_style" id="operation" style="width: 50px">
-                        <option value=">">
-                            &gt;=
-                        </option>
-                        <option value="<">
-                            &lt;=
-                        </option>
-                        <option value="=">
-                            =
-                        </option>
-                    </select>
-                    <input class="grapher_style" id="percentValue" type="text" onkeypress="return isNumberKeyorDec(event)" value="0" onfocus="if(this.value=='Value'){this.value='';}" onblur="if(this.value==''){this.value='Value';}" style="width: 35px">
-                    </input>
-                    <br />Step Size:
-                    <input class="grapher_style" id="stepSize" type="text" onkeypress="return isNumberKeyorDec(event)" value="Value" onfocus="if(this.value=='Value'){this.value='';}" onblur="if(this.value==''){this.value='Value';}" style="width: 50px">
-                    </input>
-                    <br />Type of Graph: &nbsp;&nbsp;&nbsp;
-                    <select class="grapher_style" id="graph_type" style="width: 100px">
-                        <option value="">
-                            --Select--
-                        </option>
-                        <option value="line">
-                            Line
-                        </option>
-                        <option value="spline">
-                            Spline
-                        </option>
-                        <option value="column">
-                            Bar
-                        </option>
-                        <option value="scatter">
-                            Scatter
-                        </option>
-                        <option value="area">
-                            Area Line
-                        </option>
-                        <option value="areaspline">
-                            Area Spline
-                        </option>
-                        <option value="bar">
-                            Bar-Horizontal
-                        </option>
-                        <option value="pie">
-                            Pie
-                        </option>
-                        <!-- <option value="columnrange">Column Range</option> -->
-                        <!-- <option value="arearange">Area Range</option> -->
-                        <!-- <option value="gauge">Gauge</option> -->
-                    </select>
+            <!-- start jumbo 3 graph page -->
+            <div class="frame fade tab-pane" id="jumbo3">
+                <div class="search_frame">
                     <br/>
+                    <br/>
+                    <br/>
+                    <div class="grapher_style" id="graph-selector" style="text-align: left; width: 225px; height: 400; float: left; box-shadow: 10px 10px 5px #888888; margin: 0px 10px 10px 10px; padding: 0px 10px 10px 10px;background-color: #ffffff;">
+                        <h5>
+                            Please Select Graph Data
+                        </h5>
+                        <table border="0">
+                            <tr>
+                                <td>
+                                    Select Graph:
+                                </td>
+                                <td>
+                                    <select class="grapher_style" id="graph_name">
+                                        <option value="0">
+                                            --New--
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Select Series:
+                                </td>
+                                <td>
+                                    <select class="grapher_style" id="graph_name_series">
+                                        <option value="0">
+                                            --New--
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    RNA Type:
+                                </td>
+                                <td>
+                                    <select class="grapher_style" id="rnaType">
+                                        <option value="orna">
+                                            O-RNA
+                                        </option>
+                                        <option value="srna">
+                                            S-RNA
+                                        </option>
+                                        <option value="rrna">
+                                            R-RNA
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Property Type:</td>
+                                <td>
+                                    <select class="grapher_style" id="propertyType">
+                                        <option value="name">
+                                            RNA Name
+                                        </option>
+                                        <option value="rna_class">
+                                            RNA Class
+                                        </option>
+                                        <option value="org">
+                                            Organism Name
+                                        </option>
+                                        <option value="org_type">
+                                            Organism Type
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Property Name:</td>
+                                <td>
+                                    <select class="grapher_style" id="propertyName">
+                                        <option value="">
+                                            --Select--
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Nueclotide:
+                                </td>
+                                <td>
+                                    <input class="grapher_style" id="selnuc" type="text" value="A" maxlength="3" onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
 
-                    <div class="grapher_style" id="xy_label" style="text-align: left">
-                        Graph Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input class="grapher_style" id="graph_title" type="text" value="Title" size=16 onfocus="if(this.value=='Title'){this.value='';}" onblur="if(this.value==''){this.value='Title';}" style="width: 100px">
-                        </input>
-                        <br />X-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input class="grapher_style" id="x_label" type="text" value="X-Label" size=16 onfocus="if(this.value=='X-Label'){this.value='';}" onblur="if(this.value==''){this.value='X-Label';}" style="width: 100px">
-                        </input>
-                        <br />Y-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input class="grapher_style" id="y_label" type="text" value="Y-Label" size=16 onfocus="if(this.value=='Y-Label'){this.value='';}" onblur="if(this.value==''){this.value='Y-Label';}" style="width: 100px">
-                        </input>
-                        <br />Z-Axis Label: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input class="grapher_style" id="z_label" type="text" value="Z-Label" size=16 onfocus="if(this.value=='Z-Label'){this.value='';}" onblur="if(this.value==''){this.value='Z-Label';}" style="width: 100px">
-                        </input>
-                        <br />Function for plot: &nbsp;
-                        <input class="grapher_style" id="func" type="text" value="x" size=16 onfocus="if(this.value=='x'){this.value='';}" onblur="if(this.value==''){this.value='x';}" style="width: 100px">
-                        </input>
-                        <br />
-                        <br />
-                    </div>
-                    <div style="text-align: center">
+                                    Condition:
+                                </td>
+                                <td>
+                                    <table border="0">
+                                        <tr>
+                                            <td>
+                                                <input class="grapher_style" id="nuc" type="text" value="A" maxlength="3" onfocus="if(this.value=='A'){this.value='';}" onblur="if(this.value==''){this.value='A';}" style="width:35px">
+                                                </input>
+                                            </td>
+                                            <td>
+                                                <select class="grapher_style" id="operation" style="width:35px">
+                                                    <option value=">=">
+                                                        &gt;=
+                                                    </option>
+                                                    <option value="<=">
+                                                        &lt;=
+                                                    </option>
+                                                    <option value="=">
+                                                        =
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input class="grapher_style" id="percentValue" type="text" onkeypress="return isNumberKeyorDec(event)" value="0" onfocus="if(this.value=='Value'){this.value='';}" onblur="if(this.value==''){this.value='Value';}">
+                                                </input>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Step Size:
+                                </td>
+                                <td>
+                                    <input class="grapher_style" id="stepSize" type="text" onkeypress="return isNumberKeyorDec(event)" value="Value" onfocus="if(this.value=='Value'){this.value='';}" onblur="if(this.value==''){this.value='Value';}">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Type of Graph:
+                                </td>
+                                <td>
+                                    <select class="grapher_style" id="graph_type">
+                                        <option value="">
+                                            --Select--
+                                        </option>
+                                        <option value="line">
+                                            Line
+                                        </option>
+                                        <option value="spline">
+                                            Spline
+                                        </option>
+                                        <option value="column">
+                                            Bar
+                                        </option>
+                                        <option value="scatter">
+                                            Scatter
+                                        </option>
+                                        <option value="area">
+                                            Area Line
+                                        </option>
+                                        <option value="areaspline">
+                                            Area Spline
+                                        </option>
+                                        <option value="bar">
+                                            Bar-Horizontal
+                                        </option>
+                                        <option value="pie">
+                                            Pie
+                                        </option>
+                                        <!-- <option value="columnrange">Column Range</option> -->
+                                        <!-- <option value="arearange">Area Range</option> -->
+                                        <!-- <option value="gauge">Gauge</option> -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Graph Title:
+                                </td>
+                                <td>
+                                    <input class="grapher_style" id="graph_title" type="text" value="Title" size=16 onfocus="if(this.value=='Title'){this.value='';}" onblur="if(this.value==''){this.value='Title';}">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    X-Axis Label:</td>
+                                <td>
+                                    <input class="grapher_style" id="x_label" type="text" value="X-Label" size=16 onfocus="if(this.value=='X-Label'){this.value='';}" onblur="if(this.value==''){this.value='X-Label';}">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Y-Axis Label:
+                                </td>
+                                <td>
+                                    <input class="grapher_style" id="y_label" type="text" value="Y-Label" size=16 onfocus="if(this.value=='Y-Label'){this.value='';}" onblur="if(this.value==''){this.value='Y-Label';}">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Z-Axis Label:</td>
+                                <td>
+                                    <input class="grapher_style" id="z_label" type="text" value="Z-Label" size=16 onfocus="if(this.value=='Z-Label'){this.value='';}" onblur="if(this.value==''){this.value='Z-Label';}">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Plot Function:
+                                </td>
+                                <td>
+                                    <input class="grapher_style" id="func" type="text" value="x" size=16 onfocus="if(this.value=='x'){this.value='';}" onblur="if(this.value==''){this.value='x';}">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="grapher_style" style="width:20px" type="checkbox" id="pointmean" value="1" checked>
+                                    </input>
+                                    Show Histograms on mean
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
                         <h5>
                             Please Select Graph Operation
                         </h5>
-                        Operations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <select class="grapher_style" id="operations" style="width: 100px">
-                            <option value="0">--Select--</option>
-                            <option value="1">Add Graph</option>
-                            <option value="2">Add Histogram</option>
-                            <option value="3">Delete</option>
-                            <option value="4">Modify</option>
-                            <option value="5">Add Series</option>
-                            <option value="6">Remove Series</option>
-                            <option value="7">Add Histogram Series</option>
-                            <!--                 <option value="7">Node Average</option>
-                <option value="8">Step Frequency</option>
-                <option value="9">Stepwise plot</option> -->
-                        </select>
-                        <br />
-                        <input class="grapher_style" type="checkbox" id="pointmean" value="1" checked>Show Histograms on mean
-                        <br/>
-                        <br />
-                        <br />
+                        <table>
+                            <tr>
+                                <td>
+                                    Operations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select class="grapher_style" id="operations">
+                                        <option value="0">--Select--</option>
+                                        <option value="1">Add Graph</option>
+                                        <option value="2">Add Histogram</option>
+                                        <option value="3">Delete</option>
+                                        <option value="4">Modify</option>
+                                        <option value="5">Add Series</option>
+                                        <option value="6">Remove Series</option>
+                                        <option value="7">Add Histogram Series</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                </div>
 
-                <div id="graph_holder" style="min-width: 400px; min-height: 400px; width: 900px; float: right;">
-                    <div id="container0"></div>
+                    <div id="graph_holder" style="min-width: 400px; min-height: 400px; width: 900px; float: right;">
+                        <div id="container0"></div>
+                    </div>
+                    <!-- </div> -->
                 </div>
-                <!-- </div> -->
             </div>
 
             <div class="frame fade tab-pane" id="jumbo4">
-                <div class="search_frame">
-                </div>
+                <!--   <div class="search_frame">
+                </div> -->
             </div>
         </div>
         <!-- Search Panels -->
 
-        <div class="row" id="plot-result">
-            <!-- Plotting page goes here -->
-            <!-- Edit moving grapph page to jumbo 3-->
-
-        </div>
+        <!-- <div class="row" id="plot-result"> -->
+        <!-- Plotting page goes here -->
+        <!-- Edit moving grapph page to jumbo 3-->
+        <!-- </div> -->
         <!-- Plot Panels -->
 
         <div class="row" id="search-result">

@@ -3,6 +3,7 @@
 	font-size: 11px;
 	color: #666;
 	white-space: nowrap;
+	width: 100%;
 }
 .grapher_style img {
 	border: 0px;
