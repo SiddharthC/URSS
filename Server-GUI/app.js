@@ -69,7 +69,9 @@ app.post('/page1', function(req, res) {
             res.json(results);
             return;
         }
+        console.log(JSON.stringify(rows, null, 4));
         results = JSON.stringify(rows);
+        // console.log(JSON.stringify(results, null, 4));
         res.json(results);
     });
 });

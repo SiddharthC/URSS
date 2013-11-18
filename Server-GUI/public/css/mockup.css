@@ -106,7 +106,7 @@ hr{
 	margin-bottom: 75px;
 }
 
-#top-button, #plot-button{
+#top-button, #plot-button, #adv-graph-button{
 	position: fixed;
 	width: 50px;
     right: 0px;
@@ -118,6 +118,10 @@ hr{
     border: none;
 }
 
+#adv-graph-button{
+	bottom: 8em;
+}
+
 #plot-button{
 	bottom: 4.5em;
 }
@@ -127,7 +131,7 @@ hr{
     bottom: 1em;
 }
 
-#top-button:hover,#plot-button:hover{
+#top-button:hover,#plot-button,#adv-graph-button:hover{
 	background-color: rgba(135, 135, 135, 0.50);
 }
 

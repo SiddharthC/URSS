@@ -2,6 +2,10 @@ var query_group = [];
 var result_group = [];
 var plot_group = [];
 
+//Extension.
+var result_search = [];
+var result_count=0;
+
 //Grapher variables
 var graph_no = 0;
 var x_exptID, x_exptITR, x_nodeID, x_resName, x_colName, x_upper, x_lower;
@@ -484,9 +488,6 @@ var addGraphFunc = function() {
 		series: []
 	};
 
-	// To record all y values
-	var yValues = new Array();
-
 	$.getJSON("/getColumnData", params, function(result) {
 		options.series.push(result);
 		chart[graph_no] = new Highcharts.Chart(options);
@@ -725,9 +726,6 @@ var addStepFreqFunc = function() {
 			},
 			series: []
 		};
-
-		// To record all y values
-		var yValues = new Array();
 
 		$.getJSON("/getStepFreq", params, function(result) {
 			// alert(JSON.stringify(result, null, 4));
@@ -1120,22 +1118,7 @@ $('#search_button').click(function() {
 		modal: true
 	});
 	NProgress.start();
-	/*
-	var selectedTypeValues = []; 
-	$( ".multiselect" ).each(function(i, selectBox){
-		//console.log(i);
-		//console.log(selectBox);
-		//console.log(selectBox.id);
-		var test = $('#'+selectBox.id+' :selected').val();
-		console.log(test);
-		
-		   
-		$('#'+selectBox.id+' :selected').each(function(){
-			selectedTypeValues.push($(this).val()); 
-		});
-		
-	});
-	*/
+
 	// James Code above
 	var selectedRNAType = $("#rna_type :selected");
 	var selectedOrg = $("#organism :selected");
@@ -1316,50 +1299,6 @@ $('#search_button').click(function() {
 		statement += " AND " + advGroupData;
 	}
 
-	// Code for adding on advanced
-	// $(".adv > div").each( function(i,d){ console.log(i); console.log($(d).children().val()); })
-	/*
-	var advList = [];
-	var stringInput = "";
-
-	$(".adv > div").each( 
-		function(i,d){ 
-			var addMe = true;
-			var value = $(d).children().val();
-			var part = i%4;
-			
-			stringInput=stringInput+ " " +value;
-			if(part==3){
-				console.log(stringInput);
-				if(value==""){
-					addMe = false;
-				}
-				if(addMe){
-					advList.push(stringInput);
-				}
-				stringInput = "";
-			}
-	});
-	stringInput = "(";
-	console.log("This is what Advanced shows me");
-	console.log(advList);
-
-
-	$.each(advList, function(i,d){
-		stringInput=stringInput + d;
-	});
-	stringInput=stringInput+")";
-
-
-
-	console.log("Final to be added");
-	console.log(stringInput);
-	if(stringInput != "()"){
-		statement+= " AND " + stringInput;
-	}
-	*/
-
-
 	//statement += ' LIMIT 5;';  //limiting for testing purposes	
 	//console.log(statement);
 	//get results!
@@ -1369,9 +1308,18 @@ $('#search_button').click(function() {
 			userquery: statement
 		},
 		function(data) {
+
+			//addition to store results.
+			result_search[result_count++] = data;
+			alert(JSON.stringify(data, null, 4));
+
+			// var tempdata = JSON.stringify(data);
+			// data = tempdata;
+
 			//close loading dialog opened at top of function
 			NProgress.done();
 			$("#loading_dialog").dialog('close');
+
 
 			var jsonData = jQuery.parseJSON(JSON.parse(data));
 			var table = "<div class=\"row result-table\"><h4><input class=\"result-checkbox\" type=\"checkbox\" id=\"result-checkbox-" + selectNumber + "\" value=" + selectNumber + "><i class=\"chevron-down arrow\" value=\"" + selectNumber + "\"></i>Select Result " + selectNumber + " - " + jsonData.length + " Rows <i class=\"pull-right remove-icon\"  value=\"" + selectNumber + "\"></h4><div id=\"tableFrame" + selectNumber + "\" class=\"resultbox\" ><div id=\"result-" + selectNumber + "\"><table class=\"table table-hover\"><thead><tr>";
@@ -1596,12 +1544,15 @@ $('#top-button').click(function(event) {
 
 $('#plot-button').click(function(event) {
 	event.preventDefault();
-	plot_group = [];
-	$(".result-checkbox").each(function(i, d) {
-		if (d.checked) {
-			plot_group.push(result_group[d.value - 1]);
-		}
-	});
+
+	alert("Got here");
+	graph_plotter("energy", 0);	// change result count to specific int TODO
+	// plot_group = [];
+	// $(".result-checkbox").each(function(i, d) {
+	// 	if (d.checked) {
+	// 		plot_group.push(result_group[d.value - 1]);
+	// 	}
+	// });
 	return false;
 });
 
@@ -1693,4 +1644,208 @@ function isNumberKeyorDec(evt) {
 	return true;
 }
 
-//
+function graph_plotter(name, num){
+
+	ctn = $('#container' + (graph_no));
+	ctn.clone().attr('id', 'container' + (graph_no + 1)).insertBefore(ctn);
+
+	var options = {
+		chart: {
+			renderTo: ctn.attr('id'),
+			type: $('#graph_type option:selected').val(),
+			zoomType: 'x'
+		},
+		title: {
+			text: $('#graph_title').val()
+		},
+		subtitle: {
+			text: "Result Graph - " + (graph_no + 1)
+		},
+		xAxis: {
+
+			title: {
+				text: $('#x_label').val()
+			}
+		},
+		yAxis: {
+			title: {
+				text: $('#y_label').val()
+			}
+		},
+		plotOptions: {
+			spline: {
+				lineWidth: 1,
+				marker: {
+					enabled: false,
+					states: {
+						hover: {
+							enabled: true,
+							radius: 5
+						}
+					}
+				},
+				shadow: false,
+				states: {
+					hover: {
+						lineWidth: 1
+					}
+				}
+			},
+			line: {
+				lineWidth: 1,
+				marker: {
+					enabled: false,
+					states: {
+						hover: {
+							enabled: true,
+							radius: 5
+						}
+					}
+				},
+				shadow: false,
+				states: {
+					hover: {
+						lineWidth: 1
+					}
+				}
+			},
+			scatter: {
+				marker: {
+					radius: 2,
+					states: {
+						hover: {
+							enabled: true,
+							radius: 5
+						}
+					}
+				}
+			},
+			column: {
+				lineWidth: 1,
+				marker: {
+					enabled: false,
+					states: {
+						hover: {
+							enabled: true,
+							radius: 5
+						}
+					}
+				},
+				shadow: false,
+				states: {
+					hover: {
+						lineWidth: 1
+					}
+				}
+			},
+			bar: {
+				lineWidth: 1,
+				marker: {
+					enabled: false,
+					states: {
+						hover: {
+							enabled: true,
+							radius: 5
+						}
+					}
+				},
+				shadow: false,
+				states: {
+					hover: {
+						lineWidth: 1
+					}
+				}
+			},
+			area: {
+				fillColor: {
+					linearGradient: {
+						x1: 0,
+						y1: 0,
+						x2: 0,
+						y2: 1
+					},
+					stops: [
+						[0, Highcharts.getOptions().colors[0]],
+						[1, 'rgba(2,0,0,0)']
+					]
+				},
+				lineWidth: 1,
+				marker: {
+					enabled: false,
+					states: {
+						hover: {
+							enabled: true,
+							radius: 5
+						}
+					}
+				},
+				shadow: false,
+				states: {
+					hover: {
+						lineWidth: 1
+					}
+				}
+			},
+			areaspline: {
+				fillColor: {
+					linearGradient: {
+						x1: 0,
+						y1: 0,
+						x2: 0,
+						y2: 1
+					},
+					stops: [
+						[0, Highcharts.getOptions().colors[0]],
+						[1, 'rgba(2,0,0,0)']
+					]
+				},
+				lineWidth: 1,
+				marker: {
+					enabled: false,
+					states: {
+						hover: {
+							enabled: true,
+							radius: 5
+						}
+					}
+				},
+				shadow: false,
+				states: {
+					hover: {
+						lineWidth: 1
+					}
+				}
+			}
+		},
+		credits: {
+			enabled: false
+		},
+		series: []
+	};
+
+	var contents = [];
+	$(result_search[num]).each(function(i, serie) {
+		contents.push(serie.energy);
+	});
+
+	alert(JSON.stringify(contents, null, 4));
+
+	var tempseries = {
+		name: name,
+		data: contents,
+		id: 1,
+	};
+
+	$.getJSON("/getColumnData", params, function(result) {
+		options.series.push(tempseries);
+		chart[graph_no] = new Highcharts.Chart(options);
+
+	});
+
+	$('#graph_name').append($('<option></option>').val(graph_no + 1).html("Result Graph - " + (graph_no + 1)).attr('selected', true));
+	$('#graph_name_series').empty();
+	$('#graph_name_series').append($('<option></option>').val(1).html("Series - " + 1).attr('selected', true));
+	graph_no++;
+	ctn.attr('style', 'box-shadow: 10px 10px 5px #888888; margin:10px');
+
+}
