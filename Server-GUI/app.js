@@ -14,12 +14,12 @@ var express = require('express');
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-		   user: 'csteam',
-		   password: 'rnadb',
-		   host: 'bioce32502.biology.gatech.edu',
-		   port: '3306',
-		   database: 'urss2',
-	});
+    user: 'csteam',
+    password: 'rnadb',
+    host: 'bioce32502.biology.gatech.edu',
+    port: '3306',
+    database: 'urss2',
+});
 
 //Disconnect handle function
 function handleDisconnect(myconnection) {
@@ -52,106 +52,108 @@ app.use(express.logger('dev'));
 app.use(express.static(__dirname + '/public'));
 
 
-app.get('/page2', function (req, res) {
-  res.render('page2.html');
+app.get('/page2', function(req, res) {
+    res.render('page2.html');
 });
 
-app.post('/page1', function (req, res) {
-  var results;
-  connection.query(req.body.userquery, function(err, rows, fs){
-		if(err){
-			results = JSON.stringify({"error": "idk what happened"});
-			console.log('More errors');
-			console.log(err);
-			console.log(fs);
-			res.json(results);
-			return;
-		}	
-		results = JSON.stringify(rows);
-		res.json(results);
-	});
+app.post('/page1', function(req, res) {
+    var results;
+    connection.query(req.body.userquery, function(err, rows, fs) {
+        if (err) {
+            results = JSON.stringify({
+                "error": "idk what happened"
+            });
+            console.log('More errors');
+            console.log(err);
+            console.log(fs);
+            res.json(results);
+            return;
+        }
+        results = JSON.stringify(rows);
+        res.json(results);
+    });
 });
 
-app.get('/', function (req, res) {
-  res.render('index.html');
+app.get('/', function(req, res) {
+    res.render('index.html');
 });
 
-app.get('/original', function (req, res) {
-  res.render('indexOriginal.html');
+app.get('/original', function(req, res) {
+    res.render('indexOriginal.html');
 });
 
-app.get('/detail', function (req,res){
-	res.render('structure.html');
+app.get('/detail', function(req, res) {
+    res.render('structure.html');
 });
 
-app.get('/classload', function (req, res) {
-  var results;
-  connection.query('select distinct rna_class from orna', function(err, rows, fs){
-		if(err){
-			console.log('Something is broken');
-			console.log(err);
-			console.log(fs);
-		}	
-		results = JSON.stringify(rows);
-		res.json(results);
-	});
+app.get('/classload', function(req, res) {
+    var results;
+    connection.query('select distinct rna_class from orna', function(err, rows, fs) {
+        if (err) {
+            console.log('Something is broken');
+            console.log(err);
+            console.log(fs);
+        }
+        results = JSON.stringify(rows);
+        res.json(results);
+    });
 });
 
-app.get('/biodomainload', function (req, res) {
-  var results;
-  connection.query('select distinct org_type from orna', function(err, rows, fs){
-		if(err){
-			console.log('Something is broken, errors are what follows');
-			console.log(err);
-			console.log(fs);
-		}	
-		results = JSON.stringify(rows);
-		res.json(results);
-	});
+app.get('/biodomainload', function(req, res) {
+    var results;
+    connection.query('select distinct org_type from orna', function(err, rows, fs) {
+        if (err) {
+            console.log('Something is broken, errors are what follows');
+            console.log(err);
+            console.log(fs);
+        }
+        results = JSON.stringify(rows);
+        res.json(results);
+    });
 });
 
-app.get('/orgload', function (req, res) {
-  var results;
-  connection.query('select distinct org from orna', function(err, rows, fs){
-		if(err){
-			console.log('Something is broken, errors are what follows');
-			console.log(err);
-			console.log(fs);
-		}	
-		results = JSON.stringify(rows);
-		res.json(results);
-	});
+app.get('/orgload', function(req, res) {
+    var results;
+    connection.query('select distinct org from orna', function(err, rows, fs) {
+        if (err) {
+            console.log('Something is broken, errors are what follows');
+            console.log(err);
+            console.log(fs);
+        }
+        results = JSON.stringify(rows);
+        res.json(results);
+    });
 });
 
-app.get('/nameload', function (req, res) {
-  var results;
-  connection.query('select distinct name from orna', function(err, rows, fs){
-		if(err){
-			console.log('something broke son');
-			console.log(err);
-			console.log(fs);
-		}	
-		results = JSON.stringify(rows);
-		res.json(results);
-	});
+app.get('/nameload', function(req, res) {
+    var results;
+    connection.query('select distinct name from orna', function(err, rows, fs) {
+        if (err) {
+            console.log('something broke son');
+            console.log(err);
+            console.log(fs);
+        }
+        results = JSON.stringify(rows);
+        res.json(results);
+    });
 });
 
-app.get('/ornaidload', function (req, res) {
-  var results;
-  connection.query('select distinct orna_id from orna', function(err, rows, fs){
-		if(err){
-			console.log('something broke son');
-			console.log(err);
-			console.log(fs);
-		}	
-		results = JSON.stringify(rows);
-		res.json(results);
-	});
+app.get('/ornaidload', function(req, res) {
+    var results;
+    connection.query('select distinct orna_id from orna', function(err, rows, fs) {
+        if (err) {
+            console.log('something broke son');
+            console.log(err);
+            console.log(fs);
+        }
+        results = JSON.stringify(rows);
+        res.json(results);
+    });
 });
 
 //Grapher section
 
-app.get('/getPropertyName', function (request, response){
+app.get('/getPropertyName', function(request, response) {
     console.log("requesthandler: Request handler 'getPropertyName' was called");
 
     var data = url.parse(request.url).query;
@@ -181,7 +183,7 @@ app.get('/getPropertyName', function (request, response){
     //console.log("getPropertyName returned");
 });
 
-app.get('/getColumnData', function (request, response){
+app.get('/getColumnData', function(request, response) {
     console.log("requesthandler: Request handler 'getColumnData' was called");
 
     var data = url.parse(request.url).query;
@@ -239,7 +241,7 @@ app.get('/getColumnData', function (request, response){
     });
 });
 
-app.get('/getStepFreq', function (request, response){
+app.get('/getStepFreq', function(request, response) {
     console.log("requesthandler: Request handler 'getStepFreq' was called");
 
     var reqQuery = url.parse(request.url).query;
@@ -261,7 +263,8 @@ app.get('/getStepFreq', function (request, response){
     //console.log("maxminQuery is " + maxminQuery);
 
     var serie, step_max = 0,
-        step_min = 0;
+        step_min = 0,
+        lock = 0;
 
     var contents = [];
 
@@ -271,22 +274,24 @@ app.get('/getStepFreq', function (request, response){
             throw err;
         }
 
-        // console.log("max is " + rows[0].max);
-        // console.log("min is " + rows[0].min);
+        if (parseInt(obj.bestFlag) == 1 && (parseFloat(obj.bestMax) > rows[0].max)) {
+            step_max = parseFloat(obj.bestMax);
+        } else {
+            step_max = rows[0].max;
+        }
 
-        step_max = rows[0].max;
-        step_min = rows[0].min;
+        if (parseInt(obj.bestFlag) == 1 && (parseFloat(obj.bestMin) < rows[0].min)) {
+            step_min = parseFloat(obj.bestMin);
+        } else {
+            step_min = rows[0].min;
+        }
 
-        // console.log("Value of step min is " + step_min);
-        // console.log("Value of step max is " + step_max);
+        // console.log("Step size - min " + step_min + " max " + step_max + " step " + step + " flag " + obj.bestFlag  );
 
-        var lock = 0;
 
         for (var i = step_min; i < (step_max + step); i += step) {
             lock++;
         }
-
-        // console.log("The value of lock is " + lock);
 
         for (var i = step_min; i < (step_max + step); i += step) {
 
@@ -350,11 +355,10 @@ app.get('/getStepFreq', function (request, response){
             });
             response.end(JSON.stringify(serie));
         }
-
     });
 });
 
-app.get('/getXdisplay', function (request, response){
+app.get('/getXdisplay', function(request, response) {
     console.log("requesthandler: Request handler 'getXdisplay' was called");
 
     var reqQuery = url.parse(request.url).query;
@@ -388,7 +392,11 @@ app.get('/getXdisplay', function (request, response){
         var xstring = [];
 
         for (var i = step_min; i < (step_max + step); i += step) {
-            xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + step).toFixed(2)));
+            if (parseInt(obj.pointmean) == 1) {
+                xstring.push((parseFloat(i.toFixed(2)) + parseFloat((i + step).toFixed(2))) / 2);
+            } else {
+                xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + step).toFixed(2)));
+            }
         }
 
         response.writeHead(200, {

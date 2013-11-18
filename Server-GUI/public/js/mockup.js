@@ -84,6 +84,20 @@ function page_load() {
 				});
 			});
 		});
+
+		//Grapher page load
+		$('#propertyName').empty();
+
+		var params = {
+			propertyType: jQuery('#propertyType option:selected').val()
+		};
+
+		$.getJSON("/getPropertyName", params, function(result) {
+			$.each(result, function(i, obj) {
+				$('#propertyName').append($('<option></option>').val(obj).html(obj));
+			});
+		});
+
 	})
 }
 
@@ -491,6 +505,11 @@ var addStepFreqFunc = function() {
 		return;
 	}
 
+	var pointmeanFlag = 0;
+	if ($("#pointmean").is(':checked')) {
+		pointmeanFlag = 1;
+	}
+
 	var params = {
 
 		rnaType: jQuery('#rnaType option:selected').val(),
@@ -508,6 +527,10 @@ var addStepFreqFunc = function() {
 		func: jQuery('#func').val(),
 
 		serieid: 1,
+
+		bestFlag: 0,
+
+		pointmean: pointmeanFlag,
 	};
 
 	ctn = $('#container' + (graph_no));
@@ -814,7 +837,7 @@ var addHistogramSeries = function() {
 
 	var best_max = 0,
 		best_min = 0,
-		best_step = jQuery('#stepSize').val();
+		best_step = parseFloat(jQuery('#stepSize').val());
 
 	var temp2 = [];
 
@@ -833,20 +856,20 @@ var addHistogramSeries = function() {
 
 		temp2[i] = jQuery.extend(true, {}, serie);
 
-		if (best_max < serie.options.max) {
-			best_max = serie.options.max;
+		if (best_max < parseFloat(serie.options.max)) {
+			best_max = parseFloat(serie.options.max);
 		}
 
 		if (i == 0) {
-			best_min = serie.options.min;
+			best_min = parseFloat(serie.options.min);
 		}
 
-		if (best_step > serie.options.step) {
-			best_step = serie.options.step;
+		if (best_step > parseFloat(serie.options.step)) {
+			best_step = parseFloat(serie.options.step);
 		}
 
-		if (i != 0 && best_min > serie.options.min) {
-			best_min = serie.options.min;
+		if (i != 0 && best_min > parseFloat(serie.options.min)) {
+			best_min = parseFloat(serie.options.min);
 		}
 
 		currentSeriesCount++;
@@ -856,16 +879,6 @@ var addHistogramSeries = function() {
 	});
 
 	currentSeriesCount++;
-
-	var xstring = [];
-
-	// alert("Bounds are : best_min - " + best_min + " best_max - " + best_max + "best step - " + best_step);
-
-	for (var i = best_min; i < (best_max + best_step); i += best_step) {
-		xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + best_step).toFixed(2)));
-	}
-
-	chart[no].xAxis[0].setCategories();
 
 	$('#graph_name_series').empty();
 
@@ -935,7 +948,28 @@ var addHistogramSeries = function() {
 		serieid: currentSeriesCount,
 	};
 
+
 	$.getJSON("/getStepFreq", params, function(result) {
+		if (best_max < parseFloat(result.max)) {
+			best_max = parseFloat(result.max);
+		}
+
+		if (best_min > parseFloat(result.min)) {
+			best_max = parseFloat(result.min);
+		}
+
+		var xstring = [];
+
+		for (var i = best_min; i < (best_max + best_step); i += best_step) {
+			if ($("#pointmean").is(':checked')) {
+				xstring.push((parseFloat(i.toFixed(2)) + parseFloat((i + best_step).toFixed(2))) / 2);
+			} else {
+				xstring.push(parseFloat(i.toFixed(2)) + '-' + parseFloat((i + best_step).toFixed(2)));
+			}
+		}
+
+		chart[no].xAxis[0].setCategories(xstring);
+
 		chart[no].addSeries(result);
 	});
 
