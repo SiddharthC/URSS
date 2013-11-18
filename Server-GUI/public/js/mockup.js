@@ -106,7 +106,7 @@ page_load();
 $('#tab-nav a').click(function(e) {
 	e.preventDefault();
 	$(this).tab('show');
-	$("#graph-selector").hide();
+	$("#grapher_section").hide();
 });
 
 function getWhereClause(box, columnName) {
@@ -1556,7 +1556,7 @@ $(document).on('click', '.or_button', function() {
 
 // hide result table
 $("#plot-tab").click(function() {
-	$("#graph-selector").show();
+	$("#grapher_section").show();
 	$("#search-result").hide();
 	//$("#history-result").hide();
 });
@@ -1564,12 +1564,12 @@ $("#plot-tab").click(function() {
 $("#history-tab").click(function() {
 	// 	$("#history-result").show();
 	$("#search-result").hide();
-	$("#graph-selector").hide();
+	$("#grapher_section").hide();
 });
 
 $("#select-tab").click(function() {
 	$("#search-result").show();
-	$("#graph-selector").hide();
+	$("#grapher_section").hide();
 	//$("#history-result").hide();
 });
 
@@ -1602,6 +1602,13 @@ $('#plot-button').click(function(event) {
 			plot_group.push(result_group[d.value - 1]);
 		}
 	});
+	return false;
+});
+
+$('#adv-graph-button').click(function() {
+	if($("#grapher_section").is(':visible')){
+		$('#graph-selector').toggle(500);
+	}
 	return false;
 });
 
