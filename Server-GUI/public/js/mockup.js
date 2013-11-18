@@ -1535,7 +1535,6 @@ $('#top-button').click(function(event) {
 	return false;
 });
 
-<<<<<<< HEAD
 // $('#plot-button').click(function(event) {
 // 	event.preventDefault();
 
@@ -1575,6 +1574,7 @@ $('#plot-button').popover(popSetting);
 
 $('body').on("click","#goPlot",function(){
 	alert("James here!");
+});
 
 $('#adv-graph-button').click(function() {
 	if ($("#grapher_section").is(':visible')) {
