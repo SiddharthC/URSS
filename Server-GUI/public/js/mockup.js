@@ -1334,7 +1334,6 @@ $('#search_button').click(function() {
 				dataToAppend = "<tr value='" + val["str_id"] + "'>" //"<td><input type=\"checkbox\" value='"+val["str_id"]+"'></td>"
 				$('#select-properties input:checkbox:checked').each(function(i, input) {
 					var tmp = input.value;
-					console.log(tmp);
 					dataToAppend += "<td>" + val[tmp] + "</td>";
 				})
 				dataToAppend += "</tr>";
