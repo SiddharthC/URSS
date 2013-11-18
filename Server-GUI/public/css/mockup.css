@@ -169,3 +169,8 @@ form.adv{
 p.or_text{
 	padding-left: 5px;
 }
+
+.popleft{
+	padding-left: 5px;
+	padding-right: 5px;
+}

@@ -1542,18 +1542,45 @@ $('#top-button').click(function(event) {
 	return false;
 });
 
-$('#plot-button').click(function(event) {
-	event.preventDefault();
+// $('#plot-button').click(function(event) {
+// 	event.preventDefault();
 
-	alert("Got here");
-	graph_plotter("energy", 0);	// change result count to specific int TODO
-	// plot_group = [];
-	// $(".result-checkbox").each(function(i, d) {
-	// 	if (d.checked) {
-	// 		plot_group.push(result_group[d.value - 1]);
-	// 	}
-	// });
-	return false;
+// 	alert("Got here");
+// 	graph_plotter("energy", 0);	// change result count to specific int TODO
+// 	// plot_group = [];
+// 	// $(".result-checkbox").each(function(i, d) {
+// 	// 	if (d.checked) {
+// 	// 		plot_group.push(result_group[d.value - 1]);
+// 	// 	}
+// 	// });
+// 	return false;
+// });
+
+var popSetting = {
+	placement: 'left',
+	html: true,
+	content: function() {
+		var headTmp = "<div>";
+        $('th').each(function(){
+        	if ($(this).parent().parent().parent().parent().parent().parent().children().first().children().first().is(':checked')){
+        		if (headTmp.indexOf($(this).html()) < 0 && $(this).html() != "name"){
+	        		headTmp+='<label class="popleft"><input checked type="checkbox" value="'+$(this).html()+'"/>'+$(this).html()+'</label>'
+	        	}
+        	}
+        })
+        if (headTmp.length >5){
+        	headTmp+='<button class="btn btn-default" type="button" id="goPlot">Go</button></div>';
+    	}
+    	else{
+    		headTmp+="Nothing to Plot. Please select RNA first</div>"
+    	}
+        return headTmp;
+    }
+};
+$('#plot-button').popover(popSetting);
+
+$('body').on("click","#goPlot",function(){
+	alert("James here!");
 });
 
 $('#adv-graph-button').click(function() {
