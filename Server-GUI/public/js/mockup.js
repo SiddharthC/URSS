@@ -1535,20 +1535,6 @@ $('#top-button').click(function(event) {
 	return false;
 });
 
-// $('#plot-button').click(function(event) {
-// 	event.preventDefault();
-
-// 	alert("Got here");
-// 	graph_plotter("energy", 0);	// change result count to specific int TODO
-// 	// plot_group = [];
-// 	// $(".result-checkbox").each(function(i, d) {
-// 	// 	if (d.checked) {
-// 	// 		plot_group.push(result_group[d.value - 1]);
-// 	// 	}
-// 	// });
-// 	return false;
-// });
-
 var popSetting = {
 	placement: 'left',
 	html: true,
@@ -1572,8 +1558,27 @@ var popSetting = {
 };
 $('#plot-button').popover(popSetting);
 
+
 $('body').on("click","#goPlot",function(){
 	alert("James here!");
+ 	event.preventDefault();
+	plot_group = [];
+	var selectedColumns = [];
+	$(".popleft").each(function(i,d){ 
+		$.each(d.children,function(i,d){ 
+			//console.log(d.checked)
+			if(d.checked){
+				selectedColumns.push(d.value);
+			}
+		});
+	});
+	
+ 	$(".result-checkbox").each(function(i, d) {
+		if (d.checked) {
+			plot_group.push({"resultSet":result_group[d.value - 1],"selectedCols":selectedColumns});
+		}
+	});
+	return false;
 });
 
 $('#adv-graph-button').click(function() {
