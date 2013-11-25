@@ -1542,8 +1542,8 @@ var popSetting = {
 		var headTmp = "<div>";
         $('th').each(function(){
         	if ($(this).parent().parent().parent().parent().parent().parent().children().first().children().first().is(':checked')){
-        		if (headTmp.indexOf($(this).html()) < 0 && $(this).html() != "name"){
-	        		headTmp+='<label class="popleft"><input checked type="checkbox" value="'+$(this).html()+'"/>'+$(this).html()+'</label>'
+        		if (headTmp.indexOf($(this).html()) < 0 && ($(this).html() == "mld"||  $(this).html() == "len"|| $(this).html() == "energy" )){
+	        		headTmp+='<label class="popleft"><input checked type="checkbox" value="'+$(this).html()+'"/>'+$(this).html()+'</label>';
 	        	}
         	}
         })
@@ -1556,11 +1556,27 @@ var popSetting = {
         return headTmp;
     }
 };
+
+// $('#plot-button').click(function(event) {
+// 	event.preventDefault();
+
+// 	alert("Got here");
+// 	graph_plotter("energy", 0);	// change result count to specific int TODO
+// 	// plot_group = [];
+// 	// $(".result-checkbox").each(function(i, d) {
+// 	// 	if (d.checked) {
+// 	// 		plot_group.push(result_group[d.value - 1]);
+// 	// 	}
+// 	// });
+// 	return false;
+// });
+
+
 $('#plot-button').popover(popSetting);
 
 
 $('body').on("click","#goPlot",function(){
-	alert("James here!");
+	//alert("James here!");
  	event.preventDefault();
 	plot_group = [];
 	var selectedColumns = [];
@@ -1568,6 +1584,7 @@ $('body').on("click","#goPlot",function(){
 		$.each(d.children,function(i,d){ 
 			//console.log(d.checked)
 			if(d.checked){
+				graph_plotter(d.value, 0);
 				selectedColumns.push(d.value);
 			}
 		});
