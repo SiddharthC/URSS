@@ -8,8 +8,6 @@ var queryString = require("querystring");
 var util = require("util");
 // dynamic graph
 var rowCounter = 101;
-//
-
 var express = require('express');
 var mysql = require('mysql');
 
@@ -45,17 +43,17 @@ app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
 //weird changes
-//app.use(express.bodyParser());    //connect warning fix
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.logger('dev'));
 app.use(express.static(__dirname + '/public'));
 
-
+// Load page 2 
 app.get('/page2', function(req, res) {
     res.render('page2.html');
 });
 
+// Main page for resultds gathering
 app.post('/page1', function(req, res) {
     var results;
     connection.query(req.body.userquery, function(err, rows, fs) {
@@ -69,24 +67,27 @@ app.post('/page1', function(req, res) {
             res.json(results);
             return;
         }
-        // console.log(JSON.stringify(rows, null, 4));
         results = JSON.stringify(rows);
         res.json(results);
     });
 });
 
+// Main page 
 app.get('/', function(req, res) {
     res.render('index.html');
 });
 
+// Developer test site (May be depreciated)
 app.get('/original', function(req, res) {
     res.render('indexOriginal.html');
 });
 
+// Loader for the structure detail page
 app.get('/detail', function(req, res) {
     res.render('structure.html');
 });
 
+//Loader for classes
 app.get('/classload', function(req, res) {
     var results;
     connection.query('select distinct rna_class from orna', function(err, rows, fs) {
@@ -100,6 +101,7 @@ app.get('/classload', function(req, res) {
     });
 });
 
+// Loader for Bio Domain 
 app.get('/biodomainload', function(req, res) {
     var results;
     connection.query('select distinct org_type from orna', function(err, rows, fs) {
@@ -113,6 +115,7 @@ app.get('/biodomainload', function(req, res) {
     });
 });
 
+// Loader for org data
 app.get('/orgload', function(req, res) {
     var results;
     connection.query('select distinct org from orna', function(err, rows, fs) {
@@ -126,6 +129,7 @@ app.get('/orgload', function(req, res) {
     });
 });
 
+// Loader for name data
 app.get('/nameload', function(req, res) {
     var results;
     connection.query('select distinct name from orna', function(err, rows, fs) {
@@ -139,6 +143,7 @@ app.get('/nameload', function(req, res) {
     });
 });
 
+// Loader for ORNA Ids
 app.get('/ornaidload', function(req, res) {
     var results;
     connection.query('select distinct orna_id from orna', function(err, rows, fs) {
